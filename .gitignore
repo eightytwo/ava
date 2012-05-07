@@ -11,7 +11,21 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+/log/*
+/tmp/*
 
+# Ignore the real database configuration. An example exists for reference.
 /config/database.yml
+
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+/vendor/bundle
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
