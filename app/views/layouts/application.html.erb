@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="A community driven site for the sharing and critiquing of diaporamas.">
+    <meta name="author" content="Piers">
+
+    <title>Audio Visual Arcade</title>
+    
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>   
+    <!-- page wrapper -->
+    <div id="page">
+      <div id="header">
+        <!-- the site logo -->
+        <div id="logo"></div>
+
+        <!-- top navigation bar -->
+        <div id="navbar">
+          <div id="inner_navbar">
+            <% if @current_member %>
+            <!-- the drop down menu for a user's account -->
+            <div id="account_dropdown">
+              <div id="account_dropdown_label">
+                <div id="account_icon"></div>
+                  <span>Hi <%= @current_member.alias %></span>
+              </div>
+              
+              <!-- the drop down button -->
+              <div id="account_dropdown_button"></div>
+
+              <!-- the drop down menu -->
+              <div id="account_dropdown_menu_wrapper">
+                <div id="account_dropdown_menu">
+                  <ul>
+                    <li><a href="/account">My Account</a></li>
+                    <li><a href="/upload">Upload AV</a></li>
+                    <li><a href="/logout">Sign Out</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <% end %>
+
+            <!-- the menu items -->
+            <ul>
+              <li class="active"><a href="#">Home</a></li>
+              <% if @current_member %>
+              <li><a href="#">My Folios</a></li>
+              <li class="separator"></li>
+              <% end %>
+              <li><a href="#">About</a></li>
+              <li class="separator"></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
