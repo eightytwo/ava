@@ -1,0 +1,20 @@
+<div id="form_wrapper">
+  <h3>Send Invitation</h3>
+
+  <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+    <%= devise_error_messages! %>
+
+    <div class="field_wrapper">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field_wrapper">
+      <%= f.submit "Send invitation" %>
+    </div>
+  <% end %>
+
+  <div class="links_wrapper">
+    <%= link_to "Home", after_sign_in_path_for(resource_name) %>
+  </div>
+</div>
