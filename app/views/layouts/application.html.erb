@@ -27,7 +27,7 @@
               <div id="account_dropdown">
                 <div id="account_dropdown_label">
                   <div id="account_icon"></div>
-                    <span>Hi <%= @current_user.username %></span>
+                    <span>Hi <%= current_user.username %></span>
                 </div>
                 
                 <!-- the drop down button -->
@@ -54,7 +54,7 @@
             <!-- the menu items -->
             <ul>
               <li class="active"><a href="/">Home</a></li>
-              <% if @current_member %>
+              <% if user_signed_in? %>
               <li><a href="#">My Folios</a></li>
               <li class="separator"></li>
               <% end %>
