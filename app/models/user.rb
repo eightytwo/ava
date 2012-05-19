@@ -4,15 +4,17 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
-         #, :registerable -- disabled while organisation only period.
+         #, :registerable  -- disabled whilst only accepting organisations.
 
-  # Setup accessible (or protected) attributes for your model
+  # Setup accessible (or protected) attributes for the model.
   attr_accessible :username, :email, :password, :password_confirmation,
                   :remember_me
 
-  # Virtual attribute for authenticating by either username or email
-  # This is in addition to a real persisted field like 'username'.
+  # Virtual attribute for authenticating by either username or email.
   attr_accessor :login
+
+  # Ensure a user's username is present, unique and of a suitable length.
+  validates :username, :uniqueness => true, :length => { :within => 3..20 }
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
