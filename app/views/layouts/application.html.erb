@@ -21,33 +21,39 @@
         <!-- top navigation bar -->
         <div id="navbar">
           <div id="inner_navbar">
-            <% if @current_member %>
-            <!-- the drop down menu for a user's account -->
-            <div id="account_dropdown">
-              <div id="account_dropdown_label">
-                <div id="account_icon"></div>
-                  <span>Hi <%= @current_member.alias %></span>
-              </div>
-              
-              <!-- the drop down button -->
-              <div id="account_dropdown_button"></div>
+            <div id="inner_navbar_right">
+              <% if user_signed_in? %>
+              <!-- the drop down menu for a user's account -->
+              <div id="account_dropdown">
+                <div id="account_dropdown_label">
+                  <div id="account_icon"></div>
+                    <span>Hi <%= @current_user.username %></span>
+                </div>
+                
+                <!-- the drop down button -->
+                <div id="account_dropdown_button"></div>
 
-              <!-- the drop down menu -->
-              <div id="account_dropdown_menu_wrapper">
-                <div id="account_dropdown_menu">
-                  <ul>
-                    <li><a href="/account">My Account</a></li>
-                    <li><a href="/upload">Upload AV</a></li>
-                    <li><a href="/logout">Sign Out</a></li>
-                  </ul>
+                <!-- the drop down menu -->
+                <div id="account_dropdown_menu_wrapper">
+                  <div id="account_dropdown_menu">
+                    <ul>
+                      <li><a href="/account">My Account</a></li>
+                      <li><a href="/upload">Upload AV</a></li>
+                      <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
+              <% else %>
+              <div id="login_link">
+                <%= link_to "Login", new_user_session_path %>
+              </div>
+              <% end %>
             </div>
-            <% end %>
 
             <!-- the menu items -->
             <ul>
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="/">Home</a></li>
               <% if @current_member %>
               <li><a href="#">My Folios</a></li>
               <li class="separator"></li>
@@ -61,6 +67,9 @@
       </div>
 
       <div id="content">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+        
         <%= yield %>
       </div>
     </div>
