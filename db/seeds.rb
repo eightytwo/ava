@@ -12,6 +12,9 @@ admin = User.create(email: 'admin@null.net',
                     password: 'foobar',
                     password_confirmation: 'foobar')
 
-# Set myself as an administrator and save.
+# Set myself as an administrator.
 admin.admin = true
+# Confirm the account.
+admin.confirmed_at = Time.now
+# Save the record.
 admin.save

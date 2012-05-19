@@ -1,8 +1,9 @@
 <div id="form_wrapper">
-  <h3>Send Invitation</h3>
+  <h3>Send an Invitation</h3>
+
+  <%= devise_error_messages! %>
 
   <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-    <%= devise_error_messages! %>
 
     <div class="field_wrapper">
       <%= f.label :email %><br />

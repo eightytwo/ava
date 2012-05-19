@@ -1,12 +1,21 @@
-<h2>Resend unlock instructions</h2>
+<div id="form_wrapper">
+  <h3>Resend Unlock Instructions</h3>
 
-<%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
 
-  <div><%= f.submit "Resend unlock instructions" %></div>
-<% end %>
+    <div class="field_wrapper">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
 
-<%= render :partial => "devise/shared/links" %>
+    <div class="field_wrapper">
+      <%= f.submit "Resend" %>
+    </div>
+  <% end %>
+
+  <div class="links_wrapper">
+    <%= render :partial => "devise/shared/links" %>
+  </div>
+</div>

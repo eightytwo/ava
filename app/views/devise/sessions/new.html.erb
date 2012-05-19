@@ -4,20 +4,17 @@
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <div class="field_wrapper">
       <%= f.label :login %>
-      <br />
       <%= f.text_field :login %>
     </div>
 
     <div class="field_wrapper">
       <%= f.label :password %>
-      <br />
       <%= f.password_field :password %>
     </div>
 
     <% if devise_mapping.rememberable? -%>
       <div class="field_wrapper">
         <%= f.label :remember_me %>
-        <br />
         <%= f.check_box :remember_me %>
       </div>
     <% end -%>
