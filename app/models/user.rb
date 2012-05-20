@@ -45,13 +45,17 @@ class User < ActiveRecord::Base
     folio_role = FolioRole.find(self.invitation_folio_role_id)
 
     # Establish the user in the organisation and folio.
-    OrganisationUser.create(organisation: organisation,
-                            user: self,
-                            admin: self.invitation_organisation_admin)
+    if !organisation.nil?
+      OrganisationUser.create(organisation: organisation,
+                              user: self,
+                              admin: self.invitation_organisation_admin)
+    end
 
-    FolioUser.create(folio: folio,
-                     user: self,
-                     folio_role: folio_role)
+    if !folio.nil? and !folio_role.nil?
+      FolioUser.create(folio: folio,
+                       user: self,
+                       folio_role: folio_role)
+    end
   end
 
   # Returns true if the user is an administrator of an organisation,
