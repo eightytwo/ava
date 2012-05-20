@@ -17,4 +17,31 @@ admin.admin = true
 # Confirm the account.
 admin.confirmed_at = Time.now
 # Save the record.
-admin.save
+admin.save!
+
+# Create folio roles.
+viewer_folio_role = FolioRole.create(name: 'Viewer',
+                                     description: 'Users of this role can only view audio visuals.')
+contributor_folio_role = FolioRole.create(name: 'Contributor',
+                                    description: 'Users of this role can view, add and critique audio visuals.')
+admin_folio_role = FolioRole.create(name: 'Administrator',
+                                    description: 'Users of this role have  unrestricted access.')
+
+# Create an organisation and add the user and folio.
+organisation = Organisation.create(name: 'APS',
+                                   website: 'http://www.aps.org.au')
+
+# Add the user to the organisation.
+organisation_user = OrganisationUser.create(organisation: organisation,
+                                            user: admin,
+                                            admin: true)
+
+# Create a folio.
+folio = Folio.create(name: 'First Folio',
+                     description: 'The first folio of APS.',
+                     organisation: organisation)
+
+# Add the user to the folio.
+folio_user = FolioUser.create(folio: folio,
+                              user: admin,
+                              folio_role: admin_folio_role)

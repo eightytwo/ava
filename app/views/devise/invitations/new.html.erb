@@ -6,16 +6,38 @@
   <%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
 
     <div class="field_wrapper">
-      <%= f.label :email %><br />
-      <%= f.text_field :email %>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
     </div>
+
+    <% if current_user.organisations? %>
+    <div class="field_wrapper">
+      <%= f.label "Organisation" %>
+      <br />
+      <%= f.select :invitation_organisation_id, options_from_collection_for_select(@organisations, "id", "name") %>
+    </div>
+
+    <div class="field_wrapper">
+      <%= f.label "Organisation Administrator" %>
+      <br />
+      <%= f.check_box :invitation_organisation_admin %>
+    </div>
+
+    <div class="field_wrapper">
+      <%= f.label "Folio" %>
+      <br />
+      <%= f.select :invitation_folio_id, options_from_collection_for_select(@folios, "id", "name") %>
+    </div>
+
+    <div class="field_wrapper">
+      <%= f.label "Folio Role" %>
+      <br />
+      <%= f.select :invitation_folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name") %>
+    </div>
+    <% end %>
 
     <div class="field_wrapper">
       <%= f.submit "Send invitation" %>
     </div>
   <% end %>
-
-  <div class="links_wrapper">
-    <%= link_to "Home", after_sign_in_path_for(resource_name) %>
-  </div>
 </div>

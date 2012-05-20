@@ -1,9 +1,14 @@
 Ava::Application.routes.draw do
-  devise_for :users, :skip => [:sessions]
+  devise_for :users, :skip => [:sessions, :invitations]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
     post 'login' => 'devise/sessions#create', :as => :user_session
     delete 'logout' => 'devise/sessions#destroy', :as => :destroy_user_session
+
+    get 'users/invitation/new' => 'invitations#new', :as => :new_user_invitation
+    get 'users/invitation/accept' => 'invitations#edit', :as => :accept_user_invitation
+    post 'users/invitation/accept' => 'invitations#create', :as => :user_invitation
+    put 'users/invitation/accept' => 'invitations#update'
   end
 
   get "home/index"

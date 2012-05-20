@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520040202) do
+ActiveRecord::Schema.define(:version => 20120520043312) do
 
   create_table "folio_roles", :force => true do |t|
     t.string   "name"
@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(:version => 20120520040202) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                :default => "",    :null => false
-    t.string   "encrypted_password",                   :default => ""
+    t.string   "email",                                       :default => "",    :null => false
+    t.string   "encrypted_password",                          :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                        :default => 0
+    t.integer  "sign_in_count",                               :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -75,16 +75,20 @@ ActiveRecord::Schema.define(:version => 20120520040202) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-    t.boolean  "admin",                                :default => false
-    t.string   "invitation_token",       :limit => 60
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+    t.boolean  "admin",                                       :default => false
+    t.string   "invitation_token",              :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "username"
+    t.integer  "invitation_organisation_id"
+    t.boolean  "invitation_organisation_admin"
+    t.integer  "invitation_folio_id"
+    t.integer  "invitation_folio_role_id"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
@@ -102,5 +106,9 @@ ActiveRecord::Schema.define(:version => 20120520040202) do
 
   add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk", :dependent => :delete
   add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk", :dependent => :delete
+
+  add_foreign_key "users", "folio_roles", :name => "users_invitation_folio_role_id_fk", :column => "invitation_folio_role_id"
+  add_foreign_key "users", "folios", :name => "users_invitation_folio_id_fk", :column => "invitation_folio_id"
+  add_foreign_key "users", "organisations", :name => "users_invitation_organisation_id_fk", :column => "invitation_organisation_id"
 
 end

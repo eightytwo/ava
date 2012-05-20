@@ -6,10 +6,15 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for the model.
   attr_accessible :username, :email, :password, :password_confirmation,
-                  :remember_me
+                  :remember_me, :invitation_organisation_id,
+                  :invitation_organisation_admin, :invitation_folio_id,
+                  :invitation_folio_role_id
 
   # Virtual attribute for authenticating by either username or email.
   attr_accessor :login
+
+  # Ensure a user's username is present, unique and of a suitable length.
+  validates :username, :uniqueness => true, :length => { :within => 3..20 }
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, # :lockable, :timeoutable and :omniauthable
@@ -17,8 +22,8 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :confirmable
          #, :registerable -- disabled while in organisation only mode 
 
-  # Ensure a user's username is present, unique and of a suitable length.
-  validates :username, :uniqueness => true, :length => { :within => 3..20 }
+  # Devise invitable callback for when a user accepts an invitation.
+  after_invitation_accepted :email_invited_by
 
   # Allows a user to be authenticated by either email address or username.
   #
@@ -31,10 +36,34 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Executed after a user accepts an invitation.
+  #
+  def email_invited_by
+    # Retrieve the organisation related properties of the invitation.
+    organisation = Organisation.find(self.invitation_organisation_id)
+    folio = Folio.find(self.invitation_folio_id)
+    folio_role = FolioRole.find(self.invitation_folio_role_id)
+
+    # Establish the user in the organisation and folio.
+    OrganisationUser.create(organisation: organisation,
+                            user: self,
+                            admin: self.invitation_organisation_admin)
+
+    FolioUser.create(folio: folio,
+                     user: self,
+                     folio_role: folio_role)
+  end
+
   # Returns true if the user is an administrator of an organisation,
   # otherwise false.
   #
   def organisation_admin?
     self.organisation_users.where(admin: true).count > 0
+  end
+
+  # Returns true if the user belongs to an organisation, otherwise false.
+  #
+  def organisations?
+    self.organisations.count > 0
   end
 end
