@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_many :organisation_users
   has_many :organisations, :through => :organisation_users
+  has_many :folio_users
+  has_many :folios, :through => :folio_users
 
   # Setup accessible (or protected) attributes for the model.
   attr_accessible :username, :email, :password, :password_confirmation,

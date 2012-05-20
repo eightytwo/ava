@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  folio: 
+  user: 
+  folio_role: 
+
+two:
+  folio: 
+  user: 
+  folio_role: 

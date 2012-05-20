@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520034354) do
+ActiveRecord::Schema.define(:version => 20120520040202) do
+
+  create_table "folio_roles", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "folio_users", :force => true do |t|
+    t.integer  "folio_id"
+    t.integer  "user_id"
+    t.integer  "folio_role_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "folio_users", ["folio_id"], :name => "index_folio_users_on_folio_id"
+  add_index "folio_users", ["folio_role_id"], :name => "index_folio_users_on_folio_role_id"
+  add_index "folio_users", ["user_id"], :name => "index_folio_users_on_user_id"
 
   create_table "folios", :force => true do |t|
     t.string   "name"
@@ -74,6 +93,10 @@ ActiveRecord::Schema.define(:version => 20120520034354) do
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  add_foreign_key "folio_users", "folio_roles", :name => "folio_users_folio_role_id_fk", :dependent => :delete
+  add_foreign_key "folio_users", "folios", :name => "folio_users_folio_id_fk", :dependent => :delete
+  add_foreign_key "folio_users", "users", :name => "folio_users_user_id_fk", :dependent => :delete
 
   add_foreign_key "folios", "organisations", :name => "folios_organisation_id_fk", :dependent => :delete
 
