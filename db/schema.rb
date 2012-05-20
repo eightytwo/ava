@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120518071147) do
+ActiveRecord::Schema.define(:version => 20120520015253) do
+
+  create_table "organisation_users", :force => true do |t|
+    t.integer  "organisation_id"
+    t.integer  "user_id"
+    t.boolean  "admin"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "organisation_users", ["organisation_id"], :name => "index_organisation_users_on_organisation_id"
+  add_index "organisation_users", ["user_id"], :name => "index_organisation_users_on_user_id"
+
+  create_table "organisations", :force => true do |t|
+    t.string   "name"
+    t.string   "website"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false
@@ -40,9 +58,14 @@ ActiveRecord::Schema.define(:version => 20120518071147) do
     t.string   "username"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
   add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk"
+  add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk"
 
 end

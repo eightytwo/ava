@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  organisation: 
+  user: 
+  admin: false
+
+two:
+  organisation: 
+  user: 
+  admin: false

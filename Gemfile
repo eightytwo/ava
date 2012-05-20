@@ -7,7 +7,6 @@ gem 'rails', '3.2.3'
 
 gem 'pg', '0.13.2'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -24,3 +23,5 @@ gem 'jquery-rails', '2.0.2'
 
 gem 'devise', '>= 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
+
+gem 'foreigner'
