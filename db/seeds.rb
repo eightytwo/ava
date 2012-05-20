@@ -45,3 +45,9 @@ folio = Folio.create(name: 'First Folio',
 folio_user = FolioUser.create(folio: folio,
                               user: admin,
                               folio_role: admin_folio_role)
+
+# Create a round.
+round = Round.create(name: 'First Round',
+                     folio: folio,
+                     start_date: Date.today,
+                     end_date: Date.today + 1.week)

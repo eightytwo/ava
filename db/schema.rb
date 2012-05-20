@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520043312) do
+ActiveRecord::Schema.define(:version => 20120520134649) do
 
   create_table "folio_roles", :force => true do |t|
     t.string   "name"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(:version => 20120520043312) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "rounds", :force => true do |t|
+    t.string   "name"
+    t.integer  "folio_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "rounds", ["folio_id"], :name => "index_rounds_on_folio_id"
+
   create_table "users", :force => true do |t|
     t.string   "email",                                       :default => "",    :null => false
     t.string   "encrypted_password",                          :default => ""
@@ -106,6 +117,8 @@ ActiveRecord::Schema.define(:version => 20120520043312) do
 
   add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk", :dependent => :delete
   add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk", :dependent => :delete
+
+  add_foreign_key "rounds", "folios", :name => "rounds_folio_id_fk", :dependent => :delete
 
   add_foreign_key "users", "folio_roles", :name => "users_invitation_folio_role_id_fk", :column => "invitation_folio_role_id"
   add_foreign_key "users", "folios", :name => "users_invitation_folio_id_fk", :column => "invitation_folio_id"
