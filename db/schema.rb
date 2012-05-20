@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520015253) do
+ActiveRecord::Schema.define(:version => 20120520034354) do
+
+  create_table "folios", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "organisation_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "folios", ["organisation_id"], :name => "index_folios_on_organisation_id"
 
   create_table "organisation_users", :force => true do |t|
     t.integer  "organisation_id"
@@ -65,7 +75,9 @@ ActiveRecord::Schema.define(:version => 20120520015253) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
-  add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk"
-  add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk"
+  add_foreign_key "folios", "organisations", :name => "folios_organisation_id_fk", :dependent => :delete
+
+  add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk", :dependent => :delete
+  add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk", :dependent => :delete
 
 end
