@@ -10,7 +10,7 @@
       <%= f.email_field :email %>
     </div>
 
-    <% if current_user.organisations? %>
+    <%- if current_user.organisations? %>
     <div class="field_wrapper">
       <%= f.label "Organisation" %>
       <br />
@@ -34,7 +34,7 @@
       <br />
       <%= f.select :invitation_folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name") %>
     </div>
-    <% end %>
+    <% end -%>
 
     <div class="field_wrapper">
       <%= f.submit "Send invitation" %>

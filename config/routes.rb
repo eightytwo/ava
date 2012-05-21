@@ -1,4 +1,9 @@
 Ava::Application.routes.draw do
+
+  # While in organisation only mode ensure registrations cannot be made by
+  # overriding the user registration post method.
+  match '/users' => 'home#index', :via => :post, :as => :user_registration
+
   devise_for :users, :skip => [:sessions, :invitations]
   as :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session

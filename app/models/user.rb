@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :recoverable,
-         :rememberable, :trackable, :validatable, :confirmable
-         #, :registerable -- disabled while in organisation only mode 
+         :rememberable, :trackable, :validatable, :confirmable,
+         :registerable
 
   # Devise invitable callback for when a user accepts an invitation.
   after_invitation_accepted :email_invited_by
