@@ -1,10 +1,10 @@
 class CreateRounds < ActiveRecord::Migration
   def change
     create_table :rounds do |t|
-      t.string :name
-      t.references :folio
-      t.date :start_date
-      t.date :end_date
+      t.string :name, :null => false
+      t.references :folio, :null => false
+      t.date :start_date, :null => false
+      t.date :end_date, :null => false
 
       t.timestamps
     end

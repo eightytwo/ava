@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   #
   protected
   def authenticate_inviter!
-    redirect_to root_url unless user_signed_in? and
-      (current_user.admin? or current_user.organisation_admin?)
+    if !user_signed_in? or
+       (!current_user.admin? and !current_user.organisation_admin?)
+      redirect_to root_url
+    end
   end
 end

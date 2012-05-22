@@ -14,16 +14,16 @@
 ActiveRecord::Schema.define(:version => 20120520134649) do
 
   create_table "folio_roles", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        :null => false
+    t.string   "description", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   create_table "folio_users", :force => true do |t|
-    t.integer  "folio_id"
-    t.integer  "user_id"
-    t.integer  "folio_role_id"
+    t.integer  "folio_id",      :null => false
+    t.integer  "user_id",       :null => false
+    t.integer  "folio_role_id", :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -33,9 +33,9 @@ ActiveRecord::Schema.define(:version => 20120520134649) do
   add_index "folio_users", ["user_id"], :name => "index_folio_users_on_user_id"
 
   create_table "folios", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "organisation_id"
+    t.string   "name",            :null => false
+    t.string   "description",     :null => false
+    t.integer  "organisation_id", :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -43,28 +43,28 @@ ActiveRecord::Schema.define(:version => 20120520134649) do
   add_index "folios", ["organisation_id"], :name => "index_folios_on_organisation_id"
 
   create_table "organisation_users", :force => true do |t|
-    t.integer  "organisation_id"
-    t.integer  "user_id"
-    t.boolean  "admin"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "organisation_id",                    :null => false
+    t.integer  "user_id",                            :null => false
+    t.boolean  "admin",           :default => false, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "organisation_users", ["organisation_id"], :name => "index_organisation_users_on_organisation_id"
   add_index "organisation_users", ["user_id"], :name => "index_organisation_users_on_user_id"
 
   create_table "organisations", :force => true do |t|
-    t.string   "name"
+    t.string   "name",       :null => false
     t.string   "website"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "rounds", :force => true do |t|
-    t.string   "name"
-    t.integer  "folio_id"
-    t.date     "start_date"
-    t.date     "end_date"
+    t.string   "name",       :null => false
+    t.integer  "folio_id",   :null => false
+    t.date     "start_date", :null => false
+    t.date     "end_date",   :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

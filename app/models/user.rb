@@ -30,13 +30,15 @@ class User < ActiveRecord::Base
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions).where([
+        "lower(username) = :value OR lower(email) = :value",
+        { :value => login.downcase }]).first
     else
       where(conditions).first
     end
   end
 
-  # Executed after a user accepts an invitation.
+  # A callback which is executed after a user accepts an invitation.
   #
   def email_invited_by
     # Retrieve the organisation related properties of the invitation.
@@ -56,6 +58,21 @@ class User < ActiveRecord::Base
                        user: self,
                        folio_role: folio_role)
     end
+
+    # Set the relevant invitation columns to null such that foreign key
+    # errors are not encountered, such as a folio being deleted in the
+    # future.
+    self.invitation_organisation_id = nil
+    self.invitation_organisation_admin = nil
+    self.invitation_folio_id = nil
+    self.invitation_folio_role_id = nil
+    self.save!
+  end
+
+  # Returns true if the user belongs to an organisation, otherwise false.
+  #
+  def organisations?
+    self.organisations.count > 0
   end
 
   # Returns true if the user is an administrator of an organisation,
@@ -65,9 +82,47 @@ class User < ActiveRecord::Base
     self.organisation_users.where(admin: true).count > 0
   end
 
-  # Returns true if the user belongs to an organisation, otherwise false.
+  # Returns the organisations of which the user is an administrator.
   #
-  def organisations?
-    self.organisations.count > 0
+  def administered_organisations
+    return self.organisations.where("admin = true")
+  end
+
+  # Returns true if the user is a member of a given organisation, otherwise
+  # false.
+  #
+  def member_of_organisation?(organisation)
+    return self.organisations.exists?(organisation)
+  end
+
+  # Returns true if the user is an administrator of a given organisation,
+  # otherwise false.
+  #
+  def admin_of_organisation?(organisation)
+    return self.organisations.where("organisation_id = ? AND admin = true",
+      organisation.id).count > 0
+  end
+
+  # Returns true if the user is a member of a given folio or an administrator
+  # of the folio's organisation, otherwise false.
+  #
+  def member_of_folio?(folio)
+    return (self.folios.exists?(folio) or
+            self.admin_of_organisation?(folio.organisation))
+  end
+
+  # Returns true if the user is an administrator of a given folio or an
+  # administrator of the folio's organisation, otherwise false.
+  #
+  def admin_of_folio?(folio)
+    # TODO: setup constants for the folio roles,
+    #       mirroring the values in the db.
+    folio_admin = self.folios.where(
+      "folio_id = ? AND folio_role_id = ?",
+      folio.id, 3).count > 0
+
+    organisation_admin = self.admin_of_organisation?(folio.organisation)
+
+    return (folio_admin or organisation_admin)
   end
 end

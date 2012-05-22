@@ -4,4 +4,7 @@ class OrganisationUser < ActiveRecord::Base
   
   attr_accessible :organisation, :user, :admin
   accepts_nested_attributes_for :organisation, :user
+
+  validates :organisation, :presence => true
+  validates :user, :presence => true
 end

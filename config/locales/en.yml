@@ -6,3 +6,8 @@ en:
     attributes:
       user:  
         login: "Username or email"
+
+  helpers:
+    submit:
+      create: "Create"
+      update: "Update"

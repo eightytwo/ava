@@ -4,4 +4,6 @@ class Organisation < ActiveRecord::Base
   has_many :folios
 
   attr_accessible :name, :website
+
+  validates :name, :presence => true
 end

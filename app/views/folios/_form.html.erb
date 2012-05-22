@@ -1,0 +1,29 @@
+<% if @folio.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@folio.errors.count, "error") %> prohibited this folio from being saved:</h2>
+
+    <ul>
+    <% @folio.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@folio) do |f| %>
+  <%= hidden_field_tag 'folio[organisation_id]', @organisation.id %>
+  
+  <div class="field_wrapper">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field_wrapper">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field_wrapper">
+    <%= f.submit %>
+  </div>
+<% end %>

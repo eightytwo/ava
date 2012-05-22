@@ -1,9 +1,9 @@
 class CreateFolioUsers < ActiveRecord::Migration
   def change
     create_table :folio_users do |t|
-      t.references :folio
-      t.references :user
-      t.references :folio_role
+      t.references :folio, :null => false
+      t.references :user, :null => false
+      t.references :folio_role, :null => false
 
       t.timestamps
     end

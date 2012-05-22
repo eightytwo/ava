@@ -1,27 +1,13 @@
 class InvitationsController < Devise::InvitationsController
+  before_filter :get_organisation_data, :only => [:new, :create]
+
   # GET /resource/invitation/new
   def new
-    # Retrieve data for organisation related drop down lists
-    # if the inviter belongs to an organisation.
-    if current_user.organisations?
-      @organisations = current_user.organisations
-      @folios = current_user.organisations[0].folios
-      @folio_roles = FolioRole.all
-    end
-
     super
   end
 
   # POST /resource/invitation
-  def create
-    # Retrieve data for organisation related drop down lists
-    # if the inviter belongs to an organisation.
-    if current_user.organisations?
-      @organisations = current_user.organisations
-      @folios = current_user.organisations[0].folios
-      @folio_roles = FolioRole.all
-    end
-    
+  def create    
     super
   end
 
@@ -33,5 +19,17 @@ class InvitationsController < Devise::InvitationsController
   # PUT /resource/invitation
   def update
     super
+  end
+
+  protected
+  # Retrieve data for organisation related drop down lists
+  # if the inviter belongs to an organisation.
+  #
+  def get_organisation_data
+    if current_user.organisations?
+      @organisations = current_user.administered_organisations
+      @folios = @organisations[0].folios
+      @folio_roles = FolioRole.all
+    end
   end
 end
