@@ -2,46 +2,30 @@
  * Anonymous function which executes once the page has finished loading.
  */
 $(function() {
-  // Indicates the account drop down menu has mouse focus.
-  var accountDropDownHasFocus = false;
-
+  // Set the width of the account drop down menu to the width of the
+  // drop down button (containing the variable length username). This
+  // is required because the position of the menu is absolute and is
+  // therefore does not receive the parent div's width. The absolute
+  // position is required because the menu jumps around when animated
+  // if relative.
+  $('#account_dd_menu').css('width', $('#account_dd_button').width() + 'px');
 
   /**
    * Toggles the visibility of the account drop down menu.
    */
   function toggleAccountDropDown() {
-    $('#account_dropdown_menu').toggle();
+    $('#account_dd_menu').slideToggle('fast');
   }
 
-  /**
-   * Determines if the account drop down menu should be hidden
-   * and if so hides it.
-   */
-  function checkHideAccountDropDown() {
-    if (!accountDropDownHasFocus)
-      $('#account_dropdown_menu').hide();
-  }
-
-  /**
-   * Handles the click event of the body of the document.
-   */
-  $(document).click(function() {
-    checkHideAccountDropDown();
-  });
 
   /**
    * Handles the click event of the account drop down menu button.
    */
-  $('#account_dropdown_button').click(function() {
+  $('#account_dd_arrow').click(function() {
     toggleAccountDropDown();
   });
 
-  /**
-   * Handles the hover event for the account drop down menu.
-   */
-  $('#account_dropdown').hover(function() {
-    accountDropDownHasFocus = true;
-  }, function() {
-    accountDropDownHasFocus = false;
+  $('.site_caption_tip').hover(function() {
+    toggleSiteTip();
   });
 });

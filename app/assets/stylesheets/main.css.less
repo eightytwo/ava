@@ -25,19 +25,16 @@ body {
 }
 
 header {
-  .DebugBorder(green);
   text-align: left;
 }
 
 nav {
-  .DebugBorder(red);
   margin: 32px 0px;
   text-align: right;
 
   li {
     display: inline;
     margin-left: 25px;
-    list-style-type: none;
   }
 }
 
@@ -66,7 +63,8 @@ a:focus {
   text-align: center;
 }
 
-#account_wrapper {
+#account_dd_wrapper {
+  position: relative;
   float: right;
 }
 
@@ -75,24 +73,26 @@ a:focus {
   line-height: 26px;
 }
 
-#account_drop_down {
+#account_dd_button {
+  position: relative;
   margin-top: 2px;
   height: 24px;
   border: 1px solid #d7d7d7;
   -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
   background-color: #e1e1e1;
+  z-index: 20;
 
-  #content {
+  #account_dd_content {
     float: left;
     padding: 4px 8px;
     height: 16px;
     line-height: 16px;
   }
 
-  #divider {
+  #account_dd_divider {
     float: left;
     width: 0px;
     height: 24px;
@@ -100,12 +100,35 @@ a:focus {
     border-right: 1px solid #ededed;
   }
 
-  #arrow {
+  #account_dd_arrow {
     float: left;
     width: 20px;
     height: 26px;
     background: url(down_arrow.png) no-repeat;
     cursor: pointer;
+  }
+}
+
+#account_dd_menu {
+  display: none;
+  position: absolute;
+  top: 26px;
+  border: 1px solid #d7d7d7;
+  border-top: 1px dotted #ededed;
+  -moz-border-bottom-left-radius: 3px 3px;
+  -moz-border-bottom-right-radius: 3px 3px;
+  -o-border-bottom-left-radius: 3px 3px;
+  -o-border-bottom-right-radius: 3px 3px;
+  -webkit-border-bottom-left-radius: 3px 3px;
+  -webkit-border-bottom-right-radius: 3px 3px;
+  border-bottom-left-radius: 3px 3px;
+  border-bottom-right-radius: 3px 3px;
+  background-color: #e1e1e1;
+  text-align: center;
+  z-index: 100;
+
+  li {
+    margin: 12px 0px;
   }
 }
 

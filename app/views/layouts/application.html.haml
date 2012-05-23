@@ -6,7 +6,7 @@
     %meta{name: "author", content: "eightytwo"}
 
     %title AudioVisualArcade
-    
+    %link{rel: "shortcut icon", href: "/favicon.ico?v2"}
     = stylesheet_link_tag "custom"
     = javascript_include_tag "application"
     %csrf_meta_tags
@@ -31,15 +31,26 @@
         %span{class: "site_caption site_caption_bold"} critiquing
         %span{class: "site_caption"} of diaporamas
 
-        %div{id: "account_wrapper"}
-          - if user_signed_in?
-            %div{id: "account_drop_down"}
-              %div{id: "content"}
-                Hello
-                = current_user.username
-              %div{id: "divider"}
-              %div{id: "arrow"}
+        %div{id: "account_dd_wrapper"}
+          - if !user_signed_in?
+            %div{id: "account_dd_button"}
+              %div{id: "account_dd_content"}
+                Hello piers
+                -# = current_user.username
+              %div{id: "account_dd_divider"}
+              %div{id: "account_dd_arrow"}
+            %div{id: "account_dd_menu"}
+              %ul
+                %li
+                  %a{href: "/account", title: "Manage your account"} Account
+                %li
+                  %a{href: "/upload", title: "Upload an audio visual"} Upload
+                %li
+                  %a{href: "/logout", title: "Log out"} Log out
                 
           - else
             %div{id: "login_link"}
               = link_to "login", new_user_session_path, {title: "Login"}
+
+      %div{id: "content"}
+        - yield
