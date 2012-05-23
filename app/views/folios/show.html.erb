@@ -1,34 +1,63 @@
 <%= link_to @folio.organisation.name, @folio.organisation %> >
 <%= @folio.name %>
 
-<br />
-
-<h4>Users</h4>
-<table>
-<% @folio.users.each do |user| %>
-  <tr>
-    <td><%= user.username %></td>
-    
-  </tr>
-<% end %>
-</table>
+<hr />
 
 <br />
 
-<h4>Rounds</h4>
-<table> 
-<% @folio.rounds.each do |round| %>
+<div class="right">
+  <table cellspacing="0">
+    <tr>
+      <th>Members</th>
+      <% if @folio_admin %>
+        <th class="admin"><%= link_to "Add Member", new_user_invitation_path %></th>
+      <% end %>
+    </tr>
+    <% if @folio.users.count > 0 %>
+      <% @folio.users.each do |user| %>
+        <tr>
+          <td><%= user.username %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr class="<%= cycle("even", "odd") %>">
+        <% if @folio_admin %>
+          <td colspan="2">This folio doesn't have any members.</td>
+        <% else %>
+          <td>This folio doesn't have any members.</td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+
+<table cellspacing="0">
   <tr>
-    <td><%= round.name %></td>
-    <td><%= round.start_date %></td>
-    <td><%= round.end_date %></td>
-    <td><%= link_to 'Show', round %></td>
+    <th>Rounds</th>
     <% if @folio_admin %>
-    <td><%= link_to 'Edit', edit_round_path(round) %></td>
-    <td><%= link_to 'Remove', round, :confirm => 'Are you sure? All audio visuals in this round will be removed!', :method => :delete %></td>
+      <th class="admin" colspan="2"><%= link_to 'New round', new_round_path(fid: @folio.id) %></th>
     <% end %>
   </tr>
-<% end %>
+  <% if @folio.rounds.count > 0 %>
+    <% @folio.rounds.each do |round| %>
+      <tr>
+        <td><%= link_to round.name, round %></td>
+        <td><%= round.start_date %></td>
+        <td><%= round.end_date %></td>
+        <% if @folio_admin %>
+          <td><%= link_to 'Edit', edit_round_path(round) %></td>
+          <td><%= link_to 'Remove', round, :confirm => 'Are you sure? All audio visuals in this round will be removed!', :method => :delete %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr class="<%= cycle("even", "odd") %>">
+      <% if @folio_admin %>
+        <td colspan="5">No rounds have been setup.</td>
+      <% else %>
+        <td colspan="3">No rounds have been setup.</td>
+      <% end %>
+    </tr>
+  <% end %>
 </table>
-
-<%= link_to 'New round', new_round_path(fid: @folio.id) %>

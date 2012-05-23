@@ -1,7 +1,7 @@
 class OrganisationsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_organisation_member
-  before_filter :ensure_organisation_admini, :except => :show
+  before_filter :ensure_organisation_admin, :except => :show
 
   # GET /organisations/1
   def show
