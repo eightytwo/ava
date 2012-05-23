@@ -1,0 +1,45 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{name: "description", content: "A community driven site for the sharing and critiquing of diaporamas."}
+    %meta{name: "author", content: "eightytwo"}
+
+    %title AudioVisualArcade
+    
+    = stylesheet_link_tag "custom"
+    = javascript_include_tag "application"
+    %csrf_meta_tags
+
+  %body
+    / page wrapper
+    %div{id: "page"}
+      %nav
+        %ul
+          %li
+            %a{href: "/", title: "Home"} home
+          %li
+            %a{href: "/about", title: "About"} about
+          %li
+            %a{href: "/contact", title: "Contact"} contact
+
+      %header
+        %span{class: "site_heading"} AudioVisualArcade
+        %span{class: "site_caption"} a community driven site for the
+        %span{class: "site_caption site_caption_bold"} sharing
+        %span{class: "site_caption"} and
+        %span{class: "site_caption site_caption_bold"} critiquing
+        %span{class: "site_caption"} of diaporamas
+
+        %div{id: "account_wrapper"}
+          - if user_signed_in?
+            %div{id: "account_drop_down"}
+              %div{id: "content"}
+                Hello
+                = current_user.username
+              %div{id: "divider"}
+              %div{id: "arrow"}
+                
+          - else
+            %div{id: "login_link"}
+              = link_to "login", new_user_session_path, {title: "Login"}

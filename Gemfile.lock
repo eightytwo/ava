@@ -52,6 +52,7 @@ GEM
       multi_json (~> 1.0)
     foreigner (1.1.6)
       activerecord (>= 3.0.0)
+    haml (3.1.6)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
@@ -122,6 +123,7 @@ DEPENDENCIES
   devise (>= 2.0.0)
   devise_invitable (~> 1.0.0)
   foreigner
+  haml
   jquery-rails (= 2.0.2)
   less
   pg (= 0.13.2)
