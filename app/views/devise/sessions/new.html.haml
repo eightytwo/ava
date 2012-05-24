@@ -1,9 +1,9 @@
-%div{id: "form_wrapper"}
+%div{class: "form_wrapper"}
   %h3 Login
 
   = devise_error_messages!
 
-  %div{id: "form_content"}
+  %div{class: "form_content"}
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       %div{class: "field_wrapper"}
         = f.label :login

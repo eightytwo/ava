@@ -106,8 +106,8 @@ input[type='checkbox'] {
   width: 20px;
 }
 
-#form_wrapper {
-  margin: 0px auto;
+.form_wrapper {
+  margin: 0px auto 20px auto;
   width: 300px;
   background-color: #fff;
   text-align: left;
@@ -122,8 +122,8 @@ input[type='checkbox'] {
   }
 }
 
-#form_content {
-  padding: 16px;
+.form_content {
+  padding: 16px 16px 2px 16px;
 }
 
 .field_wrapper {
@@ -136,7 +136,15 @@ input[type='checkbox'] {
   }
 }
 
+.field_tip {
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-style: italic;
+}
+
 .links_wrapper {
+  margin-bottom: 20px;
+
   a:link, a:active, a:visited, a:hover {
     line-height: 20px;
   }
@@ -214,7 +222,27 @@ input[type='checkbox'] {
 }
 
 
-/*----- Flashes -----*/
+/*----- Flashes and notifications -----*/
+#error_explanation {
+  margin: 10px 16px 0px 16px;
+  padding: 10px;
+  background: #ffd7d8;
+  border-top: 1px solid #f9bac7;
+  border-bottom: 1px solid #f9bac7;
+  color: #d54c4c;
+
+  h2 {
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+
+  li {
+    margin-left: 20px;
+    list-style-type: square;
+    font-style: italic;
+  }
+}
+
 .flash {
   margin: 0px auto 20px auto;
   padding: 10px;
@@ -267,8 +295,7 @@ input[type='submit']:hover.button {
 }
 
 input[type='submit'].button.large {
-  height: 24px;
-  padding: 11px 10px 0px 10px;
+  height: 37px;
   font-size: 14px;
   line-height: 14px;
 }
