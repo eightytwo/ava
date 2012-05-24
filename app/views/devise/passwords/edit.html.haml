@@ -1,0 +1,22 @@
+%div{class: "form_wrapper"}
+  %h3 Change Your Password
+
+  = devise_error_messages!
+
+  %div{class: "form_content"}
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+      = f.hidden_field :reset_password_token
+
+      %div{class: "field_wrapper"}
+        = f.label :password, "New password"
+        = f.password_field :password
+
+      %div{class: "field_wrapper"}
+        = f.label :password_confirmation, "Confirm new password"
+        = f.password_field :password_confirmation
+
+      %div{class: "field_wrapper"}
+        = f.submit("Change", {class: "button small green"})
+
+    %div{class: "links_wrapper"}
+      = render partial: "devise/shared/links"

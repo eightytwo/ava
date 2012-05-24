@@ -5,6 +5,7 @@
 
   %div{class: "form_content"}
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      
       %div{class: "field_wrapper"}
         = f.label :login
         = f.text_field :login
