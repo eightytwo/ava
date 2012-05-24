@@ -32,25 +32,37 @@
         %span{class: "site_caption"} of diaporamas
 
         %div{id: "account_dd_wrapper"}
-          - if !user_signed_in?
+          - if user_signed_in?
             %div{id: "account_dd_button"}
               %div{id: "account_dd_content"}
-                Hello piers
-                -# = current_user.username
+                Hello
+                = current_user.username
               %div{id: "account_dd_divider"}
               %div{id: "account_dd_arrow"}
             %div{id: "account_dd_menu"}
               %ul
                 %li
-                  %a{href: "/account", title: "Manage your account"} Account
+                  = link_to "My Account", edit_user_registration_path, {title: "Edit my account"}
                 %li
                   %a{href: "/upload", title: "Upload an audio visual"} Upload
                 %li
-                  %a{href: "/logout", title: "Log out"} Log out
+                  = link_to "Logout", destroy_user_session_path, {method: :delete, title: "Logout"}
                 
           - else
             %div{id: "login_link"}
               = link_to "login", new_user_session_path, {title: "Login"}
 
       %div{id: "content"}
-        - yield
+        - if flash[:notice]
+          %div{class: "flash notice"}
+            = flash[:notice]
+
+        - if flash[:alert]
+          %div{class: "flash alert"}
+            = flash[:alert]
+
+        - if flash[:error]
+          %div{flash: "flash error"}
+            = flash[:error]
+
+        = yield
