@@ -1,0 +1,39 @@
+#full_width
+  %h2= @organisation.name
+
+  #content
+    - if @organisation_admin
+      = link_to 'Edit organisation details', edit_organisation_path(@organisation)
+      %br
+      %br
+
+    .right
+      %table.slave{cellspacing: "0"}
+        %tr
+          %th Members
+          - if @organisation_admin
+            %th.text_right= link_to "invite", new_user_invitation_path
+        
+        = render partial: "member", collection: @members
+
+    %table.master{cellspacing: "0"}
+      %tr
+        %th{colspan: "2"} Folios
+        - if @organisation_admin
+          %th.text_right= link_to 'new', new_folio_path(oid: @organisation.id)
+
+      - if @organisation.folios.count > 0
+        - @organisation.folios.each do |folio|
+          %tr{class: cycle("even", "odd")}
+            %td= link_to folio.name, folio
+            %td= folio.description
+            - if @organisation_admin
+              %td.text_right
+                = link_to 'Edit', edit_folio_path(folio)
+                = "&nbsp&nbsp".html_safe
+                = link_to 'Remove', folio, :confirm => 'Are you sure? All rounds and audio visuals within these rounds will be removed!', :method => :delete
+      - else
+        %tr
+          %td{colspan: @organisation_admin ? "3" : "2"} No folios have been setup.
+
+    .clear

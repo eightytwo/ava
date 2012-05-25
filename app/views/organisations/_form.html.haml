@@ -1,0 +1,23 @@
+- if @organisation.errors.any?
+  #error_explanation
+    %h2= t("formerror.title", :count => @organisation.errors.count)
+
+    %ul
+    - @organisation.errors.full_messages.each do |msg|
+      %li= msg
+
+.form_content
+  = form_for(@organisation) do |f|
+    .field_wrapper
+      = f.label :name
+      = f.text_field :name
+
+    .field_wrapper
+      = f.label :website
+      = f.text_field :website
+
+    .field_wrapper
+      = f.submit({class: "button small green"})
+  
+  .links_wrapper
+    = link_to 'Back', @organisation

@@ -18,7 +18,7 @@ Ava::Application.routes.draw do
   end
 
   # Organisation, folio and round routes.
-  resources :organisations, :only => [:show, :edit, :update]
+  resources :organisations, :only => [:index, :show, :edit, :update]
   resources :folios, :except => [:index]
   resources :rounds, :except => [:index]
 

@@ -1,10 +1,26 @@
 class OrganisationsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_organisation_member
-  before_filter :ensure_organisation_admin, :except => :show
+  before_filter :ensure_organisation_member, except: :index
+  before_filter :ensure_organisation_admin, except: [:index, :show]
+
+  # GET /organisations
+  def index
+    if current_user.organisations.count == 1
+      redirect_to current_user.organisations[0]
+    elsif current_user.organisations.count > 1
+      @organisations = current_user.organisations
+    else
+      redirect_to root_url
+    end
+  end
 
   # GET /organisations/1
   def show
+    @members = @organisation.users.find(
+      :all,
+      select: "users.username, organisation_users.admin",
+      joins: :organisation_users,
+      order: "organisation_users.admin desc, users.username asc")
   end
 
   # GET /organisations/1/edit

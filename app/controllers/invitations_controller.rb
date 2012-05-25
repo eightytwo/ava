@@ -1,5 +1,5 @@
 class InvitationsController < Devise::InvitationsController
-  before_filter :get_organisation_data, :only => [:new, :create]
+  before_filter :get_organisation_data, only: [:new, :create]
 
   # GET /resource/invitation/new
   def new

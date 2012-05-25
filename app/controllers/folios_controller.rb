@@ -1,10 +1,13 @@
 class FoliosController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_folio_member, :only => :show
-  before_filter :ensure_organisation_admin, :except => :show
+  before_filter :ensure_folio_member, only: :show
+  before_filter :ensure_organisation_admin, except: :show
 
   # GET /folios/1
   def show
+    @admins = @folio.users.where("folio_role_id = 3").order(:username)
+    @contributors = @folio.users.where("folio_role_id = 2").order(:username)
+    @viewers = @folio.users.where("folio_role_id = 1").order(:username)
   end
 
   # GET /folios/new?oid=1

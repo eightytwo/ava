@@ -16,7 +16,7 @@
 
       .field_wrapper
         = f.label :password 
-        %div{class: "field_tip"} (leave blank if not changing)
+        .field_tip (leave blank if not changing)
         = f.password_field :password, autocomplete: "off"
 
       .field_wrapper
@@ -25,7 +25,7 @@
 
       .field_wrapper
         = f.label :current_password
-        %div{class: "field_tip"} (required to confirm your changes)
+        .field_tip (required to confirm your changes)
         = f.password_field :current_password
 
       .field_wrapper

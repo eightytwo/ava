@@ -1,5 +1,4 @@
 /*----- Web fonts -----*/
-@import url(http://fonts.googleapis.com/css?family=Voltaire);
 @import url(http://fonts.googleapis.com/css?family=Lobster);
 
 
@@ -45,8 +44,18 @@ header {
   margin-right: 10px;
   color: #21262b;
   font-family: 'Lobster';
-  font-family: 'Voltaire';
   font-size: 26px;
+  text-shadow: #fff 1px 1px 0;
+}
+
+.site_heading::-moz-selection {
+  background-color: #b3d4fd;
+  text-shadow: none;
+}
+
+.site_heading::selection {
+  background-color: #b3d4fd;
+  text-shadow: none;
 }
 
 .site_caption {
@@ -65,6 +74,35 @@ header {
   padding: 0px;
   width: 950px;
   text-align: center;
+}
+
+#full_width {
+  background-color: #fff;
+  text-align: left;
+
+  h2 {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-weight: bold;
+
+    a:link, a:active, a:visited, a:hover {
+      font-size: 14px;
+      font-weight: bold;      
+    }
+  }
+
+  #content {
+    padding: 16px;
+  }
+
+  .arrow_right {
+    display: inline-block;
+    margin: 6px 10px 0px 10px;
+    width: 7px;
+    height: 7px;
+    background: url(right_arrow.png) no-repeat;
+  }
 }
 
 
@@ -151,7 +189,61 @@ input[type='checkbox'] {
 }
 
 
-/*----- Account drop down list -----*/
+/*----- Tables -----*/
+table.master {
+  width: 550px;
+}
+
+table.slave {
+  width: 250px;
+}
+
+tr {
+  margin: 0px;
+  padding: 16px;
+}
+
+tr.even {
+  background-color: #f9f9f9;
+}
+
+tr.odd {
+  background-color: #f4f4f4;
+}
+
+tr.category {
+  background-color: #fff;
+  font-style: italic;
+}
+
+th {
+  margin: 0px;
+  padding: 16px;
+  border-bottom: 1px solid #909090;
+  color: #666666;
+  background-color: #eee;
+  font-weight: bold;
+
+  a:link, a:active, a:visited a:hover {
+    font-weight: normal;
+  }
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+td.thin {
+  padding: 8px 16px;
+}
+
+tr:last-child > td {
+  border-bottom: none;
+}
+
+
+/*----- Account drop down menu -----*/
 #account_dd_wrapper {
   position: relative;
   float: right;
@@ -273,7 +365,7 @@ input[type='checkbox'] {
 }
 
 
-/*----- Submit input button -----*/
+/*----- Submit input buttons -----*/
 input[type='submit'].button,
 input[type='submit']:hover.button {
   margin: 0px;
@@ -402,3 +494,24 @@ input[type='submit'].button.black {
 
 input[type='submit'].button.large.black { background-image: url(button_black_large.png); }
 input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
+
+/*----- Miscellaneous classes -----*/
+.bold {
+  font-weight: bold;
+}
+
+.clear {
+  clear: both;
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.right {
+  float: right;
+}
+
+.text_right {
+  text-align: right;
+}

@@ -1,0 +1,52 @@
+#full_width
+  %h2
+    = link_to @folio.organisation.name, @folio.organisation
+    .arrow_right
+    = @folio.name
+
+  #content
+    .right
+      %table.slave{cellspacing: "0"}
+        %tr
+          %th Members
+          - if @folio_admin
+            %th.text_right= link_to "add", new_user_invitation_path
+
+        - if @folio.users.count > 0
+          - if @admins.count > 0
+            %tr.category
+              %td.thin Administrators
+            = render partial: "member", collection: @admins
+
+          - if @contributors.count > 0
+            %tr.category
+              %td.thin Contributors
+            = render partial: "member", collection: @contributors
+
+          - if @viewers.count > 0
+            %tr.category
+              %td.thin Viewers
+            = render partial: "member", collection: @viewers
+
+    %table.master{cellspacing: "0"}
+      %tr
+        %th{colspan: "3"} Rounds
+        - if @folio_admin
+          %th.text_right= link_to 'new', new_round_path(fid: @folio.id)
+        
+      - if @folio.rounds.count > 0
+        - @folio.rounds.each do |round|
+          %tr{class: cycle("even", "odd")}
+            %td= link_to round.name, round
+            %td= round.start_date
+            %td= round.end_date
+            - if @folio_admin
+              %td.text_right
+                = link_to 'Edit', edit_round_path(round)
+                = "&nbsp&nbsp".html_safe
+                = link_to 'Remove', round, :confirm => 'Are you sure? All audio visuals in this round will be removed!', :method => :delete
+      - else
+        %tr
+          %td{colspan: @folio_admin ? "4" : "3"} No rounds have been setup.
+
+    .clear

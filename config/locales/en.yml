@@ -11,3 +11,8 @@ en:
     submit:
       create: "Create"
       update: "Update"
+
+  formerror:
+    title:
+      one: "Sorry, an error was found on the form."
+      other: "Sorry, errors were found on the form."
