@@ -7,8 +7,19 @@ class InvitationsController < Devise::InvitationsController
   end
 
   # POST /resource/invitation
-  def create    
-    super
+  def create
+    # If this is an invitation to an organisation, ensure a
+    # folio has been supplied.
+    if params[:user].has_key?(:invitation_organisation_id) and
+       !params[:user].has_key?(:invitation_folio_id)
+
+       # Construct the resource and add the error message.
+       self.resource = build_resource
+       self.resource.errors.add(:folio, "must be supplied")
+       respond_with_navigational(resource) { render :new }
+    else
+      super
+    end
   end
 
   # GET /resource/invitation/accept?invitation_token=abcdef

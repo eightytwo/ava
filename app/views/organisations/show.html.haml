@@ -14,7 +14,15 @@
           - if @organisation_admin
             %th.text_right= link_to "invite", new_user_invitation_path
         
-        = render partial: "member", collection: @members
+        - if @admins.count > 0
+          %tr.category
+            %td.thin Administrators
+          = render partial: "member", collection: @admins
+
+        - if @members.count > 0
+          %tr.category
+            %td.thin Members
+          = render partial: "member", collection: @members
 
     %table.master{cellspacing: "0"}
       %tr

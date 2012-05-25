@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   has_many :organisation_users
-  has_many :organisations, :through => :organisation_users
+  has_many :organisations, through: :organisation_users
   has_many :folio_users
-  has_many :folios, :through => :folio_users
+  has_many :folios, through: :folio_users
 
   # Setup accessible (or protected) attributes for the model.
   attr_accessible :username, :email, :password, :password_confirmation,
@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
   attr_accessor :login
 
   # Ensure a user's username is present, unique and of a suitable length.
-  validates :username, :uniqueness => true, :length => { :within => 3..20 }
-
+  validates :username, presence: true, uniqueness: true, length: { :within => 3..20 }
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :recoverable,
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
          :registerable
 
   # Devise invitable callback for when a user accepts an invitation.
-  after_invitation_accepted :email_invited_by
+  after_invitation_accepted :invitation_accepted
 
   # Allows a user to be authenticated by either email address or username.
   #
@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
   # A callback which is executed after a user accepts an invitation.
   #
-  def email_invited_by
+  def invitation_accepted
     # Retrieve the organisation related properties of the invitation.
     organisation = Organisation.find(self.invitation_organisation_id)
     folio = Folio.find(self.invitation_folio_id)

@@ -1,0 +1,29 @@
+- if @round.errors.any?
+  #error_explanation
+    %h2= t("formerror.title", :count => @round.errors.count)
+
+    %ul
+      - @round.errors.full_messages.each do |msg|
+        %li= msg
+
+.form_content
+  = form_for(@round) do |f|
+    = hidden_field_tag 'round[folio_id]', @folio.id
+
+    .field_wrapper
+      = f.label :name
+      = f.text_field :name
+
+    .field_wrapper
+      = f.label :start_date
+      = f.date_select :start_date
+
+    .field_wrapper
+      = f.label :end_date
+      = f.date_select :end_date
+
+    .field_wrapper
+      = f.submit({class: "button small green"})
+
+  .links_wrapper
+    = link_to 'Back', @folio

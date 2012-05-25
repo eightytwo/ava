@@ -7,7 +7,7 @@
       %li= msg
 
 .form_content
-  - form_for(@folio) do |f|
+  = form_for(@folio) do |f|
     = hidden_field_tag 'folio[organisation_id]', @organisation.id
     
     .field_wrapper

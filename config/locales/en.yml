@@ -7,9 +7,14 @@ en:
       user:  
         login: "Username or email"
 
+  date:
+    formats:
+      default: ! "%d/%m/%Y"
+
   helpers:
     submit:
       create: "Create"
+      submit: "Save"
       update: "Update"
 
   formerror:

@@ -16,11 +16,8 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   def show
-    @members = @organisation.users.find(
-      :all,
-      select: "users.username, organisation_users.admin",
-      joins: :organisation_users,
-      order: "organisation_users.admin desc, users.username asc")
+    @admins = @organisation.users.where("organisation_users.admin = true").order(:username)
+    @members = @organisation.users.where("organisation_users.admin = false").order(:username)
   end
 
   # GET /organisations/1/edit
