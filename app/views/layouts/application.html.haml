@@ -12,8 +12,7 @@
     %csrf_meta_tags
 
   %body
-    / page wrapper
-    %div{id: "page"}
+    %div#page
       %nav
         %ul
           %li
@@ -24,22 +23,22 @@
             %a{href: "/contact", title: "Contact"} contact
 
       %header
-        %span{class: "site_heading"} AudioVisualArcade
-        %span{class: "site_caption"} a community driven site for the
-        %span{class: "site_caption site_caption_bold"} sharing
-        %span{class: "site_caption"} and
-        %span{class: "site_caption site_caption_bold"} critiquing
-        %span{class: "site_caption"} of diaporamas
+        %span.site_heading AudioVisualArcade
+        %span.site_caption a community driven site for the
+        %span.site_caption.site_caption_bold sharing
+        %span.site_caption and
+        %span.site_caption.site_caption_bold critiquing
+        %span.site_caption of diaporamas
 
-        %div{id: "account_dd_wrapper"}
+        %div#account_dd_wrapper
           - if user_signed_in?
-            %div{id: "account_dd_button"}
-              %div{id: "account_dd_content"}
+            %div#account_dd_button
+              %div#account_dd_content
                 Hello
                 = current_user.username
-              %div{id: "account_dd_divider"}
-              %div{id: "account_dd_arrow"}
-            %div{id: "account_dd_menu"}
+              %div#account_dd_divider
+              %div#account_dd_arrow
+            %div#account_dd_menu
               %ul
                 %li
                   = link_to "My Account", edit_user_registration_path, {title: "Edit my account"}
@@ -49,20 +48,20 @@
                   = link_to "Logout", destroy_user_session_path, {method: :delete, title: "Logout"}
                 
           - else
-            %div{id: "login_link"}
+            %div#login_link
               = link_to "login", new_user_session_path, {title: "Login"}
 
-      %div{id: "content"}
+      %div#content
         - if flash[:notice]
-          %div{class: "flash notice"}
+          %div.flash.notice
             = flash[:notice]
 
         - if flash[:alert]
-          %div{class: "flash alert"}
+          %div.flash.alert
             = flash[:alert]
 
         - if flash[:error]
-          %div{flash: "flash error"}
+          %div.flash.error
             = flash[:error]
 
         = yield

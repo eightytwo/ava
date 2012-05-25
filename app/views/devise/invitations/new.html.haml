@@ -1,31 +1,31 @@
-%div{class: "form_wrapper"}
+%div.form_wrapper
   %h3 Send an Invitation
 
   = devise_error_messages!
 
-  %div{class: "form_content"}
+  %div.form_content
     = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f|
 
-      %div{class: "field_wrapper"}
+      %div.field_wrapper
         = f.label :email
         = f.email_field :email
 
       - if current_user.organisations?
-        %div{class: "field_wrapper"}
+        %div.field_wrapper
           = f.label "Organisation"
           = f.select :invitation_organisation_id, options_from_collection_for_select(@organisations, "id", "name")
 
-        %div{class: "field_wrapper"}
+        %div.field_wrapper
           = f.label "Organisation Administrator"
           = f.check_box :invitation_organisation_admin
 
-        %div{class: "field_wrapper"}
+        %div.field_wrapper
           = f.label "Folio"
           = f.select :invitation_folio_id, options_from_collection_for_select(@folios, "id", "name")
 
-        %div{class: "field_wrapper"}
+        %div.field_wrapper
           = f.label "Folio Role"
           = f.select :invitation_folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name")
 
-      %div{class: "field_wrapper"}
+      %div.field_wrapper
         = f.submit("Send invitation", {class: "button small green"})

@@ -1,17 +1,17 @@
-%div{class: "form_wrapper"}
+%div.form_wrapper
   %h3 Resend confirmation instructions
 
   = devise_error_messages!
 
-  %div{class: "form_content"}
+  %div.form_content
     = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
       
-      %div{class: "field_wrapper"}
+      %div.field_wrapper
         = f.label :login
         = f.text_field :login
 
-      %div{class: "field_wrapper"}
+      %div.field_wrapper
         = f.submit("Resend", {class: "button small green"})
 
-    %div{class: "links_wrapper"}
+    %div.links_wrapper
       = render partial: "devise/shared/links"
