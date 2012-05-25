@@ -12,7 +12,7 @@
     %csrf_meta_tags
 
   %body
-    %div#page
+    #page
       %nav
         %ul
           %li
@@ -30,15 +30,14 @@
         %span.site_caption.site_caption_bold critiquing
         %span.site_caption of diaporamas
 
-        %div#account_dd_wrapper
+        #account_dd_wrapper
           - if user_signed_in?
-            %div#account_dd_button
-              %div#account_dd_content
-                Hello
-                = current_user.username
-              %div#account_dd_divider
-              %div#account_dd_arrow
-            %div#account_dd_menu
+            #account_dd_button
+              #account_dd_content
+                Hello #{h current_user.username}
+              #account_dd_divider
+              #account_dd_arrow
+            #account_dd_menu
               %ul
                 %li
                   = link_to "My Account", edit_user_registration_path, {title: "Edit my account"}
@@ -48,20 +47,17 @@
                   = link_to "Logout", destroy_user_session_path, {method: :delete, title: "Logout"}
                 
           - else
-            %div#login_link
+            #login_link
               = link_to "login", new_user_session_path, {title: "Login"}
 
-      %div#content
+      #content
         - if flash[:notice]
-          %div.flash.notice
-            = flash[:notice]
+          .flash.notice= flash[:notice]
 
         - if flash[:alert]
-          %div.flash.alert
-            = flash[:alert]
+          .flash.alert= flash[:alert]
 
         - if flash[:error]
-          %div.flash.error
-            = flash[:error]
+          .flash.error= flash[:error]
 
         = yield

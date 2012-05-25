@@ -1,23 +1,23 @@
-%div.form_wrapper
+.form_wrapper
   %h3 Create Your Account
 
   = devise_error_messages!
 
-  %div.form_content
+  .form_content
     = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
       = f.hidden_field :invitation_token
 
-      %div.field_wrapper
+      .field_wrapper
         = f.label :username
         = f.text_field :username
 
-      %div.field_wrapper
+      .field_wrapper
         = f.label :password
         = f.password_field :password
 
-      %div.field_wrapper
+      .field_wrapper
         = f.label :password_confirmation
         = f.password_field :password_confirmation
 
-      %div.field_wrapper
+      .field_wrapper
         = f.submit("Create", {class: "button small green"})

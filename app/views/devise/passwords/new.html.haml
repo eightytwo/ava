@@ -1,17 +1,17 @@
-%div.form_wrapper
+.form_wrapper
   %h3 Forgot Your Password
 
   = devise_error_messages!
 
-  %div.form_content
+  .form_content
     = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
       
-      %div.field_wrapper
+      .field_wrapper
         = f.label :login
         = f.text_field :login
 
-      %div.field_wrapper
+      .field_wrapper
         = f.submit("Reset", {class: "button small green"})
 
-    %div.links_wrapper
+    .links_wrapper
       = render partial: "devise/shared/links"
