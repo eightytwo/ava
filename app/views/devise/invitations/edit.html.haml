@@ -4,8 +4,18 @@
   = devise_error_messages!
 
   .form_content
-    = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => { :method => :put } do |f|
+    = form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f|
       = f.hidden_field :invitation_token
+
+      .field_wrapper
+        = f.label :first_name
+        .field_tip (optional)
+        = f.text_field :first_name
+      
+      .field_wrapper
+        = f.label :last_name
+        .field_tip (optional)
+        = f.text_field :last_name
 
       .field_wrapper
         = f.label :username

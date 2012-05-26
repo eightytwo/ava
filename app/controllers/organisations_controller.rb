@@ -18,6 +18,7 @@ class OrganisationsController < ApplicationController
   def show
     @admins = @organisation.users.where("organisation_users.admin = true").order(:username)
     @members = @organisation.users.where("organisation_users.admin = false").order(:username)
+    @folios = @organisation.folios.order(:name)
   end
 
   # GET /organisations/1/edit

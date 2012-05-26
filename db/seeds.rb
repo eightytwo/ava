@@ -7,10 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Create my user.
-admin = User.create(email: 'admin@null.net',
-                    username: 'piers',
+admin = User.create(email: 'art@admins.com',
+                    username: 'art',
                     password: 'foobar',
-                    password_confirmation: 'foobar')
+                    password_confirmation: 'foobar',
+                    first_name: 'Arthur',
+                    last_name: 'Admin')
 
 # Set myself as an administrator.
 admin.admin = true

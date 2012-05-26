@@ -4,8 +4,7 @@
   = devise_error_messages!
 
   .form_content
-    = form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f|
-
+    = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
       .field_wrapper
         = f.label :email
         = f.email_field :email

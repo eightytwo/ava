@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520134649) do
+ActiveRecord::Schema.define(:version => 20120526051102) do
 
   create_table "folio_roles", :force => true do |t|
     t.string   "name",        :null => false
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(:version => 20120520134649) do
     t.boolean  "invitation_organisation_admin"
     t.integer  "invitation_folio_id"
     t.integer  "invitation_folio_role_id"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

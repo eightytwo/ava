@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for the model.
   attr_accessible :username, :email, :password, :password_confirmation,
-                  :remember_me, :invitation_organisation_id,
-                  :invitation_organisation_admin, :invitation_folio_id,
-                  :invitation_folio_role_id
+                  :first_name, :last_name, :remember_me,
+                  :invitation_organisation_id, :invitation_organisation_admin,
+                  :invitation_folio_id, :invitation_folio_role_id
 
   # Virtual attribute for authenticating by either username or email.
   attr_accessor :login
@@ -67,6 +67,28 @@ class User < ActiveRecord::Base
     self.invitation_folio_id = nil
     self.invitation_folio_role_id = nil
     self.save!
+  end
+
+  # The name of the user for their greeting which will be either their
+  # first name if set otherwise their username.
+  #
+  def greeting_name
+    if self.first_name.nil? or self.first_name.blank?
+      self.username
+    else
+      self.first_name
+    end
+  end
+
+  # The full name of the user. The username is returned if the user has
+  # not provided a first name.
+  #
+  def full_name
+    if self.first_name.nil? or self.first_name.blank?
+      self.username
+    else
+      [self.first_name, self.last_name].join(" ")
+    end
   end
 
   # Returns true if the user belongs to an organisation, otherwise false.
