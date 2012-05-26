@@ -84,7 +84,8 @@ class User < ActiveRecord::Base
   # not provided a first name.
   #
   def full_name
-    if self.first_name.nil? or self.first_name.blank?
+    if self.first_name.nil? or self.first_name.blank? or
+       self.last_name.nil? or self.last_name.blank?
       self.username
     else
       [self.first_name, self.last_name].join(" ")
