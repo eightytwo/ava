@@ -54,10 +54,11 @@ ActiveRecord::Schema.define(:version => 20120520134649) do
   add_index "organisation_users", ["user_id"], :name => "index_organisation_users_on_user_id"
 
   create_table "organisations", :force => true do |t|
-    t.string   "name",       :null => false
+    t.string   "name",        :null => false
+    t.string   "description", :null => false
     t.string   "website"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "rounds", :force => true do |t|

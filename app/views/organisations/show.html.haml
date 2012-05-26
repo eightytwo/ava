@@ -1,11 +1,14 @@
 #full_width
-  %h2= @organisation.name
+  %h2
+    = @organisation.name
+    .right= link_to('edit', edit_organisation_path(@organisation), {class: "regular"})
 
   #content
-    - if @organisation_admin
-      = link_to 'Edit organisation details', edit_organisation_path(@organisation)
-      %br
-      %br
+    #organisation_summary
+      %p.italic= @organisation.description
+      -if !@organisation.website.nil?
+        %p
+          = link_to @organisation.website
 
     .right
       %table.slave{cellspacing: "0"}

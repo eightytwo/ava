@@ -1,9 +1,10 @@
 class Organisation < ActiveRecord::Base
   has_many :organisation_users
-  has_many :users, :through => :organisation_users
+  has_many :users, through: :organisation_users
   has_many :folios
 
-  attr_accessible :name, :website
+  attr_accessible :name, :description, :website
 
-  validates :name, :presence => true
+  validates :name, presence: true
+  validates :description, presence: true
 end

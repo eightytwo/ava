@@ -87,9 +87,9 @@ header {
     font-size: 14px;
     font-weight: bold;
 
-    a:link, a:active, a:visited, a:hover {
-      font-size: 14px;
-      font-weight: bold;      
+    a.regular {
+      font-size: 12px;
+      font-weight: normal;
     }
   }
 
@@ -205,11 +205,11 @@ tr {
 }
 
 tr.even {
-  background-color: #f9f9f9;
+  background-color: #f4f4f4;
 }
 
 tr.odd {
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
 }
 
 tr.category {
@@ -505,8 +505,8 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   clear: both;
 }
 
-.mono {
-  font-family: monospace;
+.italic {
+  font-style: italic;
 }
 
 .right {
@@ -515,4 +515,14 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
 .text_right {
   text-align: right;
+}
+
+
+/*----- Organisation styles -----*/
+#organisation_summary {
+  margin-bottom: 16px;
+  
+  p {
+    margin-bottom: 8px;
+  }
 }
