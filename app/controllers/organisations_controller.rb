@@ -16,8 +16,10 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   def show
-    @admins = @organisation.users.where("organisation_users.admin = true").order(:username)
-    @members = @organisation.users.where("organisation_users.admin = false").order(:username)
+    @admins = @organisation.users.where("organisation_users.admin = true")
+                                 .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
+    @members = @organisation.users.where("organisation_users.admin = false")
+                                  .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
     @folios = @organisation.folios.order(:name)
   end
 

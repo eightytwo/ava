@@ -14,6 +14,9 @@ gem 'devise_invitable', '~> 1.0.0'
 # Foreign key support
 gem 'foreigner'
 
+# Insert null into db instead of empty strings
+gem "nilify_blanks"
+
 # Gems used only for assets and not required in production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

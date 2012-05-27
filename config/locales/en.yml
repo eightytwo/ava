@@ -17,7 +17,10 @@ en:
       submit: "Save"
       update: "Update"
 
-  formerror:
+  form_error:
     title:
       one: "Sorry, an error was found on the form."
       other: "Sorry, errors were found on the form."
+
+    edit_user:
+      first_name: "must be set if supplying a last name"

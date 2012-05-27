@@ -1,7 +1,8 @@
 #full_width
   %h2
     = @organisation.name
-    .right= link_to('edit', edit_organisation_path(@organisation), {class: "regular"})
+    - if @organisation_admin
+      .right= link_to('edit', edit_organisation_path(@organisation), {class: "regular"})
 
   #content
     #organisation_summary
@@ -40,9 +41,9 @@
             %td= folio.description
             - if @organisation_admin
               %td.text_right
-                = link_to 'Edit', edit_folio_path(folio)
+                = link_to 'edit', edit_folio_path(folio)
                 = "&nbsp&nbsp".html_safe
-                = link_to 'Remove', folio, :confirm => 'Are you sure? All rounds and audio visuals within these rounds will be removed!', :method => :delete
+                = link_to 'remove', folio, :confirm => 'Are you sure? All rounds and audio visuals within these rounds will be removed!', :method => :delete
       - else
         %tr
           %td{colspan: @organisation_admin ? "3" : "2"} No folios have been setup.

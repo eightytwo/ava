@@ -5,9 +5,12 @@ class FoliosController < ApplicationController
 
   # GET /folios/1
   def show
-    @admins = @folio.users.where("folio_role_id = 3").order(:username)
-    @contributors = @folio.users.where("folio_role_id = 2").order(:username)
-    @viewers = @folio.users.where("folio_role_id = 1").order(:username)
+    @admins = @folio.users.where("folio_role_id = 3")
+                          .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
+    @contributors = @folio.users.where("folio_role_id = 2")
+                                .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
+    @viewers = @folio.users.where("folio_role_id = 1")
+                           .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
   end
 
   # GET /folios/new?oid=1
