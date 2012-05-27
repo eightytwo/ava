@@ -17,10 +17,130 @@ en:
       submit: "Save"
       update: "Update"
 
-  form_error:
-    title:
+  links:
+    back: "Back"
+    delete: "remove"
+    edit: "edit"
+    invite: "invite"
+    login: "login"
+    logout: "logout"
+    new: "new"
+
+  menu:
+    about: "about"
+    account: "My Account"
+    contact: "contact"
+    folios: "My Folios"
+    greeting: "Hello"
+    home: "home"
+    logout: "Logout"
+    upload: "Upload"
+
+  form:
+    error_title:
       one: "Sorry, an error was found on the form."
       other: "Sorry, errors were found on the form."
+    tips:
+      optional: "(optional)"
 
-    edit_user:
+  invitation:
+    create:
+      title: "Invite a Member"
+      submit: "Send Invitation"
+      labels:
+        organisation: "Organisation"
+        organisation_admin: "Organisation Administrator"
+        folio: "Folio"
+        folio_role: "Folio Role"
+      errors:
+        folio_required: "must be supplied"
+    accept:
+      title: "Create Your Account"
+      submit: "Create"
+
+  login:
+    title: "Login"
+    submit: "Login"
+
+  register_account:
+    title: "Register"
+    submit: "Register"
+
+  confirm_account:
+    title: "Resend Confirmation Instructions"
+    submit: "Resend"
+
+  edit_account:
+    title: "Edit Account"
+    submit: "Update"
+    tips:
+      old_password: "(leave blank if not changing)"
+      current_password: "(required to confirm your changes)"
+    errors:
       first_name: "must be set if supplying a last name"
+
+  cancel_account:
+    title: "Cancel Account"
+    link: "Cancel my account"
+    confirm: "Are you sure?"
+
+  change_password:
+    title: "Change Password"
+    submit: "Change"
+    labels:
+      password: "New password"
+      confirm_password: "Confirm new password"
+
+  forgot_password:
+    title: "Forgot Your Password"
+    submit: "Reset"
+
+  unlock_account:
+    title: "Resend Unlock Instructions"
+    submit: "Resend"
+
+  organisation:
+    edit:
+      title: "Edit Organisation"
+    update:
+      success: "Organisation was successfully updated."
+    show:
+      members:
+        title: "Members"
+        administrators: "Administrators"
+        members: "Members"
+      folios:
+        title: "Folios"
+        delete_confirm: "Are you sure? All rounds and audio visuals within these rounds will be removed!"
+        no_folios: "No folios have been setup."
+
+  folio:
+    new:
+      title: "New Folio"
+    edit:
+      title: "Edit Folio"
+    create:
+      success: "Folio was successfully created."
+    update:
+      success: "Folio was successfully updated."
+    show:
+      members:
+        title: "Members"
+        administrators: "Administrators"
+        contributors: "Contributors"
+        viewers: "Viewers"
+        no_members: "This folio has no members."
+      rounds:
+        title: "Rounds"
+        delete_confirm: "Are you sure? All audio visuals in this round will be removed!"
+        no_rounds: "No rounds have been setup."
+
+  round:
+    new:
+      title: "New Round"
+    edit:
+      title: "Edit Round"
+    create:
+      success: "Round was successfully created."
+    update:
+      success: "Round was successfully updated."

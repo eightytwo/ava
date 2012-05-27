@@ -27,7 +27,7 @@ class FoliosController < ApplicationController
     @folio = Folio.new(params[:folio])
 
     if @folio.save
-      redirect_to @folio, notice: 'Folio was successfully created.'
+      redirect_to @folio, notice: I18n.t("folio.create.success")
     else
       render action: "new"
     end    
@@ -36,7 +36,7 @@ class FoliosController < ApplicationController
   # PUT /folios/1
   def update
     if @folio.update_attributes(params[:folio])
-      redirect_to @organisation, notice: 'Folio was successfully updated.'
+      redirect_to @organisation, notice: I18n.t("folio.update.success")
     else
       render action: "edit"
     end

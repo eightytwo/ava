@@ -1,5 +1,5 @@
 .form_wrapper
-  %h3 Resend confirmation instructions
+  %h3= t("confirm_account.title")
 
   = devise_error_messages!
 
@@ -10,7 +10,7 @@
         = f.text_field :login
 
       .field_wrapper
-        = f.submit("Resend", {class: "button small green"})
+        = f.submit(t("confirm_account.submit"), {class: "button small green"})
 
     .links_wrapper
       = render partial: "devise/shared/links"

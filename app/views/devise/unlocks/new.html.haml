@@ -1,5 +1,5 @@
 .form_wrapper
-  %h3 Resend Unlock Instructions
+  %h3= t("unlock_account.title")
 
   = devise_error_messages!
 
@@ -10,7 +10,7 @@
         = f.email_field :email
 
       .field_wrapper
-        = f.submit("Resend", {class: "button small green"})
+        = f.submit(t("unlock_account.submit"), {class: "button small green"})
 
     .links_wrapper
       = render partial: "devise/shared/links"

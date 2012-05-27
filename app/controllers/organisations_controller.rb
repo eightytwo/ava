@@ -30,7 +30,7 @@ class OrganisationsController < ApplicationController
   # PUT /organisations/1
   def update
     if @organisation.update_attributes(params[:organisation])
-      redirect_to @organisation, notice: 'Organisation was successfully updated.'
+      redirect_to @organisation, notice: I18n.t("organisation.update.success")
     else
       render action: "edit"
     end

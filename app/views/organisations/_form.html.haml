@@ -1,6 +1,6 @@
 - if @organisation.errors.any?
   #error_explanation
-    %h2= t("form_error.title", :count => @organisation.errors.count)
+    %h2= t("form.error_title", :count => @organisation.errors.count)
 
     %ul
     - @organisation.errors.full_messages.each do |msg|
@@ -24,4 +24,4 @@
       = f.submit({class: "button small green"})
   
   .links_wrapper
-    = link_to 'Back', @organisation
+    = link_to t("links.back"), @organisation

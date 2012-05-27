@@ -1,6 +1,6 @@
 - if @round.errors.any?
   #error_explanation
-    %h2= t("form_error.title", :count => @round.errors.count)
+    %h2= t("form.error_title", :count => @round.errors.count)
 
     %ul
       - @round.errors.full_messages.each do |msg|
@@ -26,4 +26,4 @@
       = f.submit({class: "button small green"})
 
   .links_wrapper
-    = link_to 'Back', @folio
+    = link_to t("links.back"), @folio

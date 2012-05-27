@@ -1,5 +1,5 @@
 .form_wrapper
-  %h3 Register
+  %h3= t("register_account.title")
 
   = devise_error_messages!
 
@@ -7,12 +7,12 @@
     = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       .field_wrapper
         = f.label :first_name
-        .field_tip (optional)
+        .field_tip= t("form.tips.optional")
         = f.text_field :first_name
       
       .field_wrapper
         = f.label :last_name
-        .field_tip (optional)
+        .field_tip= t("form.tips.optional")
         = f.text_field :last_name
 
       .field_wrapper
@@ -32,7 +32,7 @@
         = f.password_field :password_confirmation
 
       .field_wrapper
-        = f.submit("Register", class: "button small green")
+        = f.submit(t("register_account.submit"), class: "button small green")
 
     .links_wrapper
       = render partial: "devise/shared/links"

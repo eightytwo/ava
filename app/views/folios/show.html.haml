@@ -8,32 +8,32 @@
     .right
       %table.slave{cellspacing: "0"}
         %tr
-          %th Members
+          %th= t("folio.show.members.title")
           - if @folio_admin
             %th.text_right= link_to "add", new_user_invitation_path
 
         - if @folio.users.count > 0
           - if @admins.count > 0
             %tr.category
-              %td.thin Administrators
+              %td.thin= t("folio.show.members.administrators")
             = render partial: "member", collection: @admins
 
           - if @contributors.count > 0
             %tr.category
-              %td.thin Contributors
+              %td.thin= t("folio.show.members.contributors")
             = render partial: "member", collection: @contributors
 
           - if @viewers.count > 0
             %tr.category
-              %td.thin Viewers
+              %td.thin= t("folio.show.members.viewers")
             = render partial: "member", collection: @viewers
         - else
           %tr
-            %td{colspan: @folio_admin && "2"} This folio has no members.
+            %td{colspan: @folio_admin && "2"}= t("folio.show.members.no_members")
 
     %table.master{cellspacing: "0"}
       %tr
-        %th{colspan: "3"} Rounds
+        %th{colspan: "3"}= t("folio.show.rounds.title")
         - if @folio_admin
           %th.text_right= link_to 'new', new_round_path(fid: @folio.id)
         
@@ -45,11 +45,11 @@
             %td= l(round.end_date)
             - if @folio_admin
               %td.text_right
-                = link_to 'Edit', edit_round_path(round)
+                = link_to t("links.edit"), edit_round_path(round)
                 = "&nbsp&nbsp".html_safe
-                = link_to 'Remove', round, :confirm => 'Are you sure? All audio visuals in this round will be removed!', :method => :delete
+                = link_to t("links.delete"), round, :confirm => t("folio.show.rounds.delete_confirm"), :method => :delete
       - else
         %tr
-          %td{colspan: @folio_admin ? "4" : "3"} No rounds have been setup.
+          %td{colspan: @folio_admin ? "4" : "3"}= t("folio.show.rounds.no_rounds")
 
     .clear

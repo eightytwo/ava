@@ -1,5 +1,5 @@
 .form_wrapper
-  %h3 Login
+  %h3= t("login.title")
 
   = devise_error_messages!
 
@@ -19,7 +19,7 @@
           = f.check_box :remember_me
 
       .field_wrapper
-        = f.submit("Login", class: "button small green")
+        = f.submit(t("login.submit"), class: "button small green")
 
     .links_wrapper
       = render partial: "devise/shared/links"

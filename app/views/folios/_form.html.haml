@@ -1,6 +1,6 @@
 - if @folio.errors.any?
   #error_explanation
-    %h2= t("form_error.title", :count => @folio.errors.count)
+    %h2= t("form.error_title", :count => @folio.errors.count)
 
     %ul
     - @folio.errors.full_messages.each do |msg|

@@ -16,11 +16,11 @@
       %nav
         %ul
           %li
-            %a{href: "/", title: "Home"} home
+            %a{href: "/", title: "Home"}= t("menu.home")
           %li
-            %a{href: "/about", title: "About"} about
+            %a{href: "/about", title: "About"}= t("menu.about")
           %li
-            %a{href: "/contact", title: "Contact"} contact
+            %a{href: "/contact", title: "Contact"}= t("menu.contact")
 
       %header
         %span.site_heading AudioVisualArcade
@@ -34,24 +34,25 @@
           - if user_signed_in?
             #account_dd_button
               #account_dd_content
-                Hello #{h current_user.greeting_name}
+                = t("menu.greeting")
+                #{h current_user.greeting_name}
               #account_dd_divider
               #account_dd_arrow
             #account_dd_menu
               %ul
                 %li
-                  = link_to "My Account", edit_user_registration_path, {title: "Edit my account"}
+                  = link_to t("menu.account"), edit_user_registration_path, {title: "Edit my account"}
                 - if current_user.organisations?
                   %li
-                    = link_to "My Folios", organisations_path, {title: "View my folios"}
+                    = link_to t("menu.folios"), organisations_path, {title: "View my folios"}
                 %li
-                  %a{href: "/upload", title: "Upload an audio visual"} Upload
+                  %a{href: "/upload", title: "Upload an audio visual"}= t("menu.upload")
                 %li
-                  = link_to "Logout", destroy_user_session_path, {method: :delete, title: "Logout"}
+                  = link_to t("menu.logout"), destroy_user_session_path, {method: :delete, title: "Logout"}
                 
           - else
             #login_link
-              = link_to "login", new_user_session_path, {title: "Login"}
+              = link_to t("links.login"), new_user_session_path, {title: "Login"}
 
       #content
         - if flash[:notice]

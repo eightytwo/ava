@@ -162,7 +162,7 @@ class User < ActiveRecord::Base
   def last_name_if_first_name_exists
     if !(self.last_name.nil? or self.last_name.blank?) and
        (self.first_name.nil? or self.first_name.blank?)
-      errors.add(:first_name, I18n.t("form_error.edit_user.first_name"))
+      errors.add(:first_name, I18n.t("edit_account.errors.first_name"))
     end
   end
 end

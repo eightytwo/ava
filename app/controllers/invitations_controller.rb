@@ -15,7 +15,7 @@ class InvitationsController < Devise::InvitationsController
 
        # Construct the resource and add the error message.
        self.resource = build_resource
-       self.resource.errors.add(:folio, "must be supplied")
+       self.resource.errors.add(:folio, I18n.t("invitation.create.errors.folio_required"))
        respond_with_navigational(resource) { render :new }
     else
       super

@@ -21,7 +21,7 @@ class RoundsController < ApplicationController
     @round = Round.new(params[:round])
 
     if @round.save
-      redirect_to @round, notice: 'Round was successfully created.'
+      redirect_to @round, notice: I18n.t("round.create.success")
     else
       render action: "new"
     end
@@ -30,7 +30,7 @@ class RoundsController < ApplicationController
   # PUT /rounds/1
   def update
     if @round.update_attributes(params[:round])
-      redirect_to @folio, notice: 'Round was successfully updated.'
+      redirect_to @folio, notice: I18n.t("round.updated.success")
     else
       render action: "edit"
     end

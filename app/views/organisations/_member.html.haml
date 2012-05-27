@@ -4,6 +4,6 @@
 
   - if @organisation_admin
     %td.thin.text_right
-      = link_to 'edit'#, edit_organisation_user_path(member)
+      = link_to t("links.edit")#, edit_organisation_user_path(member)
       = "&nbsp&nbsp".html_safe
-      = link_to 'remove'#, member, :confirm => 'Are you sure?', :method => :delete
+      = link_to t("links.delete")#, member, :confirm => 'Are you sure?', :method => :delete

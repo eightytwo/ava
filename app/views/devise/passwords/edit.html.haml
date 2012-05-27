@@ -1,5 +1,5 @@
 .form_wrapper
-  %h3 Change Your Password
+  %h3= t("change_password.title")
 
   = devise_error_messages!
 
@@ -8,15 +8,15 @@
       = f.hidden_field :reset_password_token
 
       .field_wrapper
-        = f.label :password, "New password"
+        = f.label :password, t("change_password.labels.password")
         = f.password_field :password
 
       .field_wrapper
-        = f.label :password_confirmation, "Confirm new password"
+        = f.label :password_confirmation, t("change_password.labels.confirm_password")
         = f.password_field :password_confirmation
 
       .field_wrapper
-        = f.submit("Change", {class: "button small green"})
+        = f.submit(t("change_password.submit"), {class: "button small green"})
 
     .links_wrapper
       = render partial: "devise/shared/links"

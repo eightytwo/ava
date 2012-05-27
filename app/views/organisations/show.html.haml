@@ -2,7 +2,7 @@
   %h2
     = @organisation.name
     - if @organisation_admin
-      .right= link_to('edit', edit_organisation_path(@organisation), {class: "regular"})
+      .right= link_to(t("links.edit"), edit_organisation_path(@organisation), {class: "regular"})
 
   #content
     #organisation_summary
@@ -14,25 +14,25 @@
     .right
       %table.slave{cellspacing: "0"}
         %tr
-          %th Members
+          %th= t("organisation.show.members.title")
           - if @organisation_admin
-            %th.text_right= link_to "invite", new_user_invitation_path
+            %th.text_right= link_to t("links.invite"), new_user_invitation_path
         
         - if @admins.count > 0
           %tr.category
-            %td.thin Administrators
+            %td.thin= t("organisation.show.members.administrators")
           = render partial: "member", collection: @admins
 
         - if @members.count > 0
           %tr.category
-            %td.thin Members
+            %td.thin= t("organisation.show.members.members")
           = render partial: "member", collection: @members
 
     %table.master{cellspacing: "0"}
       %tr
-        %th{colspan: "2"} Folios
+        %th{colspan: "2"}= t("organisation.show.folios.title")
         - if @organisation_admin
-          %th.text_right= link_to 'new', new_folio_path(oid: @organisation.id)
+          %th.text_right= link_to t("links.new"), new_folio_path(oid: @organisation.id)
 
       - if @folios.count > 0
         - @folios.each do |folio|
@@ -41,11 +41,11 @@
             %td= folio.description
             - if @organisation_admin
               %td.text_right
-                = link_to 'edit', edit_folio_path(folio)
+                = link_to t("links.edit"), edit_folio_path(folio)
                 = "&nbsp&nbsp".html_safe
-                = link_to 'remove', folio, :confirm => 'Are you sure? All rounds and audio visuals within these rounds will be removed!', :method => :delete
+                = link_to t("links.delete"), folio, confirm: t("organisation.show.folios.delete_confirm"), method: :delete
       - else
         %tr
-          %td{colspan: @organisation_admin ? "3" : "2"} No folios have been setup.
+          %td{colspan: @organisation_admin ? "3" : "2"}= t("organisation.show.folios.no_folios")
 
     .clear
