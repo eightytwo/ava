@@ -51,8 +51,6 @@ class RoundsController < ApplicationController
       .includes(:folio)
       .joins(:folio)
       .where(id: params[:id]).first
-      # .joins(:organisation)
-      # .includes(:organisation)
 
     if !@round.nil?
       membership_summary = current_user.organisation_membership_summary(

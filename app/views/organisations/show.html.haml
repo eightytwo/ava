@@ -21,11 +21,13 @@
         - if @admins.count > 0
           %tr.category
             %td.thin= t("organisation.show.members.administrators")
+          - reset_cycle()
           = render partial: "member", collection: @admins
 
         - if @members.count > 0
           %tr.category
             %td.thin= t("organisation.show.members.members")
+          - reset_cycle()
           = render partial: "member", collection: @members
 
     - reset_cycle()
