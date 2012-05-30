@@ -10,9 +10,9 @@
         %tr
           %th= t("folio.show.members.title")
           - if @folio_admin
-            %th.text_right= link_to "add", new_user_invitation_path
+            %th.text_right= link_to "add", new_folio_user_path(fid: @folio.id)
 
-        - if @folio.users.count > 0
+        - if @admins.count + @contributors.count + @viewers.count > 0
           - if @admins.count > 0
             %tr.category
               %td.thin= t("folio.show.members.administrators")
@@ -31,15 +31,17 @@
           %tr
             %td{colspan: @folio_admin && "2"}= t("folio.show.members.no_members")
 
+    - reset_cycle()
+
     %table.master{cellspacing: "0"}
       %tr
         %th{colspan: "3"}= t("folio.show.rounds.title")
         - if @folio_admin
           %th.text_right= link_to 'new', new_round_path(fid: @folio.id)
         
-      - if @folio.rounds.count > 0
-        - @folio.rounds.each do |round|
-          %tr{class: cycle("even", "odd")}
+      - if @rounds.count > 0
+        - @rounds.each do |round|
+          %tr{class: cycle("odd", "even")}
             %td= link_to round.name, round
             %td= l(round.start_date)
             %td= l(round.end_date)
@@ -47,7 +49,7 @@
               %td.text_right
                 = link_to t("links.edit"), edit_round_path(round)
                 = "&nbsp&nbsp".html_safe
-                = link_to t("links.delete"), round, :confirm => t("folio.show.rounds.delete_confirm"), :method => :delete
+                = link_to t("links.delete"), round, :confirm => t("round.delete.confirm"), :method => :delete
       - else
         %tr
           %td{colspan: @folio_admin ? "4" : "3"}= t("folio.show.rounds.no_rounds")

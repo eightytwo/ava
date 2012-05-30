@@ -31,7 +31,7 @@ en:
     account: "My Account"
     contact: "contact"
     folios: "My Folios"
-    greeting: "Hello"
+    greeting: "Hello %{name}"
     home: "home"
     logout: "Logout"
     upload: "Upload"
@@ -100,10 +100,6 @@ en:
     submit: "Resend"
 
   organisation:
-    edit:
-      title: "Edit Organisation"
-    update:
-      success: "Organisation was successfully updated."
     show:
       members:
         title: "Members"
@@ -111,18 +107,13 @@ en:
         members: "Members"
       folios:
         title: "Folios"
-        delete_confirm: "Are you sure? All rounds and audio visuals within these rounds will be removed!"
         no_folios: "No folios have been setup."
+    edit:
+      title: "Edit Organisation"
+    update:
+      success: "Organisation was successfully updated."
 
   folio:
-    new:
-      title: "New Folio"
-    edit:
-      title: "Edit Folio"
-    create:
-      success: "Folio was successfully created."
-    update:
-      success: "Folio was successfully updated."
     show:
       members:
         title: "Members"
@@ -132,15 +123,58 @@ en:
         no_members: "This folio has no members."
       rounds:
         title: "Rounds"
-        delete_confirm: "Are you sure? All audio visuals in this round will be removed!"
         no_rounds: "No rounds have been setup."
+    new:
+      title: "New Folio"
+    create:
+      success: "Folio was successfully created."
+    edit:
+      title: "Edit Folio"
+    update:
+      success: "Folio was successfully updated."
+    delete:
+      confirm: "Are you sure? All rounds and audio visuals within these rounds will be removed!"
+      success: "Folio successfully removed."
 
   round:
     new:
       title: "New Round"
-    edit:
-      title: "Edit Round"
     create:
       success: "Round was successfully created."
+    edit:
+      title: "Edit Round"
     update:
       success: "Round was successfully updated."
+    delete:
+      confirm: "Are you sure? All audio visuals in this round will be removed!"
+      success: "Round was successfully removed."
+
+  organisation_user:
+    edit:
+      title: "Editing %{name}"
+      labels:
+        administrator: "Administrator"
+    update:
+      success: "Organisation user was successfully updated."
+      errors:
+        no_admin: "Unable to remove administrator rights from user as this would leave no administrators."
+    delete:
+      confirm: "Are you sure?"
+      success: "Organisation user was successfully removed."
+
+  folio_user:
+    new:
+      title: "New Folio User"
+    create:
+      success: "Folio user was successfully created."
+    edit:
+      title: "Edit Folio User"
+    update:
+      success: "Folio user was successfully updated."
+    delete:
+      confirm: "Are you sure?"
+      success: "Folio user was successfully removed."
+    labels:
+      folio: "Folio"
+      user: "Member"
+      folio_role: "Role"

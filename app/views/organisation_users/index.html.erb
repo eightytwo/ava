@@ -1,0 +1,21 @@
+<h1>Listing organisation_users</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @organisation_users.each do |organisation_user| %>
+  <tr>
+    <td><%= link_to 'Show', organisation_user %></td>
+    <td><%= link_to 'Edit', edit_organisation_user_path(organisation_user) %></td>
+    <td><%= link_to 'Destroy', organisation_user, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Organisation user', new_organisation_user_path %>

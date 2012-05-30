@@ -1,9 +1,11 @@
-%tr{class: cycle("even", "odd")}
+- reset_cycle()
+
+%tr{class: cycle("odd", "even")}
   %td.thin
-    = member.organisation_display_name
+    = member.user.organisation_display_name
 
   - if @organisation_admin
     %td.thin.text_right
-      = link_to t("links.edit")#, edit_organisation_user_path(member)
+      = link_to t("links.edit"), edit_organisation_user_path(member)
       = "&nbsp&nbsp".html_safe
-      = link_to t("links.delete")#, member, :confirm => 'Are you sure?', :method => :delete
+      = link_to t("links.delete"), member, confirm: t("organisation_user.delete.confirm"), method: :delete

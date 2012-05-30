@@ -1,8 +1,7 @@
 class Round < ActiveRecord::Base
   belongs_to :folio
 
-  attr_accessible :end_date, :name, :start_date, :folio_id, :folio
-  accepts_nested_attributes_for :folio
+  attr_accessible :end_date, :name, :start_date, :folio_id
 
   validates :name, presence: true
   validates :folio, presence: true

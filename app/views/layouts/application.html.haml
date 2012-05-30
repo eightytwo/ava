@@ -34,8 +34,7 @@
           - if user_signed_in?
             #account_dd_button
               #account_dd_content
-                = t("menu.greeting")
-                #{h current_user.greeting_name}
+                = t("menu.greeting", name: current_user.greeting_name)
               #account_dd_divider
               #account_dd_arrow
             #account_dd_menu

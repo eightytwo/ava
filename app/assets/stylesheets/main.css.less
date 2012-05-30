@@ -80,12 +80,19 @@ header {
   border-radius: 4px;
   background-color: #fff;
   text-align: left;
+  box-shadow: 1px  1px rgba(205, 205, 205, 0.2),
+             -1px -1px rgba(205, 205, 205, 0.2);
 
   h2 {
     padding: 16px;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     font-weight: bold;
+
+    a {
+      font-size: 14px;
+      font-weight: bold;
+    }
 
     a.regular {
       font-size: 12px;
@@ -150,8 +157,8 @@ input[type='checkbox'] {
   width: 300px;
   background-color: #fff;
   text-align: left;
-  box-shadow: -1px -1px 2px rgba(230, 230, 230, 0.8),
-               1px  1px 2px rgba(230, 230, 230, 0.8);
+  box-shadow: 1px  1px rgba(205, 205, 205, 0.2),
+             -1px -1px rgba(205, 205, 205, 0.2);
 
   h3 {
     padding: 16px;
@@ -204,12 +211,12 @@ tr {
   padding: 16px;
 }
 
-tr.even {
-  background-color: #f4f4f4;
-}
-
 tr.odd {
   background-color: #f9f9f9;
+}
+
+tr.even {
+  background-color: #f4f4f4;
 }
 
 tr.category {

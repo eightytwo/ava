@@ -16,11 +16,23 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   def show
-    @admins = @organisation.users.where("organisation_users.admin = true")
-                                 .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
-    @members = @organisation.users.where("organisation_users.admin = false")
-                                  .order("LOWER(COALESCE(first_name||last_name, first_name, username))")
-    @folios = @organisation.folios.order(:name)
+    @admins, @members = [], []
+
+    # Get the members of this organisation and some of their user details
+    # in one hit.
+    organisation_users = OrganisationUser
+      .includes(:user)
+      .joins(:user)
+      .where(organisation_id: @organisation)      
+      .order("LOWER(COALESCE(users.first_name||users.last_name, users.first_name, users.username))")
+
+    # Separate the administrators and members into their own arrays.
+    organisation_users.each do |u|
+      u.admin ? @admins.append(u) : @members.append(u)
+    end
+
+    # Get the folios of the organisation.
+    @folios = Folio.where(organisation_id: @organisation).order(:name).all
   end
 
   # GET /organisations/1/edit
@@ -42,10 +54,18 @@ class OrganisationsController < ApplicationController
   def ensure_organisation_member
     @organisation = Organisation.find_by_id(params[:id])
 
-    if @organisation.nil? or !current_user.member_of_organisation?(@organisation)
+    if @organisation.nil?
       redirect_to root_url
     else
-      @organisation_admin = current_user.admin_of_organisation?(@organisation)
+      # Get the current user's membership in this organisation.
+      organisation_user = OrganisationUser.find_by_organisation_and_user(
+        @organisation, current_user)
+
+      if organisation_user.nil?
+        redirect_to root_url
+      else
+        @organisation_admin = organisation_user.admin
+      end
     end
   end
 

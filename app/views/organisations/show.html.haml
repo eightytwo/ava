@@ -28,6 +28,8 @@
             %td.thin= t("organisation.show.members.members")
           = render partial: "member", collection: @members
 
+    - reset_cycle()
+
     %table.master{cellspacing: "0"}
       %tr
         %th{colspan: "2"}= t("organisation.show.folios.title")
@@ -36,14 +38,14 @@
 
       - if @folios.count > 0
         - @folios.each do |folio|
-          %tr{class: cycle("even", "odd")}
+          %tr{class: cycle("odd", "even")}
             %td= link_to folio.name, folio
             %td= folio.description
             - if @organisation_admin
               %td.text_right
                 = link_to t("links.edit"), edit_folio_path(folio)
                 = "&nbsp&nbsp".html_safe
-                = link_to t("links.delete"), folio, confirm: t("organisation.show.folios.delete_confirm"), method: :delete
+                = link_to t("links.delete"), folio, confirm: t("folio.delete.confirm"), method: :delete
       - else
         %tr
           %td{colspan: @organisation_admin ? "3" : "2"}= t("organisation.show.folios.no_folios")

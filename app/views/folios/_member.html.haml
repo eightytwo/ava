@@ -1,3 +1,11 @@
-%tr{class: cycle("even", "odd")}
-  %td.thin{colspan: @folio_admin && "2"}
-    = member.organisation_display_name
+- reset_cycle()
+
+%tr{class: cycle("odd", "even")}
+  %td.thin
+    = member.user.organisation_display_name
+
+  - if @folio_admin
+    %td.thin.text_right
+      = link_to t("links.edit"), edit_folio_user_path(member, fid: @folio.id)
+      = "&nbsp&nbsp".html_safe
+      = link_to t("links.delete"), member, confirm: t("folio_user.delete.confirm"), method: :delete

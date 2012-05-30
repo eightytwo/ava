@@ -35,6 +35,6 @@ organisation = Organisation.create(name: 'APS',
                                    website: 'http://www.aps.org.au')
 
 # Add the user to the organisation.
-organisation_user = OrganisationUser.create(organisation: organisation,
-                                            user: admin,
+organisation_user = OrganisationUser.create(organisation_id: organisation_id,
+                                            user_id: admin.id,
                                             admin: true)

@@ -89,42 +89,40 @@ class User < ActiveRecord::Base
     return self.organisations.where("admin = true")
   end
 
-  # Returns true if the user is a member of a given organisation, otherwise
-  # false.
+  # Returns a summary of the user's membership of a given organisation
+  # and folio.
   #
-  def member_of_organisation?(organisation)
-    return self.organisations.exists?(organisation)
-  end
+  def organisation_membership_summary(organisation, folio)
+    # Setup a default result package.
+    result = {
+      organisation_member: false,
+      organisation_admin: false,
+      folio_member: false,
+      folio_role: nil
+    }
 
-  # Returns true if the user is an administrator of a given organisation,
-  # otherwise false.
-  #
-  def admin_of_organisation?(organisation)
-    return self.organisations.where("organisation_id = ? AND admin = true",
-      organisation.id).count > 0
-  end
+    # Get the id of the folio if supplied, otherwise set to zero.
+    folio_id = folio.nil? ? 0 : folio.id
 
-  # Returns true if the user is a member of a given folio or an administrator
-  # of the folio's organisation, otherwise false.
-  #
-  def member_of_folio?(folio)
-    return (self.folios.exists?(folio) or
-            self.admin_of_organisation?(folio.organisation))
-  end
+    if !organisation.nil?
+      summary = User
+        .select("organisation_users.admin AS organisation_admin, folio_users.folio_role_id AS folio_role")
+        .joins("INNER JOIN organisation_users ON organisation_users.user_id = users.id AND organisation_users.organisation_id = " + organisation.id.to_s)
+        .joins("LEFT JOIN folio_users ON folio_users.user_id = users.id AND folio_users.folio_id = " + folio_id.to_s)
+        .where(id: self.id ).first
 
-  # Returns true if the user is an administrator of a given folio or an
-  # administrator of the folio's organisation, otherwise false.
-  #
-  def admin_of_folio?(folio)
-    # TODO: setup constants for the folio roles,
-    #       mirroring the values in the db.
-    folio_admin = self.folios.where(
-      "folio_id = ? AND folio_role_id = ?",
-      folio.id, 3).count > 0
+      if !summary.nil?
+        result[:organisation_member] = true
+        result[:organisation_admin] = summary.organisation_admin
+        
+        if !summary.folio_role.nil?
+          result[:folio_member] = true
+          result[:folio_role] = summary.folio_role
+        end
+      end
+    end
 
-    organisation_admin = self.admin_of_organisation?(folio.organisation)
-
-    return (folio_admin or organisation_admin)
+    return result
   end
 
   private
@@ -159,6 +157,8 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  # Ensures the user has a first name if a last name has been supplied.
+  #
   def last_name_if_first_name_exists
     if !(self.last_name.nil? or self.last_name.blank?) and
        (self.first_name.nil? or self.first_name.blank?)

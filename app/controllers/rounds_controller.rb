@@ -30,7 +30,7 @@ class RoundsController < ApplicationController
   # PUT /rounds/1
   def update
     if @round.update_attributes(params[:round])
-      redirect_to @folio, notice: I18n.t("round.updated.success")
+      redirect_to @folio, notice: I18n.t("round.update.success")
     else
       render action: "edit"
     end
@@ -39,25 +39,41 @@ class RoundsController < ApplicationController
   # DELETE /rounds/1
   def destroy
     @round.destroy
-    redirect_to @folio
+    redirect_to @folio, notice: I18n.t("round.delete.success")
   end
 
   protected
   # Ensures the current user is a member of the requested folio.
   #
   def ensure_folio_member
-    @round = Round.find_by_id(params[:id])
+    is_member = false
+    @round = Round
+      .includes(:folio)
+      .joins(:folio)
+      .where(id: params[:id]).first
+      # .joins(:organisation)
+      # .includes(:organisation)
 
-    if @round.nil? or !current_user.member_of_folio?(@round.folio)
-      redirect_to root_url
-    else
-      @folio_admin = current_user.admin_of_folio?(@round.folio)
+    if !@round.nil?
+      membership_summary = current_user.organisation_membership_summary(
+        @round.folio.organisation, @round.folio)
+
+      if !membership_summary.nil?
+        organisation_admin = membership_summary[:organisation_admin]
+        folio_role = membership_summary[:folio_role]
+
+        is_member = organisation_admin or !folio_role.nil?
+        @folio_admin = (organisation_admin or (folio_role == 3))
+      end
     end
+
+    redirect_to root_url if !is_member
   end
 
   # Ensures the current user is an administrator of the requested folio.
   #
   def ensure_folio_admin
+    folio_admin = false
     @round = Round.find_by_id(params[:id])
 
     # No round will exist if the user is creating a new one in which case
@@ -69,8 +85,17 @@ class RoundsController < ApplicationController
       @folio = @round.folio
     end
 
-    if @folio.nil? or !current_user.admin_of_folio?(@folio)
-      redirect_to root_url
+    if !@folio.nil?
+      membership_summary = current_user.organisation_membership_summary(
+          @folio.organisation, @folio)
+
+      if !membership_summary.nil? and
+        (membership_summary[:organisation_admin] or
+         membership_summary[:folio_role] == 3)
+        folio_admin = true
+      end
     end
+
+    redirect_to root_url if !folio_admin
   end
 end
