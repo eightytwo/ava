@@ -108,6 +108,8 @@ en:
       folios:
         title: "Folios"
         no_folios: "No folios have been setup."
+      links:
+        audio_visual_categories: "audio visual categories"
     edit:
       title: "Edit Organisation"
     update:
@@ -178,3 +180,19 @@ en:
       folio: "Folio"
       user: "Member"
       folio_role: "Role"
+
+  audio_visual_category:
+    index:
+      title: "Audio Visual Categories"
+      no_categories: "No categories have been setup."
+    new:
+      title: "New Audio Visual Category"
+    create:
+      success: "Audio visual category was successfully created."
+    edit:
+      title: "Edit Audio Visual Category"
+    update:
+      success: "Audio visual category was successfully updated."
+    delete:
+      confirm: "Are you sure?"
+      success: "Audio visual category was successfully removed."

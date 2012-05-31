@@ -1,0 +1,31 @@
+- if @category.errors.any?
+  #error_explanation
+    %h2= t("form.error_title", :count => @category.errors.count)
+
+    %ul
+    - @category.errors.full_messages.each do |msg|
+      %li= msg
+
+.form_content
+  = form_for(@category) do |f|
+    - if params[:action] == "new"
+      = hidden_field_tag 'audio_visual_category[organisation_id]', @organisation.id
+
+      .field_wrapper
+        = f.label :organisation
+        = @organisation.name
+
+    - else
+      .field_wrapper
+        = f.label :organisation
+        = :organisation
+    
+    .field_wrapper
+      = f.label :name
+      = f.text_field :name
+    
+    .field_wrapper
+      = f.submit({class: "button small green"})
+
+    .links_wrapper
+      = link_to 'Back', audio_visual_categories_path(oid: @organisation.id)

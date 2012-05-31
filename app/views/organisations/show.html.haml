@@ -1,13 +1,17 @@
-#full_width
+#container
   %h2
-    = @organisation.name
     - if @organisation_admin
-      .right= link_to(t("links.edit"), edit_organisation_path(@organisation), {class: "regular"})
+      %div.right
+        = link_to(t("links.edit"), edit_organisation_path(@organisation), {class: "regular"})
+        = render "shared/link_separator"
+        = link_to(t("organisation.show.links.audio_visual_categories"), audio_visual_categories_path(oid: @organisation.id), {class: "regular"})
+
+    = @organisation.name
 
   #content
     #organisation_summary
       %p.italic= @organisation.description
-      -if !@organisation.website.nil?
+      - if !@organisation.website.nil?
         %p
           = link_to @organisation.website, @organisation.website
 
@@ -46,7 +50,7 @@
             - if @organisation_admin
               %td.text_right
                 = link_to t("links.edit"), edit_folio_path(folio)
-                = "&nbsp&nbsp".html_safe
+                = render "shared/link_separator"
                 = link_to t("links.delete"), folio, confirm: t("folio.delete.confirm"), method: :delete
       - else
         %tr

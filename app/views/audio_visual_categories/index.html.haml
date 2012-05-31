@@ -1,0 +1,21 @@
+#container.half_width
+  %h2
+    = link_to @organisation.name, @organisation
+
+  #content
+    %table.single{cellspacing: "0"}
+      %tr
+        %th= t("audio_visual_category.index.title")
+        %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: @organisation.id)
+
+      - if @categories.count > 0
+        - @categories.each do |category|
+          %tr{class: cycle("odd", "even")}
+            %td= category.name
+            %td.text_right
+              = link_to t("links.edit"), edit_audio_visual_category_path(category)
+              = render "shared/link_separator"
+              = link_to t("links.delete"), category, confirm: t("audio_visual_category.delete.confirm"), method: :delete
+      - else
+        %tr
+          %td{colspan: "2"}= t("audio_visual_category.index.no_categories")

@@ -5,6 +5,8 @@
 /*----- Variables -----*/
 @defaultFontColour: #444;
 @defaultLinkColour: #444;
+@defaultPadding: 16px;
+@pageWidth: 950px;
 
 
 /*----- Mixins -----*/
@@ -72,11 +74,11 @@ header {
 #page {
   margin: 0px auto;
   padding: 0px;
-  width: 950px;
+  width: @pageWidth;
   text-align: center;
 }
 
-#full_width {
+#container {
   border-radius: 4px;
   background-color: #fff;
   text-align: left;
@@ -84,7 +86,7 @@ header {
              -1px -1px rgba(205, 205, 205, 0.2);
 
   h2 {
-    padding: 16px;
+    padding: @defaultPadding;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     font-weight: bold;
@@ -101,7 +103,7 @@ header {
   }
 
   #content {
-    padding: 16px;
+    padding: @defaultPadding;
   }
 
   .arrow_right {
@@ -111,6 +113,11 @@ header {
     height: 7px;
     background: url(right_arrow.png) no-repeat;
   }
+}
+
+.half_width {
+  margin: 0px auto;
+  width: @pageWidth / 2;
 }
 
 
@@ -161,15 +168,16 @@ input[type='checkbox'] {
              -1px -1px rgba(205, 205, 205, 0.2);
 
   h3 {
-    padding: 16px;
+    padding: @defaultPadding;
     border-bottom: 1px solid #eee;
-    font-size: 16px;
+    font-size: @defaultPadding;
     font-weight: bold;
   }
 }
 
 .form_content {
-  padding: 16px 16px 2px 16px;
+  padding: @defaultPadding;
+  padding-bottom: 2px;
 }
 
 .field_wrapper {
@@ -206,9 +214,13 @@ table.slave {
   width: 250px;
 }
 
+table.single {
+  width: (@pageWidth / 2) - (@defaultPadding * 2);
+}
+
 tr {
   margin: 0px;
-  padding: 16px;
+  padding: @defaultPadding;
 }
 
 tr.odd {
@@ -226,7 +238,7 @@ tr.category {
 
 th {
   margin: 0px;
-  padding: 16px;
+  padding: @defaultPadding;
   border-bottom: 1px solid #909090;
   color: #666666;
   background-color: #eee;
@@ -238,12 +250,12 @@ th {
 }
 
 td {
-  padding: 16px;
+  padding: @defaultPadding;
   border-bottom: 1px solid #eee;
 }
 
 td.thin {
-  padding: 8px 16px;
+  padding: 8px @defaultPadding;
 }
 
 tr:last-child > td {
@@ -278,8 +290,8 @@ tr:last-child > td {
 #account_dd_content {
   float: left;
   padding: 4px 8px;
-  height: 16px;
-  line-height: 16px;
+  height: @defaultPadding;
+  line-height: @defaultPadding;
 }
 
 #account_dd_divider {
@@ -324,7 +336,7 @@ tr:last-child > td {
 
 /*----- Flashes and notifications -----*/
 #error_explanation {
-  margin: 10px 16px 0px 16px;
+  margin: 10px @defaultPadding 0px @defaultPadding;
   padding: 10px;
   background: #ffd7d8;
   border-top: 1px solid #f9bac7;
@@ -527,7 +539,7 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
 /*----- Organisation styles -----*/
 #organisation_summary {
-  margin-bottom: 16px;
+  margin-bottom: @defaultPadding;
   
   p {
     margin-bottom: 8px;

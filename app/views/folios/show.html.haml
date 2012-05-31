@@ -1,4 +1,4 @@
-#full_width
+#container
   %h2
     = link_to @folio.organisation.name, @folio.organisation
     .arrow_right
@@ -51,7 +51,7 @@
             - if @folio_admin
               %td.text_right
                 = link_to t("links.edit"), edit_round_path(round)
-                = "&nbsp&nbsp".html_safe
+                = render "shared/link_separator"
                 = link_to t("links.delete"), round, :confirm => t("round.delete.confirm"), :method => :delete
       - else
         %tr

@@ -5,5 +5,5 @@
   - if @organisation_admin
     %td.thin.text_right
       = link_to t("links.edit"), edit_organisation_user_path(member)
-      = "&nbsp&nbsp".html_safe
+      = render "shared/link_separator"
       = link_to t("links.delete"), member, confirm: t("organisation_user.delete.confirm"), method: :delete

@@ -1,5 +1,4 @@
 Ava::Application.routes.draw do
-
   # While in organisation only mode ensure registrations cannot be made by
   # overriding the user registration post method.
   match "/users" => "home#index", via: :post, as: :user_registration
@@ -23,6 +22,7 @@ Ava::Application.routes.draw do
   resources :rounds, except: [:index]
   resources :organisation_users, only: [:edit, :update, :destroy]
   resources :folio_users, except: [:index, :show]
+  resources :audio_visual_categories, except: :show
 
   get "home/index"
 
