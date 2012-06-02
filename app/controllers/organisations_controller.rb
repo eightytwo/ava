@@ -5,12 +5,12 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations
   def index
-    if current_user.organisations.count == 1
-      redirect_to current_user.organisations[0]
-    elsif current_user.organisations.count > 1
-      @organisations = current_user.organisations
-    else
+    @organisations = current_user.organisations
+
+    if (@organisations.nil? or (@organisations.count == 0))
       redirect_to root_url
+    elsif @organisations.count == 1
+      redirect_to @organisations[0]
     end
   end
 
