@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531051118) do
+ActiveRecord::Schema.define(:version => 20120602103045) do
 
   create_table "audio_visual_categories", :force => true do |t|
     t.integer  "organisation_id", :null => false
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(:version => 20120531051118) do
   end
 
   add_index "audio_visual_categories", ["organisation_id"], :name => "index_audio_visual_categories_on_organisation_id"
+
+  create_table "critique_categories", :force => true do |t|
+    t.integer  "organisation_id"
+    t.string   "name"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "critique_categories", ["organisation_id"], :name => "index_critique_categories_on_organisation_id"
 
   create_table "folio_roles", :force => true do |t|
     t.string   "name",        :null => false
@@ -122,6 +134,8 @@ ActiveRecord::Schema.define(:version => 20120531051118) do
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "audio_visual_categories", "organisations", :name => "audio_visual_categories_organisation_id_fk", :dependent => :delete
+
+  add_foreign_key "critique_categories", "organisations", :name => "critique_categories_organisation_id_fk", :dependent => :delete
 
   add_foreign_key "folio_users", "folio_roles", :name => "folio_users_folio_role_id_fk", :dependent => :delete
   add_foreign_key "folio_users", "folios", :name => "folio_users_folio_id_fk", :dependent => :delete

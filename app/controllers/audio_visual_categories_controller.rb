@@ -43,6 +43,9 @@ class AudioVisualCategoriesController < ApplicationController
   end
 
   private
+  # Ensures the current user is an administrator of the requested
+  # organisation.
+  #
   def ensure_organisation_admin
     is_admin = false
 

@@ -1,0 +1,26 @@
+#container.half_width
+  %h2
+    = link_to @organisation.name, @organisation
+
+  #content
+    %table.single{cellspacing: "0"}
+      %tr
+        %th= t("critique_category.index.title")
+        %th.text_right= link_to t("links.new"), new_critique_category_path(oid: @organisation.id)
+
+      - if @categories.count > 0
+        - @categories.each do |category|
+          %tr{class: cycle("odd", "even")}
+            %td
+              - if category[:level] > 0
+                - category[:level].times do
+                  &nbsp;&nbsp;
+                &#8627;&nbsp;&nbsp;
+              = category[:category].name
+            %td.text_right
+              = link_to t("links.edit"), edit_critique_category_path(category[:category])
+              = render "shared/link_separator"
+              = link_to t("links.delete"), category[:category], confirm: t("critique_category.delete.confirm"), method: :delete
+      - else
+        %tr
+          %td{colspan: "2"}= t("critique_category.index.no_categories")

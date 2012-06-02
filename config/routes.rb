@@ -23,6 +23,7 @@ Ava::Application.routes.draw do
   resources :organisation_users, only: [:edit, :update, :destroy]
   resources :folio_users, except: [:index, :show]
   resources :audio_visual_categories, except: :show
+  resources :critique_categories, except: :show
 
   get "home/index"
 

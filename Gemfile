@@ -17,6 +17,9 @@ gem 'foreigner'
 # Insert null into db instead of empty strings
 gem "nilify_blanks"
 
+# Awesome nested set plugin as a gem
+gem "awesome_nested_set", "~> 2.1.3"
+
 # Gems used only for assets and not required in production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

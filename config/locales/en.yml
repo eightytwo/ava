@@ -110,6 +110,7 @@ en:
         no_folios: "No folios have been setup."
       links:
         audio_visual_categories: "audio visual categories"
+        critique_categories: "critique categories"
     edit:
       title: "Edit Organisation"
     update:
@@ -196,3 +197,21 @@ en:
     delete:
       confirm: "Are you sure?"
       success: "Audio visual category was successfully removed."
+
+  critique_category:
+    index:
+      title: "Critique Categories"
+      no_categories: "No categories have been setup."
+    new:
+      title: "New Critique Category"
+    create:
+      success: "Critique category was successfully created."
+    edit:
+      title: "Edit Critique Category"
+    update:
+      success: "Critique category was successfully updated."
+    delete:
+      confirm: "Are you sure?"
+      success: "Critique category was successfully removed."
+    labels:
+      parent_id: "Parent Category"
