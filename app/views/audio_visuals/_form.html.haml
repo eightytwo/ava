@@ -1,0 +1,70 @@
+- if @audio_visual.errors.any?
+  #error_explanation
+    %h2= t("form.error_title", :count => @audio_visual.errors.count)
+
+    %ul
+    - @audio_visual.errors.full_messages.each do |msg|
+      %li= msg
+
+.form_content
+  = form_for(@audio_visual) do |f|
+    - if !@round.nil?
+      - if params[:action] == "new"
+        = hidden_field_tag 'audio_visual[round_id]', @round.id
+
+      .field_wrapper
+        = f.label :round
+        = "#{@round.folio.organisation.name} > #{@round.folio.name} > #{@round.name}"
+    
+    .field_wrapper
+      = f.label :title
+      = f.text_field :title
+    
+    .field_wrapper
+      = f.label :description
+      = f.text_area :description
+    
+    - if !@round.nil?
+      .field_wrapper
+        = f.label t("audio_visual.labels.audio_visual_category")
+        = f.select :audio_visual_category_id, options_from_collection_for_select(@audio_visual_categories, "id", "name")
+
+    .field_wrapper
+      = f.label :music
+      = f.text_field :music
+
+    .field_wrapper
+      = f.label :location
+      = f.text_field :location
+
+    .field_wrapper
+      = f.label :production_notes
+      = f.text_area :production_notes
+
+    .field_wrapper
+      = f.label :tags
+      .field_tip= t("form.tips.separate_comma")
+      = f.text_field :tags
+
+    - if !@round.nil?
+      .field_wrapper
+        = f.label :allow_critiquing
+        = f.check_box :allow_critiquing
+
+    .field_wrapper
+      = f.label :allow_commenting
+      = f.check_box :allow_commenting
+
+    - if !@round.nil?
+      .field_wrapper
+        = f.label :public
+        = f.check_box :public
+
+    .field_wrapper
+      = f.submit({class: "button small green"})
+
+  .links_wrapper
+    - if !@round.nil?
+      = link_to t("links.back"), @round
+    - else
+      = link_to t("links.back"), root_url

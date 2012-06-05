@@ -45,8 +45,6 @@
                   %li
                     = link_to t("menu.folios"), organisations_path, {title: "View my folios"}
                 %li
-                  %a{href: "/upload", title: "Upload an audio visual"}= t("menu.upload")
-                %li
                   = link_to t("menu.logout"), destroy_user_session_path, {method: :delete, title: "Logout"}
                 
           - else

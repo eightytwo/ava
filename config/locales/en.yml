@@ -25,6 +25,7 @@ en:
     login: "login"
     logout: "logout"
     new: "new"
+    add_audio_visual: "add audio visual"
 
   menu:
     about: "about"
@@ -34,7 +35,6 @@ en:
     greeting: "Hello %{name}"
     home: "home"
     logout: "Logout"
-    upload: "Upload"
 
   form:
     error_title:
@@ -42,6 +42,7 @@ en:
       other: "Sorry, errors were found on the form."
     tips:
       optional: "(optional)"
+      separate_comma: "separate with commas"
 
   invitation:
     create:
@@ -122,7 +123,7 @@ en:
   folio:
     show:
       members:
-        title: "Members"
+        title: "Folio Members"
         administrators: "Administrators"
         contributors: "Contributors"
         viewers: "Viewers"
@@ -143,6 +144,8 @@ en:
       success: "Folio successfully removed."
 
   round:
+    show:
+      no_audio_visuals: "No audio visuals have been added to this round."
     new:
       title: "New Round"
     create:
@@ -154,6 +157,8 @@ en:
     delete:
       confirm: "Are you sure? All audio visuals in this round will be removed!"
       success: "Round was successfully removed."
+    validation:
+      start_before_end: "The start date must be prior to the end date."
 
   organisation_user:
     edit:
@@ -218,3 +223,18 @@ en:
       success: "Critique category was successfully removed."
     labels:
       parent_id: "Parent Category"
+
+  audio_visual:
+    new:
+      title: "Upload Audio Visual"
+    create:
+      success: "Audio visual was successfully created."
+    edit:
+      title: "Edit Audio Visual"
+    update:
+      success: "Audio visual was successfully updated."
+    delete:
+      confirm: "Are you sure?"
+      success: "Audio visual was succssfully removed."
+    labels:
+      audio_visual_category: "Category"

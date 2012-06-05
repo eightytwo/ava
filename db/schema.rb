@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602103045) do
+ActiveRecord::Schema.define(:version => 20120602142337) do
 
   create_table "audio_visual_categories", :force => true do |t|
     t.integer  "organisation_id", :null => false
@@ -21,6 +21,31 @@ ActiveRecord::Schema.define(:version => 20120602103045) do
   end
 
   add_index "audio_visual_categories", ["organisation_id"], :name => "index_audio_visual_categories_on_organisation_id"
+
+  create_table "audio_visuals", :force => true do |t|
+    t.integer  "user_id",                                     :null => false
+    t.integer  "round_id"
+    t.string   "title",                                       :null => false
+    t.string   "description",                                 :null => false
+    t.integer  "audio_visual_category_id"
+    t.integer  "views",                    :default => 0
+    t.decimal  "rating"
+    t.string   "external_reference"
+    t.string   "music"
+    t.string   "location"
+    t.string   "production_notes"
+    t.string   "tags"
+    t.integer  "length"
+    t.boolean  "allow_critiquing",         :default => false, :null => false
+    t.boolean  "allow_commenting",         :default => false, :null => false
+    t.boolean  "public",                   :default => false, :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
+  add_index "audio_visuals", ["audio_visual_category_id"], :name => "index_audio_visuals_on_audio_visual_category_id"
+  add_index "audio_visuals", ["round_id"], :name => "index_audio_visuals_on_round_id"
+  add_index "audio_visuals", ["user_id"], :name => "index_audio_visuals_on_user_id"
 
   create_table "critique_categories", :force => true do |t|
     t.integer  "organisation_id"
@@ -134,6 +159,10 @@ ActiveRecord::Schema.define(:version => 20120602103045) do
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "audio_visual_categories", "organisations", :name => "audio_visual_categories_organisation_id_fk", :dependent => :delete
+
+  add_foreign_key "audio_visuals", "audio_visual_categories", :name => "audio_visuals_audio_visual_category_id_fk"
+  add_foreign_key "audio_visuals", "rounds", :name => "audio_visuals_round_id_fk", :dependent => :delete
+  add_foreign_key "audio_visuals", "users", :name => "audio_visuals_user_id_fk", :dependent => :delete
 
   add_foreign_key "critique_categories", "organisations", :name => "critique_categories_organisation_id_fk", :dependent => :delete
 

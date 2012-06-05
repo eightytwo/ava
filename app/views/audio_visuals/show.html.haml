@@ -1,0 +1,4 @@
+%h3= @audio_visual.title
+
+- if @owner
+  = link_to t("links.edit"), edit_audio_visual_path(@audio_visual)
