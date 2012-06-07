@@ -15,4 +15,5 @@
       = t("round.show.no_audio_visuals")
     - else
       = render partial: "audio_visual", collection: @audio_visuals
+      .clear
       = will_paginate @audio_visuals
