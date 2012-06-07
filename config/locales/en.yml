@@ -197,7 +197,8 @@ en:
 
   audio_visual_category:
     index:
-      title: "Audio Visual Categories"
+      title: "Audio Visual Categories for "
+      category_name: "Category Name"
       no_categories: "No categories have been setup."
     new:
       title: "New Audio Visual Category"
@@ -213,7 +214,9 @@ en:
 
   critique_category:
     index:
-      title: "Critique Categories"
+      title: "Critique Categories for "
+      category_name: "Category Name"
+      critiquable: "Critiquable"
       no_categories: "No categories have been setup."
     new:
       title: "New Critique Category"

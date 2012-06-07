@@ -1,11 +1,12 @@
 #container.half_width
   %h2
-    = link_to @organisation.name, @organisation
+    = t("audio_visual_category.index.title")
+    = link_to(@organisation.name, @organisation)
 
   #content
     %table.single{cellspacing: "0"}
       %tr
-        %th= t("audio_visual_category.index.title")
+        %th= t("audio_visual_category.index.category_name")
         %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: @organisation.id)
 
       - if @categories.count > 0

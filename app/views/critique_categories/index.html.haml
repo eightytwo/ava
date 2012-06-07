@@ -1,12 +1,13 @@
 #container.half_width
   %h2
-    = link_to @organisation.name, @organisation
+    = t("critique_category.index.title")
+    = link_to(@organisation.name, @organisation)
 
   #content
     %table.single{cellspacing: "0"}
       %tr
-        %th= t("critique_category.index.title")
-        %th Critiquable
+        %th= t("critique_category.index.category_name")
+        %th= t("critique_category.index.critiquable")
         %th.text_right= link_to t("links.new"), new_critique_category_path(oid: @organisation.id)
 
       - if @categories.count > 0
