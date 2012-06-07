@@ -49,7 +49,7 @@
             %td= l(round.start_date)
             %td= l(round.end_date)
             - if @folio_admin
-              %td.text_right
+              %td.admin_column
                 = link_to t("links.edit"), edit_round_path(round)
                 = render "shared/link_separator"
                 = link_to t("links.delete"), round, :confirm => t("round.delete.confirm"), :method => :delete

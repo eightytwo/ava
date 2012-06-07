@@ -12,7 +12,7 @@
         - @categories.each do |category|
           %tr{class: cycle("odd", "even")}
             %td= category.name
-            %td.text_right
+            %td.admin_column
               = link_to t("links.edit"), edit_audio_visual_category_path(category)
               = render "shared/link_separator"
               = link_to t("links.delete"), category, confirm: t("audio_visual_category.delete.confirm"), method: :delete

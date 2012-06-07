@@ -3,7 +3,7 @@
     = member.user.organisation_display_name
 
   - if @organisation_admin
-    %td.thin.text_right
+    %td.thin.admin_column
       = link_to t("links.edit"), edit_organisation_user_path(member)
       = render "shared/link_separator"
       = link_to t("links.delete"), member, confirm: t("organisation_user.delete.confirm"), method: :delete

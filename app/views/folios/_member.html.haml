@@ -3,7 +3,7 @@
     = member.user.organisation_display_name
 
   - if @folio_admin
-    %td.thin.text_right
+    %td.thin.admin_column
       = link_to t("links.edit"), edit_folio_user_path(member, fid: @folio.id)
       = render "shared/link_separator"
       = link_to t("links.delete"), member, confirm: t("folio_user.delete.confirm"), method: :delete

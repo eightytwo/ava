@@ -50,7 +50,7 @@
             %td= link_to folio.name, folio
             %td= folio.description
             - if @organisation_admin
-              %td.text_right
+              %td.admin_column
                 = link_to t("links.edit"), edit_folio_path(folio)
                 = render "shared/link_separator"
                 = link_to t("links.delete"), folio, confirm: t("folio.delete.confirm"), method: :delete

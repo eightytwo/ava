@@ -17,7 +17,7 @@
                   &nbsp;&nbsp;
                 &#8627;&nbsp;&nbsp;
               = category[:category].name
-            %td.text_right
+            %td.admin_column
               = link_to t("links.edit"), edit_critique_category_path(category[:category])
               = render "shared/link_separator"
               = link_to t("links.delete"), category[:category], confirm: t("critique_category.delete.confirm"), method: :delete
