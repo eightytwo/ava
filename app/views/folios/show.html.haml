@@ -15,19 +15,19 @@
         - if @admins.count + @contributors.count + @viewers.count > 0
           - if @admins.count > 0
             %tr.category
-              %td.thin= t("folio.show.members.administrators")
+              %td.thin{colspan: @folio_admin ? "2" : "1"}= t("folio.show.members.administrators")
             - reset_cycle()
             = render partial: "member", collection: @admins
 
           - if @contributors.count > 0
             %tr.category
-              %td.thin= t("folio.show.members.contributors")
+              %td.thin{colspan: @folio_admin ? "2" : "1"}= t("folio.show.members.contributors")
             - reset_cycle()
             = render partial: "member", collection: @contributors
 
           - if @viewers.count > 0
             %tr.category
-              %td.thin= t("folio.show.members.viewers")
+              %td.thin{colspan: @folio_admin ? "2" : "1"}= t("folio.show.members.viewers")
             - reset_cycle()
             = render partial: "member", collection: @viewers
         - else

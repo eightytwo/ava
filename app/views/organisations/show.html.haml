@@ -26,13 +26,13 @@
         
         - if @admins.count > 0
           %tr.category
-            %td.thin= t("organisation.show.members.administrators")
+            %td.thin{colspan: @organisation_admin ? "2" : "1"}= t("organisation.show.members.administrators")
           - reset_cycle()
           = render partial: "member", collection: @admins
 
         - if @members.count > 0
           %tr.category
-            %td.thin= t("organisation.show.members.members")
+            %td.thin{colspan: @organisation_admin ? "2" : "1"}= t("organisation.show.members.members")
           - reset_cycle()
           = render partial: "member", collection: @members
 
