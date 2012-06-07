@@ -3,6 +3,7 @@ class CreateCritiqueCategories < ActiveRecord::Migration
     create_table :critique_categories do |t|
       t.references :organisation, null: false
       t.string :name, null: false
+      t.boolean :critiquable, null: false, default: true
       t.integer :parent_id
       t.integer :lft
       t.integer :rgt

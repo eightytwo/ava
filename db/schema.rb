@@ -49,13 +49,14 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
   add_index "audio_visuals", ["user_id"], :name => "index_audio_visuals_on_user_id"
 
   create_table "critique_categories", :force => true do |t|
-    t.integer  "organisation_id"
-    t.string   "name"
+    t.integer  "organisation_id",                   :null => false
+    t.string   "name",                              :null => false
+    t.boolean  "critiquable",     :default => true, :null => false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "critique_categories", ["organisation_id"], :name => "index_critique_categories_on_organisation_id"

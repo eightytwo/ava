@@ -8,7 +8,7 @@
 
 .form_content
   = form_for(@category) do |f|
-    - if params[:action] == "new"
+    - if params[:action] == "new" or params[:action] == "create"
       = hidden_field_tag 'audio_visual_category[organisation_id]', @organisation.id
 
       .field_wrapper

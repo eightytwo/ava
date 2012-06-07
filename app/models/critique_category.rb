@@ -1,7 +1,7 @@
 class CritiqueCategory < ActiveRecord::Base
   belongs_to :organisation
   
-  attr_accessible :lft, :name, :parent_id, :rgt, :organisation_id
+  attr_accessible :lft, :name, :parent_id, :rgt, :organisation_id, :critiquable
 
   acts_as_nested_set
 

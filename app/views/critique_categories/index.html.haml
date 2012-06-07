@@ -6,6 +6,7 @@
     %table.single{cellspacing: "0"}
       %tr
         %th= t("critique_category.index.title")
+        %th Critiquable
         %th.text_right= link_to t("links.new"), new_critique_category_path(oid: @organisation.id)
 
       - if @categories.count > 0
@@ -17,6 +18,9 @@
                   &nbsp;&nbsp;
                 &#8627;&nbsp;&nbsp;
               = category[:category].name
+            %td
+              - if category[:category].critiquable
+                &#10003;
             %td.admin_column
               = link_to t("links.edit"), edit_critique_category_path(category[:category])
               = render "shared/link_separator"
