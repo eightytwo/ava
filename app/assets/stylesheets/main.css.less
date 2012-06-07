@@ -79,6 +79,7 @@ header {
 }
 
 #container {
+  margin-bottom: 42px;
   border-radius: 4px;
   background-color: #fff;
   text-align: left;
@@ -548,4 +549,66 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   p {
     margin-bottom: 8px;
   }
+}
+
+
+/*----- Round styles -----*/
+.round_av_wrapper {
+  float: left;
+  margin: 14px 12px 25px 14px;
+  width: 200px;
+  border: 1px solid #d7d7d7;
+  -moz-border-bottom-left-radius: 3px;
+  -moz-border-bottom-right-radius: 3px;
+  -o-border-bottom-left-radius: 3px;
+  -o-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.round_av_thumbnail {
+  margin: 0px auto 0px auto;
+  width: 200px;
+  height: 150px;
+
+  a:link, a:active, a:hover, a:visited {
+    border: none;
+  }
+
+  img {
+    width: 200px;
+    height: 150px;
+  }
+}
+
+.round_av_info {
+  height: 40px;
+  padding: 10px;
+}
+
+.round_av_title {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.round_av_author {
+  font-style: italic;
+}
+
+
+/*----- Pagination -----*/
+
+.pagination {
+  clear: both;
+  margin-bottom: @defaultPadding;
+  padding-top: @defaultPadding;
+  text-align: center;
+}
+
+.current {
+  padding: 0px 5px;
+  font-size: 14px;
+  font-weight: bold;
 }

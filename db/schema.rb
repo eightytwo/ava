@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
     t.integer  "views",                    :default => 0
     t.decimal  "rating"
     t.string   "external_reference"
+    t.string   "thumbnail"
     t.string   "music"
     t.string   "location"
     t.string   "production_notes"

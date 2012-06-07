@@ -9,7 +9,7 @@
 .form_content
   = form_for(@audio_visual) do |f|
     - if !@round.nil?
-      - if params[:action] == "new"
+      - if params[:action] == "new" or params[:action] == "create"
         = hidden_field_tag 'audio_visual[round_id]', @round.id
 
       .field_wrapper

@@ -13,3 +13,6 @@
   #content
     - if @audio_visuals.nil? or @audio_visuals.count == 0
       = t("round.show.no_audio_visuals")
+    - else
+      = render partial: "audio_visual", collection: @audio_visuals
+      = will_paginate @audio_visuals
