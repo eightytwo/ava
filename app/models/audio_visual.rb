@@ -13,10 +13,10 @@ class AudioVisual < ActiveRecord::Base
   validates :title, presence: true
   validates :user_id, presence: true
   validates :tags, presence: true
+  validates :music, presence: true
+  validates :location, presence: true
+  validates :production_notes, presence: true
   validates :audio_visual_category_id, presence: true, if: :round_id?
-  validates :music, presence: true, if: :round_id?
-  validates :location, presence: true, if: :round_id?
-  validates :production_notes, presence: true, if: :round_id?
 
   # Set the per page value for will_paginate.
   self.per_page = 12

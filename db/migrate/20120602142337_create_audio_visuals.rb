@@ -10,10 +10,10 @@ class CreateAudioVisuals < ActiveRecord::Migration
       t.decimal :rating
       t.string :external_reference
       t.string :thumbnail
-      t.string :music
-      t.string :location
-      t.string :production_notes
-      t.string :tags
+      t.string :music, null: false
+      t.string :location, null: false
+      t.string :production_notes, null: false
+      t.string :tags, null: false
       t.integer :length
       t.boolean :allow_critiquing, null: false, default: false
       t.boolean :allow_commenting, null: false, default: false

@@ -101,6 +101,10 @@ header {
       font-size: 12px;
       font-weight: normal;
     }
+
+    span.regular {
+      font-weight: normal;
+    }
   }
 
   #content {
@@ -603,6 +607,41 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
 .round_av_author {
   font-style: italic;
+}
+
+
+/*----- Audio Visual styles -----*/
+#audio_visual_wrapper {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+#audio_visual_summary {
+  width: 300px;
+  float: right;
+
+  h2 {
+    padding: @defaultPadding;
+    border-bottom: 1px solid #909090;
+    color: #666666;
+    background-color: #eee;
+    font-weight: bold;
+  }
+
+  dt {
+    padding: (@defaultPadding / 2) @defaultPadding;
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+
+  dd {
+    margin-bottom: @defaultPadding;
+    padding: (@defaultPadding / 2) @defaultPadding;
+  }
+}
+
+#audio_visual_comments {
+
 }
 
 

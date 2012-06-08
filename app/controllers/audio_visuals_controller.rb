@@ -63,8 +63,8 @@ class AudioVisualsController < ApplicationController
     @folio_role = 0
 
     @audio_visual = AudioVisual
-      .includes(round: { folio: :organisation })
-      .joins(round: { folio: :organisation })
+      .includes(:user, round: { folio: :organisation })
+      .joins(:user, round: { folio: :organisation })
       .where(id: params[:id]).first
 
     if !@audio_visual.nil?
@@ -120,8 +120,8 @@ class AudioVisualsController < ApplicationController
   def ensure_av_owner
     owner = false
     @audio_visual = AudioVisual
-      .includes(round: { folio: :organisation })
-      .joins(round: { folio: :organisation })
+      .includes(:user, round: { folio: :organisation })
+      .joins(:user, round: { folio: :organisation })
       .where(id: params[:id]).first
 
     if !@audio_visual.nil?

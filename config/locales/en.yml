@@ -233,6 +233,16 @@ en:
       parent_id: "Parent Category"
 
   audio_visual:
+    show:
+      summary:
+        title: "Summary"
+        headings:
+          title: "Title"
+          description: "Description"
+          music: "Music"
+          location: "Location"
+          production_notes: "Production Notes"
+          tags: "Tags"
     new:
       title: "Upload Audio Visual"
     create:

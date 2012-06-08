@@ -1,4 +1,37 @@
-%h3= @audio_visual.title
+#container
+  %h2
+    - if @owner
+      %div.right
+        = link_to(t("links.edit"), edit_audio_visual_path(@audio_visual), {class: "regular"})
 
-- if @owner
-  = link_to t("links.edit"), edit_audio_visual_path(@audio_visual)
+    - if !@audio_visual.round.nil?
+      = link_to @audio_visual.round.name, @audio_visual.round
+      .arrow_right
+    = @audio_visual.title
+    %span.regular by
+    = @audio_visual.user.organisation_display_name
+
+  #content
+    #audio_visual_wrapper
+      %iframe{src: "http://player.vimeo.com/video/43096888?title=0&amp;byline=0&amp;portrait=0", width: "800", height: "451", frameborder: "0", webkitAllowFullScreen: true, mozallowfullscreen: true, allowFullScreen: true}
+
+    #audio_visual_details
+      #audio_visual_summary
+        %h2= t("audio_visual.show.summary.title")
+        %dl
+          %dt= t("audio_visual.show.summary.headings.title")
+          %dd= @audio_visual.title
+          %dt= t("audio_visual.show.summary.headings.author")
+          %dd= @audio_visual.user.organisation_display_name
+          %dt= t("audio_visual.show.summary.headings.description")
+          %dd= @audio_visual.description
+          %dt= t("audio_visual.show.summary.headings.music")
+          %dd= @audio_visual.music
+          %dt= t("audio_visual.show.summary.headings.location")
+          %dd= @audio_visual.location
+          %dt= t("audio_visual.show.summary.headings.production_notes")
+          %dd= @audio_visual.production_notes
+      #audio_visual_comments
+        Comments and critiques go here
+
+    .clear
