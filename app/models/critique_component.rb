@@ -10,6 +10,9 @@ class CritiqueComponent < ActiveRecord::Base
 
   before_save :check_update_reply_timestamp
 
+  # Ensure null is inserted into the reply field if empty string.
+  nilify_blanks :only => :reply
+
   private
   # Checks if a reply to the critique component is being created or updated
   # and if so sets the reply created/updated timestamps correctly.

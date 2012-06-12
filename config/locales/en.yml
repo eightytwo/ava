@@ -23,7 +23,7 @@ en:
       update: "Update"
 
   links:
-    back: "Back"
+    back: "back"
     delete: "remove"
     edit: "edit"
     invite: "invite"
@@ -245,6 +245,9 @@ en:
       tabs:
         critique: "Critiques" 
         comment: "Comments"
+      comments:
+        title: "Add a comment"
+        add: "Add"
     new:
       title: "Upload Audio Visual"
     create:
@@ -271,3 +274,8 @@ en:
     delete:
       confirm: "Are you sure?"
       success: "Critique was successfully removed."
+
+  critique_component:
+    reply:
+      success: "Comment was successfully added."
+      failure: "There was an error adding the comment."

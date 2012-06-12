@@ -535,6 +535,10 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   clear: both;
 }
 
+.hidden {
+  display: none;
+}
+
 .italic {
   font-style: italic;
 }
@@ -707,7 +711,7 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 
   .content {
-    display: none;
+    //display: none;
     padding: @defaultPadding;
     padding-bottom: 0px;
   }
@@ -718,6 +722,33 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
   .component {
     margin: 5px 0px 20px 0px;
+  }
+}
+
+.reply_wrapper {
+  margin: 0px 0px 20px 10px;
+  padding: @defaultPadding;
+  background-color: #f0f0f0;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+
+  .reply_title {
+    margin-bottom: 8px;
+
+    span {
+      font-weight: bold
+    }
+  }
+}
+
+#critique_reply_form {
+  display: none;
+  margin-right: @defaultPadding;
+
+  textarea {
+    margin-bottom: 5px;
   }
 }
 

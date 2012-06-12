@@ -27,6 +27,7 @@ Ava::Application.routes.draw do
   resources :audio_visuals, except: :index, path: "av"
   resources :critiques, except: [:index, :show]
 
+  post "/critique_components/reply" => "critique_components#reply", as: :critique_component_reply
   get "/av/:id/:action" => "audio_visuals#critiques"
 
   get "home/index"

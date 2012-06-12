@@ -1,12 +1,10 @@
 .av_critique_wrapper
   .title
-    - if critique.user.id == current_user.id
-      .right
-        #{time_ago_in_words(critique.updated_at)} ago
+    .right
+      #{time_ago_in_words(critique.updated_at)} ago
+      - if critique.user.id == current_user.id
         = render "shared/link_separator"
         = link_to t("links.edit"), edit_critique_path(critique), {class: "regular"}
-    - else
-      .right #{time_ago_in_words(critique.updated_at)} ago
 
     %h4= critique.user.organisation_display_name
 
@@ -15,8 +13,30 @@
       .critique_component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
         .av_critique_category
           %div
-            - if critique.audio_visual.user_id == current_user.id and component.critique_category.critiquable
-              .right= link_to t("links.reply"), "#", {class: "regular"}
+            - if critique.audio_visual.user_id == current_user.id and component.critique_category.critiquable and component.reply.nil?
+              .right= link_to t("links.reply"), "#", {id: component.id, class: "reply_link"}
             .category_title= component.critique_category.name
+          
           - if !component.content.nil?
-            .component= component.content
+            .component
+              = component.content
+
+          - if component.critique_category.critiquable
+            - if component.reply.nil?
+              .reply_wrapper.new.hidden
+                .reply_title
+                  %span= t("audio_visual.show.comments.title")
+                .reply_content
+
+            - else
+              .reply_wrapper.existing
+                .reply_title
+                  .right
+                    #{time_ago_in_words(component.reply_updated_at)} ago
+                    - if critique.audio_visual.user_id == current_user.id
+                      = render "shared/link_separator"
+                      = link_to t("links.edit"), "#", {id: component.id, class: "reply_link"}
+                  %span #{critique.audio_visual.user.organisation_display_name}
+                  commented
+                .reply_content
+                  %span= component.reply
