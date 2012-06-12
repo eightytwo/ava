@@ -39,6 +39,9 @@ jQuery ->
     # Set click handler for the reply links.
     $('.reply_link').live 'click', (event) -> return setupReply($(this))
 
+    # Set click handler for the cancel reply link.
+    $('.cancel_reply_link').live 'click', (event) -> return cancelReply($(this))
+
 
     # Function to show the content of a tab when clicked.
     toggleTabs = ->
@@ -59,31 +62,46 @@ jQuery ->
       # Hide any existing new reply areas.
       $('.av_critique_category').children('.reply_wrapper.new').hide()
       # Ensure all existing replies are shown.
-      $('.reply_wrapper.existing > .reply_content > span').show()
+      $('.reply_wrapper.existing > .reply_content > pre').show()
       
       # Get the reply area and necessary elements associated
       # with the clicked reply link.
       replyWrapper = replyLink.parents('.av_critique_category').children('.reply_wrapper')
       replyContent = replyWrapper.children('.reply_content')
-      replyForm = $('#critique_reply_form > form')
-      replyTextBox = replyForm.children('#txtReplyContent')
-      replyExistingContent = replyContent.children('span')
+      replyFormWrapper = $('#critique_reply_form')
+      replyForm = replyFormWrapper.children('form')
+      replyTextBox = $('#txtReplyContent')
+      replyExistingContent = replyContent.children('pre')
 
       # Clear any left over text from the textbox.
       replyTextBox.text("")
       
       # Move the reply form into place and set necessary values.
-      replyForm.children('#hidComponentID').val(componentID)
+      $('#hidComponentID').val(componentID)
       if (replyExistingContent.length)
         replyExistingContent.hide()
-        replyTextBox.text(replyExistingContent.text())
+        replyTextBox.text($.trim(replyExistingContent.text()))
 
-      replyForm.parent().appendTo(replyContent)
-      replyForm.parent().show()
+      # Show the form and the containing element.
+      replyFormWrapper.appendTo(replyContent).show()
       replyWrapper.show()
 
       return false;
 
+    # Cancels a reply.
+    cancelReply = (cancelLink) ->
+      # Get the reply wrapper and show the reply text if it exists.
+      replyWrapper = cancelLink.parents('.av_critique_category').children('.reply_wrapper')
+      replyWrapper.children('.reply_content').children('pre').show()
+      
+      # Hide the entire reply wrapper if no reply actually exists.
+      replyWrapper.hide() if replyWrapper.hasClass('new')
+
+      # Wipe the content of the text area and hide the form wrapper.
+      $('#txtReplyContent').text("")
+      $('#critique_reply_form').hide()
+
+      return false
 
     ###
     Ajax functionality

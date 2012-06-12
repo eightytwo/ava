@@ -32,6 +32,7 @@ en:
     new: "new"
     add_audio_visual: "add audio visual"
     reply: "reply"
+    cancel: "cancel"
 
   menu:
     about: "about"

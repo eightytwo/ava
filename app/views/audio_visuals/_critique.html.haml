@@ -18,8 +18,7 @@
             .category_title= component.critique_category.name
           
           - if !component.content.nil?
-            .component
-              = component.content
+            %pre.component= component.content
 
           - if component.critique_category.critiquable
             - if component.reply.nil?
@@ -39,4 +38,4 @@
                   %span #{critique.audio_visual.user.organisation_display_name}
                   commented
                 .reply_content
-                  %span= component.reply
+                  %pre= component.reply
