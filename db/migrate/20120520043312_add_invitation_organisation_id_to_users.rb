@@ -5,8 +5,8 @@ class AddInvitationOrganisationIdToUsers < ActiveRecord::Migration
     add_column :users, :invitation_folio_id, :int
     add_column :users, :invitation_folio_role_id, :int
 
-    add_foreign_key(:users, :organisations, column: 'invitation_organisation_id')
-    add_foreign_key(:users, :folios, column: 'invitation_folio_id')
-    add_foreign_key(:users, :folio_roles, column: 'invitation_folio_role_id')
+    add_foreign_key(:users, :organisations, column: 'invitation_organisation_id', dependent: :nullify)
+    add_foreign_key(:users, :folios, column: 'invitation_folio_id', dependent: :nullify)
+    add_foreign_key(:users, :folio_roles, column: 'invitation_folio_role_id', dependent: :nullify)
   end
 end

@@ -1,7 +1,8 @@
 #container.half_width
-  %h2
-    = t("audio_visual_category.index.title")
-    = link_to(@organisation.name, @organisation)
+  #title
+    %h2
+      = t("audio_visual_category.index.title")
+      = link_to(@organisation.name, @organisation)
 
   #content
     %table.single{cellspacing: "0"}

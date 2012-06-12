@@ -1,0 +1,31 @@
+- if @critique.errors.any?
+  #error_explanation
+    %h2= t("form.error_title", count: @critique.errors.count)
+
+    %ul
+      - @critique.errors.full_messages.each do |msg|
+        %li= msg
+
+.form_content
+  - if @critique.critique_components.length > 0
+    = form_for(@critique) do |f|
+      - if params[:action] == "new"
+        = f.hidden_field :audio_visual_id
+
+      = f.fields_for :critique_components do |component|
+        - offset = component.object.critique_category.depth
+        .critique_component_wrapper{style: "margin-left: #{offset * 20}px; margin-right: #{offset * 16}px"}
+          %h2= component.object.critique_category.name
+          = component.hidden_field :critique_category_id
+
+          - if component.object.critique_category.critiquable
+            = component.text_area :content
+      
+      .field_wrapper
+        = f.submit({class: "button small green"})
+  
+  - else
+    = t("critique_category.index.no_categories")  
+
+  .links_wrapper
+    = link_to t("links.back"), @critique.audio_visual

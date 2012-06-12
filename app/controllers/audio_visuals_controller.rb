@@ -2,15 +2,35 @@ class AudioVisualsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: :show
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
-  before_filter :ensure_folio_contributor, only: [:new, :create]
+  before_filter :ensure_folio_contributor, only: [:new, :create, :critiques]
+
+  # GET /audio_visuals/1/critiques
+  def critiques
+    @critiques = Critique
+      .includes(critique_components: :critique_category)
+      .joins(critique_components: :critique_category)
+      .where(audio_visual_id: params[:id])
+      .order("critiques.updated_at DESC, critique_components.id ASC")
+
+    render layout: false
+  end
 
   # GET /audio_visuals/1
   def show
+    @critiques = AudioVisual
+      .includes(critiques: :user)
+      .joins(critiques: :user)
+      .where(id: @audio_visual.id)
+
+    # Determine if the current user can add a critique to the audio visual.
+    has_critique = (@critiques.count { |c| c.user_id == current_user.id } > 0)
+    @can_critique = (!has_critique and @contributor and !@owner)
   end
 
   # GET /audio_visuals/new
   def new
     @audio_visual = AudioVisual.new
+    @audio_visual.round = @round
   end
 
   # GET /audio_visuals/1/edit
@@ -59,12 +79,10 @@ class AudioVisualsController < ApplicationController
   def ensure_folio_member
     redirect = true
     @owner = false
-    @folio_member = false
-    @folio_role = 0
+    @contributor = false
 
     @audio_visual = AudioVisual
-      .includes(:user, round: { folio: :organisation })
-      .joins(:user, round: { folio: :organisation })
+      .includes(round: { folio: :organisation })
       .where(id: params[:id]).first
 
     if !@audio_visual.nil?
@@ -75,11 +93,13 @@ class AudioVisualsController < ApplicationController
           @audio_visual.round.folio.organisation, @audio_visual.round.folio)
 
         if (!membership.nil? and
-            (membership[:organisation_admin] or !membership[:folio_role].nil?))
-          @folio_member = true
-          @folio_role = (membership[:folio_role].nil? ? 3 : membership[:folio_role])
+            (membership[:organisation_admin] or membership[:folio_member]))
+          @contributor = (membership[:folio_role] >= 2)
           redirect = false
         end
+      else
+        # Audio visual does not belong to a folio so allow access.
+        redirect = false
       end
     end
 
@@ -92,23 +112,31 @@ class AudioVisualsController < ApplicationController
   #
   def ensure_folio_contributor
     redirect = true
-    round_id = params[:rid] ? params[:rid] : params[:audio_visual][:round_id]
+    round_id = nil
 
-    @round = Round
-      .includes(folio: :organisation)
-      .joins(folio: :organisation)
-      .where(id: round_id).first
+    if !params[:rid].nil? or !params[:audio_visual].nil?
+      round_id = params[:rid] ? params[:rid] : params[:audio_visual][:round_id]
+    elsif !params[:id].nil?
+      av = AudioVisual.find_by_id(params[:id])
+      round_id = av.round_id if !av.nil?
+    end
 
-    if !@round.nil?
-      membership = current_user.organisation_membership_summary(
-        @round.folio.organisation, @round.folio)
+    if !round_id.nil?
+      @round = Round
+        .includes(folio: :organisation)
+        .joins(folio: :organisation)
+        .where(id: round_id).first
 
-      if !membership.nil? and
-         ((membership[:organisation_admin] or
-          (!membership[:folio_role].nil? and membership[:folio_role] >= 2)))
-        redirect = false
-        @audio_visual_categories = 
-          @round.folio.organisation.audio_visual_categories.order(:name).all
+      if !@round.nil?
+        membership = current_user.organisation_membership_summary(
+          @round.folio.organisation, @round.folio)
+
+        if !membership.nil? and
+           (membership[:organisation_admin] or membership[:folio_role] >= 2)
+          redirect = false
+          @audio_visual_categories = 
+            @round.folio.organisation.audio_visual_categories.order(:name).all
+        end
       end
     end
 
@@ -142,8 +170,7 @@ class AudioVisualsController < ApplicationController
             @audio_visual.round.folio.organisation, @audio_visual.round.folio)
 
           if !membership.nil? and
-             (membership[:organisation_admin] or
-              (!membership[:folio_role].nil? and membership[:folio_role] == 3))
+             (membership[:organisation_admin] or membership[:folio_role] == 3)
             owner = true
           end
         end

@@ -2,7 +2,7 @@ class OrganisationUser < ActiveRecord::Base
   belongs_to :organisation
   belongs_to :user
   
-  attr_accessible :organisation_id, :user, :admin
+  attr_accessible :organisation_id, :user_id, :admin
 
   validates :organisation, presence: true
   validates :user, presence: true
@@ -27,8 +27,9 @@ class OrganisationUser < ActiveRecord::Base
   # TODO: This may be better implemented as a trigger.
   #
   def last_administrator
-    # Check if this user is currently stored as an organisation administrator.
-    is_admin = OrganisationUser.find(self.id).admin
+    # Check if this user is currently stored as an organisation administrator
+    # and get the number of administrators in the organisation.
+    is_admin = (!self.admin and self.admin_changed?)
     num_admins = OrganisationUser.where("organisation_id = ? and admin = true",
       self.organisation.id).count
 

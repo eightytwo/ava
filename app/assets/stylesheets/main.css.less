@@ -1,19 +1,8 @@
-/*----- Web fonts -----*/
-@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-
-
 /*----- Variables -----*/
 @defaultFontColour: #444;
 @defaultLinkColour: #444;
 @defaultPadding: 16px;
 @pageWidth: 950px;
-
-
-/*----- Mixins -----*/
-.DebugBorder(@colour) {
-  border: 1px solid @colour;
-  border: none;
-}
 
 
 /*----- Page layout -----*/
@@ -80,6 +69,9 @@ header {
 
 #container {
   margin-bottom: 42px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   background-color: #fff;
   text-align: left;
@@ -87,8 +79,6 @@ header {
              -1px -1px rgba(205, 205, 205, 0.2);
 
   h2 {
-    padding: @defaultPadding;
-    border-bottom: 1px solid #eee;
     font-size: 14px;
     font-weight: bold;
 
@@ -97,14 +87,14 @@ header {
       font-weight: bold;
     }
 
-    a.regular {
-      font-size: 12px;
-      font-weight: normal;
-    }
-
     span.regular {
       font-weight: normal;
     }
+  }
+
+  #title {
+    padding: @defaultPadding;
+    border-bottom: 1px solid #eee;
   }
 
   #content {
@@ -121,8 +111,15 @@ header {
 }
 
 .half_width {
-  margin: 0px auto;
+  margin-left: auto;
+  margin-right: auto;
   width: @pageWidth / 2;
+}
+
+.narrow {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
 }
 
 
@@ -170,7 +167,6 @@ textarea {
 
 .form_wrapper {
   margin: 0px auto 20px auto;
-  width: 300px;
   background-color: #fff;
   text-align: left;
   box-shadow: 1px  1px rgba(205, 205, 205, 0.2),
@@ -242,7 +238,8 @@ tr.even {
 
 tr.category {
   background-color: #fff;
-  font-style: italic;
+  //font-style: italic;
+  font-weight: bold;
 }
 
 th {
@@ -566,7 +563,10 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   float: left;
   margin: 14px 12px 25px 14px;
   width: 200px;
-  
+  -moz-box-shadow: 0px 0px 2px rgba(205, 205, 205, 0.5);
+  -o-box-shadow: 0px 0px 2px rgba(205, 205, 205, 0.5);
+  -webkit-box-shadow: 0px 0px 2px rgba(205, 205, 205, 0.5);
+  box-shadow: 0px 0px 2px rgba(205, 205, 205, 0.5);
 }
 
 .round_av_thumbnail {
@@ -611,12 +611,13 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
 
 /*----- Audio Visual styles -----*/
-#audio_visual_wrapper {
-  margin-bottom: 40px;
-  text-align: center;
+#av_player {
+  width: 600px;
+  height: 338px;
+  background-color: #000;
 }
 
-#audio_visual_summary {
+#av_summary {
   width: 300px;
   float: right;
 
@@ -640,8 +641,99 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 }
 
-#audio_visual_comments {
+#av_feedback {
+  margin-top: 40px;
+  width: 600px;
 
+  li {
+    display: inline;
+    margin-right: 25px;
+    padding: 10px 20px;
+    border: 1px solid #eee;
+    border-bottom: none;
+    -moz-border-top-left-radius: 3px 3px;
+    -moz-border-top-right-radius: 3px 3px;
+    -o-border-top-left-radius: 3px 3px;
+    -o-border-top-right-radius: 3px 3px;
+    -webkit-border-top-left-radius: 3px 3px;
+    -webkit-border-top-right-radius: 3px 3px;
+    border-top-left-radius: 3px 3px;
+    border-top-right-radius: 3px 3px;
+    background-color: #fafafa;
+    cursor: pointer;
+  }
+
+  li.active {
+    border-bottom: 1px solid #fff;
+    background-color: #fff;
+    font-weight: bold;
+  }
+
+  #tab_base {
+    margin-top: 11px;
+    border-top: 1px solid #eee;
+  }
+}
+
+#av_critiques {
+  display: none;
+  padding: @defaultPadding 0px;
+}
+
+#av_comments {
+  display: none;
+  padding: @defaultPadding 0px;
+}
+
+.av_critique_wrapper {
+  margin: 20px 0px;
+  padding: 0px;
+  border: 1px solid #eee;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fafafa;
+
+  .title {
+    padding: @defaultPadding;
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    cursor: pointer;
+
+    h4 {
+      font-weight: bold;
+    }
+  }
+
+  .content {
+    display: none;
+    padding: @defaultPadding;
+    padding-bottom: 0px;
+  }
+
+  .category_title {
+    font-weight: bold;
+  }
+
+  .component {
+    margin: 5px 0px 20px 0px;
+  }
+}
+
+
+/*----- Critique Category styles -----*/
+.critique_component_wrapper {
+  margin-bottom: 10px;
+
+  h2 {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  textarea {
+    width: 100%;
+  }
 }
 
 

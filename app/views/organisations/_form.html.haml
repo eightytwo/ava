@@ -1,6 +1,6 @@
 - if @organisation.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @organisation.errors.count)
+    %h2= t("form.error_title", count: @organisation.errors.count)
 
     %ul
     - @organisation.errors.full_messages.each do |msg|
@@ -10,7 +10,7 @@
   = form_for(@organisation) do |f|
     .field_wrapper
       = f.label :name
-      = f.text_field :name
+      = f.text_field :name, autofocus: true
 
     .field_wrapper
       = f.label :description

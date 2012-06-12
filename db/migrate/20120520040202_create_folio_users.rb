@@ -12,6 +12,6 @@ class CreateFolioUsers < ActiveRecord::Migration
     add_index :folio_users, :folio_role_id
     add_foreign_key(:folio_users, :folios, dependent: :delete)
     add_foreign_key(:folio_users, :users, dependent: :delete)
-    add_foreign_key(:folio_users, :folio_roles, dependent: :delete)
+    add_foreign_key(:folio_users, :folio_roles, dependent: :restrict)
   end
 end

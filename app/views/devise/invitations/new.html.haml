@@ -1,4 +1,4 @@
-.form_wrapper
+.form_wrapper.narrow
   %h3= t("invitation.create.title")
 
   = devise_error_messages!
@@ -7,7 +7,7 @@
     = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
       .field_wrapper
         = f.label :email
-        = f.email_field :email
+        = f.email_field :email, autofocus: true
 
       - if current_user.organisations?
         .field_wrapper

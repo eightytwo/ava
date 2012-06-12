@@ -1,4 +1,4 @@
-.form_wrapper
+.form_wrapper.narrow
   %h3= t("change_password.title")
 
   = devise_error_messages!
@@ -9,7 +9,7 @@
 
       .field_wrapper
         = f.label :password, t("change_password.labels.password")
-        = f.password_field :password
+        = f.password_field :password, autofocus: true
 
       .field_wrapper
         = f.label :password_confirmation, t("change_password.labels.confirm_password")

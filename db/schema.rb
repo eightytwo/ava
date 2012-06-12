@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602142337) do
+ActiveRecord::Schema.define(:version => 20120608023639) do
 
   create_table "audio_visual_categories", :force => true do |t|
-    t.integer  "organisation_id", :null => false
-    t.string   "name",            :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "organisation_id",                :null => false
+    t.string   "name",                           :null => false
+    t.integer  "status_type_id",  :default => 1, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "audio_visual_categories", ["organisation_id"], :name => "index_audio_visual_categories_on_organisation_id"
@@ -32,10 +33,10 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
     t.decimal  "rating"
     t.string   "external_reference"
     t.string   "thumbnail"
-    t.string   "music"
-    t.string   "location"
-    t.string   "production_notes"
-    t.string   "tags"
+    t.string   "music",                                       :null => false
+    t.string   "location",                                    :null => false
+    t.string   "production_notes",                            :null => false
+    t.string   "tags",                                        :null => false
     t.integer  "length"
     t.boolean  "allow_critiquing",         :default => false, :null => false
     t.boolean  "allow_commenting",         :default => false, :null => false
@@ -55,11 +56,37 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
+    t.integer  "depth"
+    t.integer  "status_type_id",  :default => 1,    :null => false
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
 
   add_index "critique_categories", ["organisation_id"], :name => "index_critique_categories_on_organisation_id"
+
+  create_table "critique_components", :force => true do |t|
+    t.integer  "critique_id",          :null => false
+    t.integer  "critique_category_id", :null => false
+    t.string   "content"
+    t.string   "reply"
+    t.datetime "reply_created_at"
+    t.datetime "reply_updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "critique_components", ["critique_category_id"], :name => "index_critique_components_on_critique_category_id"
+  add_index "critique_components", ["critique_id"], :name => "index_critique_components_on_critique_id"
+
+  create_table "critiques", :force => true do |t|
+    t.integer  "audio_visual_id", :null => false
+    t.integer  "user_id",         :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "critiques", ["audio_visual_id"], :name => "index_critiques_on_audio_visual_id"
+  add_index "critiques", ["user_id"], :name => "index_critiques_on_user_id"
 
   create_table "folio_roles", :force => true do |t|
     t.string   "name",        :null => false
@@ -120,6 +147,13 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
 
   add_index "rounds", ["folio_id"], :name => "index_rounds_on_folio_id"
 
+  create_table "status_types", :force => true do |t|
+    t.string   "name",        :null => false
+    t.string   "description", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                       :default => "",    :null => false
     t.string   "encrypted_password",                          :default => ""
@@ -145,6 +179,7 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "username"
+    t.integer  "status_type_id",                              :default => 1,     :null => false
     t.integer  "invitation_organisation_id"
     t.boolean  "invitation_organisation_admin"
     t.integer  "invitation_folio_id"
@@ -161,14 +196,22 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "audio_visual_categories", "organisations", :name => "audio_visual_categories_organisation_id_fk", :dependent => :delete
+  add_foreign_key "audio_visual_categories", "status_types", :name => "audio_visual_categories_status_type_id_fk", :dependent => :restrict
 
-  add_foreign_key "audio_visuals", "audio_visual_categories", :name => "audio_visuals_audio_visual_category_id_fk"
+  add_foreign_key "audio_visuals", "audio_visual_categories", :name => "audio_visuals_audio_visual_category_id_fk", :dependent => :restrict
   add_foreign_key "audio_visuals", "rounds", :name => "audio_visuals_round_id_fk", :dependent => :delete
   add_foreign_key "audio_visuals", "users", :name => "audio_visuals_user_id_fk", :dependent => :delete
 
   add_foreign_key "critique_categories", "organisations", :name => "critique_categories_organisation_id_fk", :dependent => :delete
+  add_foreign_key "critique_categories", "status_types", :name => "critique_categories_status_type_id_fk", :dependent => :restrict
 
-  add_foreign_key "folio_users", "folio_roles", :name => "folio_users_folio_role_id_fk", :dependent => :delete
+  add_foreign_key "critique_components", "critique_categories", :name => "critique_components_critique_category_id_fk", :dependent => :restrict
+  add_foreign_key "critique_components", "critiques", :name => "critique_components_critique_id_fk", :dependent => :delete
+
+  add_foreign_key "critiques", "audio_visuals", :name => "critiques_audio_visual_id_fk", :dependent => :delete
+  add_foreign_key "critiques", "users", :name => "critiques_user_id_fk", :dependent => :restrict
+
+  add_foreign_key "folio_users", "folio_roles", :name => "folio_users_folio_role_id_fk", :dependent => :restrict
   add_foreign_key "folio_users", "folios", :name => "folio_users_folio_id_fk", :dependent => :delete
   add_foreign_key "folio_users", "users", :name => "folio_users_user_id_fk", :dependent => :delete
 
@@ -179,8 +222,9 @@ ActiveRecord::Schema.define(:version => 20120602142337) do
 
   add_foreign_key "rounds", "folios", :name => "rounds_folio_id_fk", :dependent => :delete
 
-  add_foreign_key "users", "folio_roles", :name => "users_invitation_folio_role_id_fk", :column => "invitation_folio_role_id"
-  add_foreign_key "users", "folios", :name => "users_invitation_folio_id_fk", :column => "invitation_folio_id"
-  add_foreign_key "users", "organisations", :name => "users_invitation_organisation_id_fk", :column => "invitation_organisation_id"
+  add_foreign_key "users", "folio_roles", :name => "users_invitation_folio_role_id_fk", :column => "invitation_folio_role_id", :dependent => :nullify
+  add_foreign_key "users", "folios", :name => "users_invitation_folio_id_fk", :column => "invitation_folio_id", :dependent => :nullify
+  add_foreign_key "users", "organisations", :name => "users_invitation_organisation_id_fk", :column => "invitation_organisation_id", :dependent => :nullify
+  add_foreign_key "users", "status_types", :name => "users_status_type_id_fk", :dependent => :restrict
 
 end

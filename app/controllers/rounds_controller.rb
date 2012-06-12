@@ -16,6 +16,7 @@ class RoundsController < ApplicationController
   # GET /rounds/new
   def new
     @round = Round.new
+    @round.folio = @folio
   end
 
   # GET /rounds/1/edit
@@ -66,7 +67,8 @@ class RoundsController < ApplicationController
         organisation_admin = membership_summary[:organisation_admin]
         folio_role = membership_summary[:folio_role]
 
-        is_member = organisation_admin or !folio_role.nil?
+        is_member = (organisation_admin or membership_summary[:folio_member])
+        @contributor = (folio_role >= 2)
         @folio_admin = (organisation_admin or (folio_role == 3))
       end
     end
@@ -95,7 +97,7 @@ class RoundsController < ApplicationController
 
       if !membership_summary.nil? and
         (membership_summary[:organisation_admin] or
-         membership_summary[:folio_role] == 3)
+         (membership_summary[:folio_role] == 3))
         folio_admin = true
       end
     end

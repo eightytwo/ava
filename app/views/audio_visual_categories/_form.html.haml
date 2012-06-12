@@ -1,6 +1,6 @@
 - if @category.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @category.errors.count)
+    %h2= t("form.error_title", count: @category.errors.count)
 
     %ul
     - @category.errors.full_messages.each do |msg|
@@ -8,21 +8,16 @@
 
 .form_content
   = form_for(@category) do |f|
-    - if params[:action] == "new" or params[:action] == "create"
-      = hidden_field_tag 'audio_visual_category[organisation_id]', @organisation.id
+    - if params[:action] == "new"
+      = f.hidden_field :organisation_id
 
-      .field_wrapper
-        = f.label :organisation
-        = @organisation.name
-
-    - else
-      .field_wrapper
-        = f.label :organisation
-        = :organisation
+    .field_wrapper
+      = f.label :organisation
+      = @category.organisation.name
     
     .field_wrapper
       = f.label :name
-      = f.text_field :name
+      = f.text_field :name, autofocus: true
     
     .field_wrapper
       = f.submit({class: "button small green"})

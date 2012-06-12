@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :organisations, through: :organisation_users
   has_many :folio_users
   has_many :folios, through: :folio_users
+  has_many :critiques
 
   # Ensure null is inserted into these columns if empty string.
   nilify_blanks :only => [:first_name, :last_name]
@@ -98,7 +99,7 @@ class User < ActiveRecord::Base
       organisation_member: false,
       organisation_admin: false,
       folio_member: false,
-      folio_role: nil
+      folio_role: 0
     }
 
     # Get the id of the folio if supplied, otherwise set to zero.
@@ -113,11 +114,11 @@ class User < ActiveRecord::Base
 
       if !summary.nil?
         result[:organisation_member] = true
-        result[:organisation_admin] = summary.organisation_admin
+        result[:organisation_admin] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(summary.organisation_admin)
         
         if !summary.folio_role.nil?
           result[:folio_member] = true
-          result[:folio_role] = summary.folio_role
+          result[:folio_role] = summary.folio_role.to_i
         end
       end
     end
@@ -136,15 +137,15 @@ class User < ActiveRecord::Base
 
     # Establish the user in the organisation and folio.
     if !organisation.nil?
-      OrganisationUser.create(organisation: organisation,
-                              user: self,
+      OrganisationUser.create(organisation_id: organisation.id,
+                              user_id: self.id,
                               admin: self.invitation_organisation_admin)
     end
 
     if !folio.nil? and !folio_role.nil?
-      FolioUser.create(folio: folio,
-                       user: self,
-                       folio_role: folio_role)
+      FolioUser.create(folio_id: folio.id,
+                       user_id: self.id,
+                       folio_role_id: folio_role.id)
     end
 
     # Set the relevant invitation columns to null such that foreign key

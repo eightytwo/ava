@@ -4,20 +4,13 @@ class CritiqueCategoriesController < ApplicationController
 
   # GET /critique_categories
   def index
-    roots = CritiqueCategory.where(organisation_id: @organisation.id).order(:name).roots.all
-
-    @categories = []
-
-    roots.each do |root|
-      CritiqueCategory.sorted_each_with_level(root.self_and_descendants, :name) do |category, level|
-        @categories.append({category: category, level: level})
-      end
-    end
+    @categories = CritiqueCategory.categories_for_organisation(@organisation)
   end
 
   # GET /critique_categories/new
   def new
     @category = CritiqueCategory.new
+    @category.organisation = @organisation
   end
 
   # GET /critique_categories/1/edit

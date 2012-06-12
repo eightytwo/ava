@@ -1,6 +1,6 @@
 - if @round.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @round.errors.count)
+    %h2= t("form.error_title", count: @round.errors.count)
 
     %ul
       - @round.errors.full_messages.each do |msg|
@@ -8,11 +8,11 @@
 
 .form_content
   = form_for(@round) do |f|
-    = hidden_field_tag 'round[folio_id]', @folio.id
+    = f.hidden_field :folio_id
 
     .field_wrapper
       = f.label :name
-      = f.text_field :name
+      = f.text_field :name, autofocus: true
 
     .field_wrapper
       = f.label :start_date

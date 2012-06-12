@@ -1,6 +1,6 @@
 - if @audio_visual.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @audio_visual.errors.count)
+    %h2= t("form.error_title", count: @audio_visual.errors.count)
 
     %ul
     - @audio_visual.errors.full_messages.each do |msg|
@@ -9,8 +9,8 @@
 .form_content
   = form_for(@audio_visual) do |f|
     - if !@round.nil?
-      - if params[:action] == "new" or params[:action] == "create"
-        = hidden_field_tag 'audio_visual[round_id]', @round.id
+      - if params[:action] == "new"
+        = f.hidden_field :round_id
 
       .field_wrapper
         = f.label :round
@@ -18,7 +18,7 @@
     
     .field_wrapper
       = f.label :title
-      = f.text_field :title
+      = f.text_field :title, autofocus: true
     
     .field_wrapper
       = f.label :description
@@ -64,7 +64,4 @@
       = f.submit({class: "button small green"})
 
   .links_wrapper
-    - if !@round.nil?
-      = link_to t("links.back"), @round
-    - else
-      = link_to t("links.back"), root_url
+    = link_to t("links.back"), @audio_visual

@@ -1,15 +1,16 @@
 #container
-  %h2
-    = link_to @folio.organisation.name, @folio.organisation
-    .arrow_right
-    = @folio.name
+  #title
+    %h2
+      = link_to @folio.organisation.name, @folio.organisation
+      .arrow_right
+      = @folio.name
 
   #content
     .right
       %table.slave{cellspacing: "0"}
         %tr
-          %th= t("folio.show.members.title")
-          - if @folio_admin
+          %th{colspan: !@organisation_admin && "2"}= t("folio.show.members.title")
+          - if @organisation_admin
             %th.text_right= link_to "add", new_folio_user_path(fid: @folio.id)
 
         - if @admins.count + @contributors.count + @viewers.count > 0

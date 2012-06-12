@@ -10,6 +10,7 @@ class AudioVisualCategoriesController < ApplicationController
   # GET /audio_visual_categories/new
   def new
     @category = AudioVisualCategory.new
+    @category.organisation = @organisation
   end
 
   # GET /audio_visual_categories/1/edit

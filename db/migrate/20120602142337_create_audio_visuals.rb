@@ -26,6 +26,6 @@ class CreateAudioVisuals < ActiveRecord::Migration
     add_index :audio_visuals, :audio_visual_category_id
     add_foreign_key(:audio_visuals, :users, dependent: :delete)
     add_foreign_key(:audio_visuals, :rounds, dependent: :delete)
-    add_foreign_key(:audio_visuals, :audio_visual_categories)
+    add_foreign_key(:audio_visuals, :audio_visual_categories, dependent: :restrict)
   end
 end

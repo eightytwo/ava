@@ -1,14 +1,15 @@
 #container
-  %h2
-    - if @round.open?
-      %div.right
+  #title
+    - if @round.open? and @contributor
+      .right
         = link_to(t("links.add_audio_visual"), new_audio_visual_path(rid: @round.id), {class: "regular"})
 
-    = link_to @round.folio.organisation.name, @round.folio.organisation
-    .arrow_right
-    = link_to @round.folio.name, @round.folio
-    .arrow_right
-    = @round.name
+    %h2
+      = link_to @round.folio.organisation.name, @round.folio.organisation
+      .arrow_right
+      = link_to @round.folio.name, @round.folio
+      .arrow_right
+      = @round.name
 
   #content
     - if @audio_visuals.nil? or @audio_visuals.count == 0

@@ -8,7 +8,9 @@
     %title AudioVisualArcade
     %link{rel: "shortcut icon", href: "/favicon.ico?v2"}
     = stylesheet_link_tag "custom"
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"
     = javascript_include_tag "application"
+    = yield(:head)
     = csrf_meta_tags
 
   %body

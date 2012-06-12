@@ -1,6 +1,6 @@
 - if @organisation_user.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @organisation_user.errors.count)
+    %h2= t("form.error_title", count: @organisation_user.errors.count)
 
     %ul
     - @organisation_user.errors.full_messages.each do |msg|

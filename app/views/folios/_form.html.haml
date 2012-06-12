@@ -1,6 +1,6 @@
 - if @folio.errors.any?
   #error_explanation
-    %h2= t("form.error_title", :count => @folio.errors.count)
+    %h2= t("form.error_title", count: @folio.errors.count)
 
     %ul
     - @folio.errors.full_messages.each do |msg|
@@ -8,11 +8,11 @@
 
 .form_content
   = form_for(@folio) do |f|
-    = hidden_field_tag 'folio[organisation_id]', @organisation.id
+    = f.hidden_field :organisation_id
     
     .field_wrapper
       = f.label :name
-      = f.text_field :name
+      = f.text_field :name, autofocus: true
 
     .field_wrapper
       = f.label :description

@@ -6,6 +6,7 @@ class FolioUsersController < ApplicationController
   # GET /folio_users/new
   def new
     @folio_user = FolioUser.new
+    @folio_user.folio = @folio
 
     # Get members of the folio's organisation which do not belong to the folio.
     @members = User
@@ -58,8 +59,6 @@ class FolioUsersController < ApplicationController
   def ensure_folio_admin
     folio_admin = false
 
-    #@folio_user = FolioUser.find_by_id(params[:id])
-
     @folio_user = FolioUser
       .includes(:folio)
       .joins(:folio)
@@ -72,8 +71,8 @@ class FolioUsersController < ApplicationController
         @folio.organisation, @folio)
 
       if !membership_summary.nil?
-        folio_admin = membership_summary[:organisation_admin] or
-                      membership_summary[:folio_role_id] == 3
+        folio_admin = (membership_summary[:organisation_admin] or
+                      (membership_summary[:folio_role] == 3))
       end
     end
 

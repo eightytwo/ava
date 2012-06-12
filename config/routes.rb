@@ -18,13 +18,16 @@ Ava::Application.routes.draw do
 
   # Organisation, folio and round routes.
   resources :organisations, only: [:index, :show, :edit, :update]
-  resources :folios, except: [:index]
-  resources :rounds, except: [:index]
+  resources :folios, except: :index
+  resources :rounds, except: :index
   resources :organisation_users, only: [:edit, :update, :destroy]
   resources :folio_users, except: [:index, :show]
-  resources :audio_visual_categories, except: :show
+  resources :audio_visual_categories, except: :show, path: "av_categories"
   resources :critique_categories, except: :show
-  resources :audio_visuals, except: :index
+  resources :audio_visuals, except: :index, path: "av"
+  resources :critiques, except: [:index, :show]
+
+  get "/av/:id/:action" => "audio_visuals#critiques"
 
   get "home/index"
 

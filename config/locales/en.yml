@@ -31,6 +31,7 @@ en:
     logout: "logout"
     new: "new"
     add_audio_visual: "add audio visual"
+    reply: "reply"
 
   menu:
     about: "about"
@@ -237,12 +238,13 @@ en:
       summary:
         title: "Summary"
         headings:
-          title: "Title"
-          description: "Description"
           music: "Music"
           location: "Location"
           production_notes: "Production Notes"
           tags: "Tags"
+      tabs:
+        critique: "Critiques" 
+        comment: "Comments"
     new:
       title: "Upload Audio Visual"
     create:
@@ -256,3 +258,16 @@ en:
       success: "Audio visual was succssfully removed."
     labels:
       audio_visual_category: "Category"
+
+  critique:
+    new:
+      title: "New Critique"
+    create:
+      success: "Critique was successfully created."
+    edit:
+      title: "Edit Critique"
+    update:
+      success: "Critique was successfully updated."
+    delete:
+      confirm: "Are you sure?"
+      success: "Critique was successfully removed."

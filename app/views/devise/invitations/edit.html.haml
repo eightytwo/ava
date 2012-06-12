@@ -1,4 +1,4 @@
-.form_wrapper
+.form_wrapper.narrow
   %h3= t("invitation.accept.title")
 
   = devise_error_messages!
@@ -10,7 +10,7 @@
       .field_wrapper
         = f.label :first_name
         .field_tip= t("form.tips.optional")
-        = f.text_field :first_name
+        = f.text_field :first_name, autofocus: true
       
       .field_wrapper
         = f.label :last_name
@@ -30,4 +30,4 @@
         = f.password_field :password_confirmation
 
       .field_wrapper
-        = f.submit(t("inivitation.accept.submit"), {class: "button small green"})
+        = f.submit(t("invitation.accept.submit"), {class: "button small green"})

@@ -34,6 +34,7 @@ class FoliosController < ApplicationController
   # GET /folios/new?oid=1
   def new
     @folio = Folio.new
+    @folio.organisation = @organisation
   end
 
   # GET /folios/1/edit
@@ -83,14 +84,14 @@ class FoliosController < ApplicationController
         @folio.organisation, @folio)
 
       if !membership_summary.nil?
-        @folio_admin = membership_summary[:organisation_admin] or
-                       membership_summary[:folio_role_id] == 3
-
+        @organisation_admin = membership_summary[:organisation_admin]
+        @folio_admin = (@organisation_admin or
+                        (membership_summary[:folio_role] == 3))
         is_member = !membership_summary[:folio_role].nil?
       end
     end
 
-    redirect_to root_url if !is_member and !@folio_admin
+    redirect_to root_url if !is_member and !@folio_admin and !@organisation_admin
   end
 
   # Ensures the current user is an administrator of the requested organisation.

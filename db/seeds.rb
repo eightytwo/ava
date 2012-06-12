@@ -6,6 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Create status types.
+StatusType.create(name: 'Active',
+                  description: 'Indicates the record is active.')
+StatusType.create(name: 'Inactive',
+                  description: 'Indicates the record is inactive.')
+StatusType.create(name: 'Deleted',
+                  description: 'Indicates the record has been logically deleted.')
+
 # Create my user.
 admin = User.create(email: 'art@admins.com',
                     username: 'art',
@@ -35,6 +43,6 @@ organisation = Organisation.create(name: 'APS',
                                    website: 'http://www.aps.org.au')
 
 # Add the user to the organisation.
-organisation_user = OrganisationUser.create(organisation_id: organisation_id,
-                                            user_id: admin.id,
-                                            admin: true)
+OrganisationUser.create(organisation_id: organisation.id,
+                        user_id: admin.id,
+                        admin: true)
