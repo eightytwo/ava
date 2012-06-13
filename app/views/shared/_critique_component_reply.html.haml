@@ -1,0 +1,18 @@
+- if component.reply.nil?
+  .reply_wrapper.new.hidden
+    .reply_title
+      %span= t("audio_visual.show.comments.title")
+    .reply_content
+
+- else
+  .reply_wrapper.existing
+    .reply_title
+      .right
+        #{time_ago_in_words(component.reply_updated_at)} ago
+        - if component.critique.audio_visual.user_id == current_user.id
+          = render "shared/link_separator"
+          = link_to t("links.edit"), "#", {id: component.id, class: "reply_link"}
+      %span #{component.critique.audio_visual.user.organisation_display_name}
+      commented
+    .reply_content
+      %pre= component.reply

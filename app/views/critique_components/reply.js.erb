@@ -1,0 +1,29 @@
+var el = $('#critique_reply_form');
+
+<% if @component.errors.any? %>
+  // Create a list of errors
+  var errors = $('<ul />');
+
+  <% @component.errors.full_messages.each do |error| %>
+    errors.append('<li><%= escape_javascript(error) %></li>');
+  <% end %>
+
+  // Display the errors on the form.
+  el.find('.errors').html(errors);
+
+<% else %>
+  // Get the reply wrapper element which will be replaced with the new content.
+  var target = $('#critique_reply_form_wrapper').parents('.reply_wrapper');
+
+  // Clear the form and move it out of the critique.
+  $('#txtReplyContent').text("");
+  el.find('.errors').empty();
+  $('#critique_reply_form_wrapper').hide();
+  $('#critique_reply_form_wrapper').appendTo($('#av_critiques'))
+
+  // Render the reply partial.
+  target.replaceWith("<%= escape_javascript( 
+      render partial: 'shared/critique_component_reply', locals: {component: @component} 
+    ) %>");
+
+<% end %>

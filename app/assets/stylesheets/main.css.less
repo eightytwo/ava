@@ -209,6 +209,11 @@ textarea {
   }
 }
 
+.errors {
+  margin-top: 10px;
+  color: #d54c4c;
+}
+
 
 /*----- Tables -----*/
 table.master {
@@ -748,12 +753,21 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 }
 
-#critique_reply_form {
+#critique_reply_form_wrapper {
   display: none;
   margin-right: @defaultPadding;
 
   textarea {
     margin-bottom: 5px;
+  }
+
+  li {
+    display: list-item;
+    margin: 6px @defaultPadding;
+    padding: 0px;
+    background-color: transparent;
+    cursor: default;
+    list-style-type: disc;
   }
 }
 

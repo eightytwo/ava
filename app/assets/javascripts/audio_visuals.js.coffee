@@ -68,8 +68,8 @@ jQuery ->
       # with the clicked reply link.
       replyWrapper = replyLink.parents('.av_critique_category').children('.reply_wrapper')
       replyContent = replyWrapper.children('.reply_content')
-      replyFormWrapper = $('#critique_reply_form')
-      replyForm = replyFormWrapper.children('form')
+      replyFormWrapper = $('#critique_reply_form_wrapper')
+      replyForm = $('#critique_reply_form')
       replyTextBox = $('#txtReplyContent')
       replyExistingContent = replyContent.children('pre')
 
@@ -99,7 +99,7 @@ jQuery ->
 
       # Wipe the content of the text area and hide the form wrapper.
       $('#txtReplyContent').text("")
-      $('#critique_reply_form').hide()
+      $('#critique_reply_form_wrapper').hide()
 
       return false
 
