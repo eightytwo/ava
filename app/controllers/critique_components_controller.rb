@@ -19,11 +19,8 @@ class CritiqueComponentsController < ApplicationController
         
         # Set the reply content and save.
         @component.reply = params[:reply]
+        @component.update_record_without_timestamping
         
-        if @component.update_record_without_timestamping
-          flash[:notice] = I18n.t("critique_component.reply.success")
-        end
-
         respond_with(@component, :layout => !request.xhr?)
       end
     end

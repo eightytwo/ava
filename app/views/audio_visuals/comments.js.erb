@@ -1,0 +1,7 @@
+$('#av_comments').html(
+  "<%= escape_javascript(render partial: 'comment', collection: @comments, locals: {audio_visual: @audio_visual}) %>"
+);
+
+$('#av_comments').append(
+  "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer') %>"
+);

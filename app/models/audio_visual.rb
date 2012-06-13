@@ -3,6 +3,7 @@ class AudioVisual < ActiveRecord::Base
   belongs_to :round
   belongs_to :audio_visual_category
   has_many :critiques
+  has_many :comments
 
   attr_accessible :description, :external_reference, :length, :location,
                   :music, :production_notes, :rating, :tags, :title, :views,

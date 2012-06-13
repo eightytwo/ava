@@ -41,9 +41,10 @@
             %li{id: "av_tab_comment"}= t("audio_visual.show.tabs.comment")
         #tab_base
         - if @audio_visual.allow_critiquing
-          #av_critiques
+          #av_critiques{data: {load: critiques_audio_visual_path(@audio_visual, format: :html), format: "html"}}
             - if @can_critique
               = link_to t("links.new"), new_critique_path(avid: @audio_visual.id)
         - if @audio_visual.allow_commenting
-          #av_comments
-            Here are the comments
+          #av_comments{data: {load: comments_audio_visual_path(@audio_visual, format: :js), format: "js"}}
+            - if @can_comment
+              jump down to the add comments form

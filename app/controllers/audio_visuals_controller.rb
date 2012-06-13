@@ -4,7 +4,7 @@ class AudioVisualsController < ApplicationController
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
   before_filter :ensure_folio_contributor, only: [:new, :create, :critiques]
 
-  # GET /audio_visuals/1/critiques
+  # GET /av/1/critiques
   def critiques
     @critiques = Critique
       .includes(critique_components: :critique_category)
@@ -15,7 +15,27 @@ class AudioVisualsController < ApplicationController
     render layout: false
   end
 
-  # GET /audio_visuals/1
+  # GET /av/1/comments
+  def comments
+    @audio_visual = AudioVisual
+      .includes(:user)
+      .joins(:user)
+      .where(id: params[:id])
+      .first
+
+    if !@audio_visual.nil?
+      @comments = Comment
+        .includes(:user)
+        .joins(:user)
+        .where(audio_visual_id: @audio_visual.id)
+        .paginate(page: params[:page])
+        .order("COALESCE(comments.reply_updated_at, comments.updated_at) DESC")
+    end
+
+    render layout: false
+  end
+
+  # GET /av/1
   def show
     @critiques = AudioVisual
       .includes(critiques: :user)
@@ -27,17 +47,17 @@ class AudioVisualsController < ApplicationController
     @can_critique = (!has_critique and @contributor and !@owner)
   end
 
-  # GET /audio_visuals/new
+  # GET /av/new
   def new
     @audio_visual = AudioVisual.new
     @audio_visual.round = @round
   end
 
-  # GET /audio_visuals/1/edit
+  # GET /av/1/edit
   def edit
   end
 
-  # POST /audio_visuals
+  # POST /av
   def create
     if @round.nil? or (!@round.nil? and @round.open?)
       @audio_visual = AudioVisual.new(params[:audio_visual])
@@ -51,7 +71,7 @@ class AudioVisualsController < ApplicationController
     end
   end
 
-  # PUT /audio_visuals/1
+  # PUT /av/1
   def update
     if @audio_visual.update_attributes(params[:audio_visual])
       redirect_to @audio_visual, notice: I18n.t("audio_visual.update.success")
@@ -60,7 +80,7 @@ class AudioVisualsController < ApplicationController
     end
   end
 
-  # DELETE /audio_visuals/1
+  # DELETE /av/1
   def destroy
     @audio_visual.destroy
 

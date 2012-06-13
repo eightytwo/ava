@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608023639) do
+ActiveRecord::Schema.define(:version => 20120613052915) do
 
   create_table "audio_visual_categories", :force => true do |t|
     t.integer  "organisation_id",                :null => false
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(:version => 20120608023639) do
   add_index "audio_visuals", ["audio_visual_category_id"], :name => "index_audio_visuals_on_audio_visual_category_id"
   add_index "audio_visuals", ["round_id"], :name => "index_audio_visuals_on_round_id"
   add_index "audio_visuals", ["user_id"], :name => "index_audio_visuals_on_user_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "audio_visual_id",  :null => false
+    t.string   "content",          :null => false
+    t.string   "reply"
+    t.datetime "reply_created_at"
+    t.datetime "reply_updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "comments", ["audio_visual_id"], :name => "index_comments_on_audio_visual_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "critique_categories", :force => true do |t|
     t.integer  "organisation_id",                   :null => false
@@ -201,6 +215,9 @@ ActiveRecord::Schema.define(:version => 20120608023639) do
   add_foreign_key "audio_visuals", "audio_visual_categories", :name => "audio_visuals_audio_visual_category_id_fk", :dependent => :restrict
   add_foreign_key "audio_visuals", "rounds", :name => "audio_visuals_round_id_fk", :dependent => :delete
   add_foreign_key "audio_visuals", "users", :name => "audio_visuals_user_id_fk", :dependent => :delete
+
+  add_foreign_key "comments", "audio_visuals", :name => "comments_audio_visual_id_fk", :dependent => :delete
+  add_foreign_key "comments", "users", :name => "comments_user_id_fk", :dependent => :delete
 
   add_foreign_key "critique_categories", "organisations", :name => "critique_categories_organisation_id_fk", :dependent => :delete
   add_foreign_key "critique_categories", "status_types", :name => "critique_categories_status_type_id_fk", :dependent => :restrict
