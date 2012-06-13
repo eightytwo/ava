@@ -4,8 +4,6 @@ class CritiqueComponentsController < ApplicationController
 
   # POST /critique_components/reply
   def reply
-    sleep(2)
-
     # Get the critique component (and its critique and audio visual).
     if !params[:id].nil?
       @component = CritiqueComponent
