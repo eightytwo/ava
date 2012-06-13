@@ -107,7 +107,19 @@ jQuery ->
     Ajax functionality
     ###
 
+    # Retrieve critiques.
     $.ajax "/av/1/critiques",
       cache: false,
       success: (html) ->
         critiqueContainer.append(html)
+
+    # Setup spinner for replying to a critique component.
+    $('#critique_reply_form')
+      .live 'ajax:before', ->
+        $('#critique_reply_spinner').show()
+        $('#btnAddReply').hide()
+        $('#critique_reply_cancel').hide()
+      .live 'ajax:complete', ->
+        $('#critique_reply_spinner').hide()
+        $('#btnAddReply').show()
+        $('#critique_reply_cancel').show()

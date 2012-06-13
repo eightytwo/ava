@@ -4,6 +4,8 @@ class CritiqueComponentsController < ApplicationController
 
   # POST /critique_components/reply
   def reply
+    sleep(2)
+
     # Get the critique component (and its critique and audio visual).
     if !params[:id].nil?
       @component = CritiqueComponent
@@ -23,7 +25,7 @@ class CritiqueComponentsController < ApplicationController
         if @component.update_record_without_timestamping
           flash[:notice] = I18n.t("critique_component.reply.success")
         end
-        
+
         respond_with(@component, :layout => !request.xhr?)
       end
     end
