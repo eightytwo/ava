@@ -1,29 +1,18 @@
-.comment_wrapper
-  .comment_title
+.component_wrapper
+  .component_title
     .right
       #{time_ago_in_words(comment.updated_at)} ago
       - if comment.user.id == current_user.id
         = render "shared/link_separator"
-        = link_to t("links.edit"), "#", {id: comment.id, class: "comment_edit_link"}
-      - elsif audio_visual.user.id == current_user.id
+        = link_to t("links.edit"), "#", {class: "comment_edit_link", data: {id: comment.id}}
+      - elsif audio_visual.user.id == current_user.id and comment.reply.nil?
         = render "shared/link_separator"
-        = link_to t("links.reply"), "#", {id: comment.id, class: "comment_reply_link"}
+        = link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: comment.id}}
 
     %h4= comment.user.organisation_display_name
 
-  .comment_content
-    %pre= comment.content
-
-    - if !comment.reply.nil?
-      .comment_reply_wrapper
-        .comment_reply_title
-          .right
-            #{time_ago_in_words(comment.reply_updated_at)} ago
-            - if audio_visual.user_id == current_user.id
-              = render "shared/link_separator"
-              = link_to t("links.edit"), "#", {id: comment.id, class: "comment_edit_reply_link"}
-          %span #{audio_visual.user.organisation_display_name}
-          replied
-        
-        .comment_reply_content
-          %pre= comment.reply
+  .component_content_wrapper
+    .component_content
+      %pre= comment.content
+  
+    = render partial: "shared/critique_component_reply", locals: {component: comment, audio_visual: @audio_visual}

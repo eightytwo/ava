@@ -1,6 +1,7 @@
 /*----- Variables -----*/
 @defaultFontColour: #444;
 @defaultLinkColour: #444;
+@defaultBorderRadius: 4px;
 @defaultPadding: 16px;
 @pageWidth: 950px;
 
@@ -29,6 +30,21 @@ nav {
 header {
   margin-bottom: 40px;
   text-align: left;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .site_heading {
@@ -69,19 +85,16 @@ header {
 
 #container {
   margin-bottom: 42px;
-  -moz-border-radius: 4px;
-  -o-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+  -moz-border-radius: @defaultBorderRadius;
+  -o-border-radius: @defaultBorderRadius;
+  -webkit-border-radius: @defaultBorderRadius;
+  border-radius: @defaultBorderRadius;
   background-color: #fff;
   text-align: left;
   box-shadow: 1px  1px rgba(205, 205, 205, 0.2),
              -1px -1px rgba(205, 205, 205, 0.2);
 
-  h2 {
-    font-size: 14px;
-    font-weight: bold;
-
+  h3 {
     a {
       font-size: 14px;
       font-weight: bold;
@@ -172,11 +185,9 @@ textarea {
   box-shadow: 1px  1px rgba(205, 205, 205, 0.2),
              -1px -1px rgba(205, 205, 205, 0.2);
 
-  h3 {
+  h2 {
     padding: @defaultPadding;
     border-bottom: 1px solid #eee;
-    font-size: @defaultPadding;
-    font-weight: bold;
   }
 }
 
@@ -191,7 +202,7 @@ textarea {
   label {
     display: block;
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -295,10 +306,10 @@ tr:last-child > td {
   margin-top: 2px;
   height: 24px;
   border: 1px solid #d7d7d7;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: @defaultBorderRadius;
+  -o-border-radius: @defaultBorderRadius;
+  -webkit-border-radius: @defaultBorderRadius;
+  border-radius: @defaultBorderRadius;
   background-color: #e1e1e1;
   z-index: 20;
 }
@@ -332,14 +343,14 @@ tr:last-child > td {
   top: 26px;
   border: 1px solid #d7d7d7;
   border-top: 1px dotted #ededed;
-  -moz-border-bottom-left-radius: 3px 3px;
-  -moz-border-bottom-right-radius: 3px 3px;
-  -o-border-bottom-left-radius: 3px 3px;
-  -o-border-bottom-right-radius: 3px 3px;
-  -webkit-border-bottom-left-radius: 3px 3px;
-  -webkit-border-bottom-right-radius: 3px 3px;
-  border-bottom-left-radius: 3px 3px;
-  border-bottom-right-radius: 3px 3px;
+  -moz-border-bottom-left-radius: @defaultBorderRadius @defaultBorderRadius;
+  -moz-border-bottom-right-radius: @defaultBorderRadius @defaultBorderRadius;
+  -o-border-bottom-left-radius: @defaultBorderRadius @defaultBorderRadius;
+  -o-border-bottom-right-radius: @defaultBorderRadius @defaultBorderRadius;
+  -webkit-border-bottom-left-radius: @defaultBorderRadius @defaultBorderRadius;
+  -webkit-border-bottom-right-radius: @defaultBorderRadius @defaultBorderRadius;
+  border-bottom-left-radius: @defaultBorderRadius @defaultBorderRadius;
+  border-bottom-right-radius: @defaultBorderRadius @defaultBorderRadius;
   background-color: #e1e1e1;
   text-align: center;
   z-index: 100;
@@ -361,7 +372,9 @@ tr:last-child > td {
 
   h2 {
     margin-bottom: 6px;
-    font-weight: bold;
+    padding: 0px;
+    border: none;
+    font-size: 12px;
   }
 
   li {
@@ -411,10 +424,10 @@ input[type='submit']:hover.button {
   font-weight: bold;
   font-size: 12px;
   line-height: 12px;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: @defaultBorderRadius;
+  -o-border-radius: @defaultBorderRadius;
+  -webkit-border-radius: @defaultBorderRadius;
+  border-radius: @defaultBorderRadius;
   -moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.08);
   -o-box-shadow:0 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.08);
@@ -599,14 +612,14 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   background-color: #fafafa;
   border: 1px solid #d7d7d7;
   border-top: none;
-  -moz-border-bottom-left-radius: 3px;
-  -moz-border-bottom-right-radius: 3px;
-  -o-border-bottom-left-radius: 3px;
-  -o-border-bottom-right-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  -moz-border-bottom-left-radius: @defaultBorderRadius;
+  -moz-border-bottom-right-radius: @defaultBorderRadius;
+  -o-border-bottom-left-radius: @defaultBorderRadius;
+  -o-border-bottom-right-radius: @defaultBorderRadius;
+  -webkit-border-bottom-left-radius: @defaultBorderRadius;
+  -webkit-border-bottom-right-radius: @defaultBorderRadius;
+  border-bottom-left-radius: @defaultBorderRadius;
+  border-bottom-right-radius: @defaultBorderRadius;
 }
 
 .round_av_title {
@@ -630,12 +643,11 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   width: 300px;
   float: right;
 
-  h2 {
+  h4 {
     padding: @defaultPadding;
     border-bottom: 1px solid #909090;
     color: #666666;
     background-color: #eee;
-    font-weight: bold;
   }
 
   dt {
@@ -660,14 +672,14 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
     padding: 10px 20px;
     border: 1px solid #eee;
     border-bottom: none;
-    -moz-border-top-left-radius: 3px 3px;
-    -moz-border-top-right-radius: 3px 3px;
-    -o-border-top-left-radius: 3px 3px;
-    -o-border-top-right-radius: 3px 3px;
-    -webkit-border-top-left-radius: 3px 3px;
-    -webkit-border-top-right-radius: 3px 3px;
-    border-top-left-radius: 3px 3px;
-    border-top-right-radius: 3px 3px;
+    -moz-border-top-left-radius: @defaultBorderRadius @defaultBorderRadius;
+    -moz-border-top-right-radius: @defaultBorderRadius @defaultBorderRadius;
+    -o-border-top-left-radius: @defaultBorderRadius @defaultBorderRadius;
+    -o-border-top-right-radius: @defaultBorderRadius @defaultBorderRadius;
+    -webkit-border-top-left-radius: @defaultBorderRadius @defaultBorderRadius;
+    -webkit-border-top-right-radius: @defaultBorderRadius @defaultBorderRadius;
+    border-top-left-radius: @defaultBorderRadius @defaultBorderRadius;
+    border-top-right-radius: @defaultBorderRadius @defaultBorderRadius;
     background-color: #fafafa;
     cursor: pointer;
   }
@@ -698,10 +710,10 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   margin: 20px 0px;
   padding: 0px;
   border: 1px solid #eee;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: @defaultBorderRadius;
+  -o-border-radius: @defaultBorderRadius;
+  -webkit-border-radius: @defaultBorderRadius;
+  border-radius: @defaultBorderRadius;
   background-color: #fafafa;
 }
 
@@ -722,41 +734,41 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   padding-bottom: 0px;
 }
 
-.critique_component_wrapper {
-  margin-bottom: 10px;
 
-  h2 {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
+/*----- Reusable critique/comment component styles -----*/
+.component_wrapper {
+  margin-bottom: @defaultPadding;
 
   textarea {
     width: 100%;
   }
 }
 
-.critique_component_title {
-  margin-bottom: 12px;
-  font-weight: bold;
+.component_title {
+  margin-bottom: @defaultPadding / 2;
 }
 
-.critique_component_content {
+.component_content_wrapper {
+  margin-bottom: @defaultPadding * 2;
+}
+
+.component_content {
   margin: 5px 0px 20px 0px;
 }
 
 
-/*----- Critique Reply styles -----*/
-.critique_reply_wrapper {
-  margin: 0px 0px 20px 10px;
+/*----- Critique/Comment Reply styles -----*/
+.component_reply_wrapper {
+  margin: 0px 0px 0px @defaultPadding;
   padding: @defaultPadding;
   background-color: #f0f0f0;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: @defaultBorderRadius;
+  -o-border-radius: @defaultBorderRadius;
+  -webkit-border-radius: @defaultBorderRadius;
+  border-radius: @defaultBorderRadius;
 }
 
-.critique_reply_title {
+.component_reply_title {
   margin-bottom: @defaultPadding / 2;
 
   span {
@@ -764,7 +776,7 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 }
 
-#critique_reply_form_wrapper {
+#component_reply_form_wrapper {
   display: none;
   margin-right: @defaultPadding;
 
@@ -782,46 +794,8 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 }
 
-#critique_reply_spinner {
+#component_reply_spinner {
   display: none;
-}
-
-
-/*----- Comment styles -----*/
-.comment_wrapper {
-  padding: @defaultPadding;
-}
-
-.comment_title {
-  margin-bottom: 8px;
-
-  h4 {
-    font-weight: bold;
-  }
-}
-
-.comment_content {
-}
-
-.comment_reply_wrapper {
-  margin: 20px 0px 0px 10px;
-  padding: @defaultPadding;
-  background-color: #f0f0f0;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-}
-
-.comment_reply_title {
-  margin-bottom: @defaultPadding / 2;
-
-  span {
-    font-weight: bold;
-  }
-}
-
-.comment_reply_content {
 }
 
 

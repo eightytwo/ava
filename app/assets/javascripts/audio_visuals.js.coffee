@@ -34,13 +34,16 @@ jQuery ->
       commentTab.click -> showComments() if !commentTab.hasClass('active')
 
     # Set click handler for critique showing/collapsing.
-    $('.critique_title').live 'click', (event) -> return toggleCritique($(this))
+    $('.critique_title').live 'click', (event) ->
+      return toggleCritique($(this))
 
     # Set click handler for the reply links.
-    $('.critique_reply_link').live 'click', (event) -> return setupCritiqueReply($(this))
+    $('.component_reply_link').live 'click', (event) ->
+      return setupReply($(this))
 
     # Set click handler for the cancel reply link.
-    $('.cancel_critique_reply_link').live 'click', (event) -> return cancelCritiqueReply($(this))
+    $('.cancel_reply_link').live 'click', (event) ->
+      return cancelReply($(this))
 
 
     # Functions to show the content of a tab when clicked. These are split out
@@ -64,54 +67,58 @@ jQuery ->
     # Function to expand and collapse critiques.
     toggleCritique = (critiqueTitle) ->
       critiqueTitle.next().toggle('fast')
-      return false
 
-    # Shows a reply form inline with the critique component selected
-    # for replying.
-    setupCritiqueReply = (replyLink) ->
-      componentID = replyLink.attr('id')
+    # Shows a reply form inline with the critique component or comment
+    # selected for replying.
+    setupReply = (replyLink) ->
+      componentID = replyLink.attr('data-id')
+      replyFormWrapper = $('#component_reply_form_wrapper')
 
-      # Hide any existing new reply areas.
-      $('.critique_category').children('.critique_reply_wrapper.new').hide()
-      # Ensure all existing replies are shown.
-      $('.critique_reply_wrapper.existing > .critique_reply_content > pre').show()
-      
-      # Get the reply area and necessary elements associated
-      # with the clicked reply link.
-      replyWrapper = replyLink.parents('.critique_category').children('.critique_reply_wrapper')
-      replyContent = replyWrapper.children('.critique_reply_content')
-      replyFormWrapper = $('#critique_reply_form_wrapper')
-      replyForm = $('#critique_reply_form')
-      replyTextBox = $('#txtReplyContent')
-      replyExistingContent = replyContent.children('pre')
+      # Get the component element in which the reply form is currently
+      # embedded (if any).
+      oldComponent = replyFormWrapper.parents('.component_reply_wrapper')
+      if oldComponent.length
+        oldComponent.hide() if oldComponent.hasClass('new')
+        oldComponent.find('pre').show() if oldComponent.hasClass('existing')
 
-      # Clear any left over text from the textbox.
-      replyTextBox.text("")
-      
-      # Move the reply form into place and set necessary values.
+      # Get the reply wrapper and content elements associated with the
+      # clicked reply link. This is where the reply form will be moved to.
+      replyWrapper = replyLink.parents('.component_wrapper')
+                              .find('.component_reply_wrapper')
+      replyContent = replyWrapper.find('.component_reply_content')
+      existingReplyText = replyContent.find('pre')
+
+      # Update the content of the form.
       $('#hidComponentID').val(componentID)
-      if (replyExistingContent.length)
-        replyExistingContent.hide()
-        replyTextBox.text($.trim(replyExistingContent.text()))
+      if existingReplyText.length
+        existingReplyText.hide()
+        $('#txtReplyContent').text(existingReplyText.text())
+      else
+        $('#txtReplyContent').text("")
 
-      # Show the form and the containing element.
+      # Insert the reply form into the component being replied to and make
+      # it visible. Finally, show its parent.
       replyFormWrapper.appendTo(replyContent).show()
       replyWrapper.show()
 
       return false
 
-    # Cancels a reply to a critique component.
-    cancelCritiqueReply = (cancelLink) ->
+    # Cancels a reply to a critique component or comment.
+    cancelReply = (cancelLink) ->
+      replyFormWrapper = $('#component_reply_form_wrapper')
+
       # Get the reply wrapper and show the reply text if it exists.
-      replyWrapper = cancelLink.parents('.critique_category').children('.critique_reply_wrapper')
-      replyWrapper.children('.critique_reply_content').children('pre').show()
+      replyWrapper = replyFormWrapper.parents('.component_reply_wrapper')
+      existingReplyText = replyWrapper.find('pre')
+      if existingReplyText.length
+        existingReplyText.show()
       
       # Hide the entire reply wrapper if no reply actually exists.
       replyWrapper.hide() if replyWrapper.hasClass('new')
 
       # Wipe the content of the text area and hide the form wrapper.
       $('#txtReplyContent').text("")
-      $('#critique_reply_form_wrapper').hide()
+      replyFormWrapper.hide()
 
       return false
 
@@ -130,12 +137,12 @@ jQuery ->
       $.getScript path
 
     # Setup spinner for replying to a critique component.
-    $('#critique_reply_form')
+    $('#component_reply_form')
       .live 'ajax:before', ->
-        $('#critique_reply_spinner').show()
+        $('#component_reply_spinner').show()
         $('#btnAddReply').hide()
-        $('#critique_reply_cancel').hide()
+        $('#component_reply_cancel').hide()
       .live 'ajax:complete', ->
-        $('#critique_reply_spinner').hide()
+        $('#component_reply_spinner').hide()
         $('#btnAddReply').show()
-        $('#critique_reply_cancel').show()
+        $('#component_reply_cancel').show()

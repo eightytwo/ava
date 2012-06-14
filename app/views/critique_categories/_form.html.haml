@@ -1,6 +1,6 @@
 - if @category.errors.any?
   #error_explanation
-    %h2= t("form.error_title", count: @category.errors.count)
+    %h3= t("form.error_title", count: @category.errors.count)
 
     %ul
     - @category.errors.full_messages.each do |msg|

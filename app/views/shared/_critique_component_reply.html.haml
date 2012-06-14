@@ -1,18 +1,19 @@
 - if component.reply.nil?
-  .critique_reply_wrapper.new.hidden
-    .critique_reply_title
+  .component_reply_wrapper.new.hidden
+    .component_reply_title
       %span= t("audio_visual.show.comments.title")
-    .critique_reply_content
+    .component_reply_content
 
 - else
-  .critique_reply_wrapper.existing
-    .critique_reply_title
+  .component_reply_wrapper.existing
+    .component_reply_title
       .right
         #{time_ago_in_words(component.reply_updated_at)} ago
-        - if component.critique.audio_visual.user_id == current_user.id
+        - if audio_visual.user_id == current_user.id
           = render "shared/link_separator"
-          = link_to t("links.edit"), "#", {id: component.id, class: "critique_reply_link"}
-      %span #{component.critique.audio_visual.user.organisation_display_name}
+          = link_to t("links.edit"), "#", {class: "component_reply_link", data: {id: component.id}}
+      %span #{audio_visual.user.organisation_display_name}
       commented
-    .critique_reply_content
+    
+    .component_reply_content
       %pre= component.reply

@@ -1,6 +1,6 @@
 - if @round.errors.any?
   #error_explanation
-    %h2= t("form.error_title", count: @round.errors.count)
+    %h3= t("form.error_title", count: @round.errors.count)
 
     %ul
       - @round.errors.full_messages.each do |msg|

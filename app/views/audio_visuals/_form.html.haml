@@ -1,6 +1,6 @@
 - if @audio_visual.errors.any?
   #error_explanation
-    %h2= t("form.error_title", count: @audio_visual.errors.count)
+    %h3= t("form.error_title", count: @audio_visual.errors.count)
 
     %ul
     - @audio_visual.errors.full_messages.each do |msg|

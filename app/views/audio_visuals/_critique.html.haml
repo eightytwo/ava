@@ -10,15 +10,16 @@
 
   .critique_content
     - critique.critique_components.each do |component|
-      .critique_component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
+      .component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
         .critique_category
           %div
-            - if critique.audio_visual.user_id == current_user.id and component.critique_category.critiquable and component.reply.nil?
-              .right= link_to t("links.reply"), "#", {id: component.id, class: "critique_reply_link"}
-            .critique_component_title= component.critique_category.name
+            - if critique.audio_visual.user_id == current_user.id and !component.content.nil? and component.reply.nil?
+              .right= link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: component.id}}
+            %h4.component_title= component.critique_category.name
           
           - if !component.content.nil?
-            %pre.critique_component_content= component.content
+            .component_content_wrapper
+              .component_content
+                %pre= component.content
 
-          - if component.critique_category.critiquable
-            = render partial: "shared/critique_component_reply", locals: {component: component}
+              = render partial: "shared/critique_component_reply", locals: {component: component, audio_visual: component.critique.audio_visual}

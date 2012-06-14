@@ -1,11 +1,11 @@
 = render partial: "critique", collection: @critiques
 
-#critique_reply_form_wrapper
-  = form_tag(critique_component_reply_path, remote: true, id: "critique_reply_form") do
+#component_reply_form_wrapper
+  = form_tag(critique_component_reply_path, remote: true, id: "component_reply_form") do
     = text_area_tag("reply", nil, {id: "txtReplyContent"})
     = hidden_field_tag("id", nil, {id: "hidComponentID"})
     = submit_tag(t("audio_visual.show.comments.add"), {id: "btnAddReply", class: "button small green"})
     = render "shared/link_separator"
-    = link_to t("links.cancel"), "#", {class: "cancel_critique_reply_link", id: "critique_reply_cancel"}
-    #critique_reply_spinner{class: "spinner"}
+    = link_to t("links.cancel"), "#", {class: "cancel_reply_link", id: "critique_reply_cancel"}
+    #component_reply_spinner{class: "spinner"}
     .errors

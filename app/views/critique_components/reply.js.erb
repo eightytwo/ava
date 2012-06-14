@@ -1,4 +1,4 @@
-var el = $('#critique_reply_form');
+var el = $('#component_reply_form');
 
 <% if @component.errors.any? %>
   // Create a list of errors
@@ -13,17 +13,17 @@ var el = $('#critique_reply_form');
 
 <% else %>
   // Get the reply wrapper element which will be replaced with the new content.
-  var target = $('#critique_reply_form_wrapper').parents('.critique_reply_wrapper');
+  var target = $('#component_reply_form_wrapper').parents('.component_reply_wrapper');
 
   // Clear the form and move it out of the critique.
   $('#txtReplyContent').text("");
   el.find('.errors').empty();
-  $('#critique_reply_form_wrapper').hide();
-  $('#critique_reply_form_wrapper').appendTo($('#av_critiques'))
+  $('#component_reply_form_wrapper').hide();
+  $('#component_reply_form_wrapper').appendTo($('#av_critiques'))
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'shared/critique_component_reply', locals: {component: @component} 
+      render partial: 'shared/critique_component_reply', locals: {component: @component, audio_visual: @component.critique.audio_visual} 
     ) %>");
 
 <% end %>
