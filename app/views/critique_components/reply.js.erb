@@ -16,14 +16,14 @@ var el = $('#component_reply_form');
   var target = $('#component_reply_form_wrapper').parents('.component_reply_wrapper');
 
   // Clear the form and move it out of the critique.
-  $('#txtReplyContent').text("");
+  $('#txtReplyContent').val("");
   el.find('.errors').empty();
   $('#component_reply_form_wrapper').hide();
   $('#component_reply_form_wrapper').appendTo($('#av_critiques'))
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'shared/critique_component_reply', locals: {component: @component, audio_visual: @component.critique.audio_visual} 
+      render partial: 'shared/component_reply', locals: {component: @component, audio_visual: @component.critique.audio_visual} 
     ) %>");
 
 <% end %>

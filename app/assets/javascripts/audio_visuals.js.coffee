@@ -92,9 +92,9 @@ jQuery ->
       $('#hidComponentID').val(componentID)
       if existingReplyText.length
         existingReplyText.hide()
-        $('#txtReplyContent').text(existingReplyText.text())
+        $('#txtReplyContent').val(existingReplyText.text())
       else
-        $('#txtReplyContent').text("")
+        $('#txtReplyContent').val("")
 
       # Insert the reply form into the component being replied to and make
       # it visible. Finally, show its parent.
@@ -117,7 +117,7 @@ jQuery ->
       replyWrapper.hide() if replyWrapper.hasClass('new')
 
       # Wipe the content of the text area and hide the form wrapper.
-      $('#txtReplyContent').text("")
+      $('#txtReplyContent').val("")
       replyFormWrapper.hide()
 
       return false
