@@ -223,6 +223,15 @@ textarea {
 .errors {
   margin-top: 10px;
   color: #d54c4c;
+
+  li {
+    display: list-item;
+    margin: 6px @defaultPadding;
+    padding: 0px;
+    background-color: transparent;
+    cursor: default;
+    list-style-type: disc;
+  }
 }
 
 
@@ -665,7 +674,9 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 #av_feedback {
   margin-top: 40px;
   width: 600px;
+}
 
+#tabs {
   li {
     position: relative;
     z-index: 5;
@@ -701,18 +712,18 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   border-bottom: 1px solid #fff;
 }
 
-#av_critiques {
+#av_critiques_wrapper {
   display: none;
   padding: @defaultPadding 0px;
 }
 
-#av_comments {
+#av_comments_wrapper {
   display: none;
   padding: @defaultPadding 0px;
 }
 
 .critique_wrapper {
-  margin: 20px 0px;
+  margin-bottom: 20px;
   padding: 0px;
   border: 1px solid #eee;
   -moz-border-radius: @defaultBorderRadius;
@@ -737,6 +748,12 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   display: none;
   padding: @defaultPadding;
   padding-bottom: 0px;
+}
+
+#add_comment_form_wrapper {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px dashed #eee;
 }
 
 
@@ -781,25 +798,20 @@ input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
   }
 }
 
-#component_reply_form_wrapper {
+.component_reply_form_wrapper {
   display: none;
   margin-right: @defaultPadding;
 
   textarea {
     margin-bottom: 5px;
   }
-
-  li {
-    display: list-item;
-    margin: 6px @defaultPadding;
-    padding: 0px;
-    background-color: transparent;
-    cursor: default;
-    list-style-type: disc;
-  }
 }
 
-#component_reply_spinner {
+.component_reply_spinner {
+  display: none;
+}
+
+.add_comment_spinner {
   display: none;
 }
 

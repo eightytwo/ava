@@ -5,11 +5,11 @@ class CritiqueComponentsController < ApplicationController
   # POST /critique_components/reply
   def reply
     # Get the critique component (and its critique and audio visual).
-    if !params[:id].nil?
+    if !params[:component_id].nil?
       @component = CritiqueComponent
         .includes(critique: :audio_visual)
         .joins(critique: :audio_visual)
-        .where(id: params[:id])
+        .where(id: params[:component_id])
         .first
 
       # Only proceed with adding the reply if the current user is the
@@ -18,7 +18,7 @@ class CritiqueComponentsController < ApplicationController
          @component.critique.audio_visual.user_id == current_user.id
         
         # Set the reply content and save.
-        @component.reply = params[:reply]
+        @component.reply = params[:reply_content]
         @component.update_record_without_timestamping
         
         respond_with(@component, :layout => !request.xhr?)

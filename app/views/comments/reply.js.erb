@@ -1,10 +1,10 @@
-var el = $('#critique_reply_form');
+var el = $('#comment_reply_form');
 
-<% if @component.errors.any? %>
+<% if @comment.errors.any? %>
   // Create a list of errors
   var errors = $('<ul />');
 
-  <% @component.errors.full_messages.each do |error| %>
+  <% @comment.errors.full_messages.each do |error| %>
     errors.append('<li><%= escape_javascript(error) %></li>');
   <% end %>
 
@@ -20,11 +20,11 @@ var el = $('#critique_reply_form');
   el.find('textarea[name="reply_content"]').val("");
   el.find('.errors').empty();
   el.parent().hide();
-  el.parent().appendTo($('#av_critiques_wrapper'))
+  el.parent().appendTo($('#av_comments_wrapper'))
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'audio_visuals/component_reply', locals: {component: @component, audio_visual: @component.critique.audio_visual} 
+      render partial: 'audio_visuals/component_reply', locals: {component: @comment, audio_visual: @comment.audio_visual}
     ) %>");
 
 <% end %>

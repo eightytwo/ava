@@ -1,0 +1,5 @@
+// Render the form.
+$("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");
+
+// Focus the textarea.
+$("#comment_content").focus()

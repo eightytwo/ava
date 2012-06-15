@@ -1,0 +1,7 @@
+= text_area_tag("reply_content", nil)
+= hidden_field_tag("component_id", nil)
+= submit_tag(t("audio_visual.show.reply_form.add"), {class: "button small green"})
+= render "shared/link_separator"
+= link_to t("links.cancel"), "#", {class: "cancel_reply_link"}
+.component_reply_spinner{class: "spinner"}
+.errors

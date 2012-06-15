@@ -1,10 +1,10 @@
-.component_wrapper
+%div{id: "comment_#{comment.id}", class: "component_wrapper"}
   .component_title
     .right
       #{time_ago_in_words(comment.updated_at)} ago
       - if comment.user.id == current_user.id
         = render "shared/link_separator"
-        = link_to t("links.edit"), "#", {class: "comment_edit_link", data: {id: comment.id}}
+        = link_to t("links.edit"), edit_comment_path(comment), {class: "comment_edit_link", data: {id: comment.id}, remote: true}
       - elsif audio_visual.user.id == current_user.id and comment.reply.nil?
         = render "shared/link_separator"
         = link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: comment.id}}
@@ -15,4 +15,4 @@
     .component_content
       %pre= comment.content
   
-    = render partial: "shared/component_reply", locals: {component: comment, audio_visual: @audio_visual}
+    = render partial: "audio_visuals/component_reply", locals: {component: comment, audio_visual: audio_visual}

@@ -1,6 +1,6 @@
 class AudioVisualsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_folio_member, only: :show
+  before_filter :ensure_folio_member, only: [:show, :comments]
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
   before_filter :ensure_folio_contributor, only: [:new, :create, :critiques]
 
@@ -15,26 +15,6 @@ class AudioVisualsController < ApplicationController
     render layout: false
   end
 
-  # GET /av/1/comments
-  def comments
-    @audio_visual = AudioVisual
-      .includes(:user)
-      .joins(:user)
-      .where(id: params[:id])
-      .first
-
-    if !@audio_visual.nil?
-      @comments = Comment
-        .includes(:user)
-        .joins(:user)
-        .where(audio_visual_id: @audio_visual.id)
-        .paginate(page: params[:page])
-        .order("COALESCE(comments.reply_updated_at, comments.updated_at) DESC")
-    end
-
-    render layout: false
-  end
-
   # GET /av/1
   def show
     @critiques = AudioVisual
@@ -42,9 +22,22 @@ class AudioVisualsController < ApplicationController
       .joins(critiques: :user)
       .where(id: @audio_visual.id)
 
+    # Set the flags indicating if critiques and comments can be shown.
+    @show_comments = true
+    @show_critiques = 
+      ((@contributor or @organisation_admin) and
+       @audio_visual.allow_critiquing)
+
     # Determine if the current user can add a critique to the audio visual.
-    has_critique = (@critiques.count { |c| c.user_id == current_user.id } > 0)
-    @can_critique = (!has_critique and @contributor and !@owner)
+    has_critiqued = (@critiques.count { |c| c.user_id == current_user.id } > 0)
+    @can_critique = (
+      @audio_visual.allow_critiquing and
+      !has_critiqued and
+      @contributor and
+      !@owner)
+
+    # Determine if the current user can add a comment.
+    @can_comment = (@audio_visual.allow_commenting and @folio_member)
   end
 
   # GET /av/new
@@ -98,9 +91,6 @@ class AudioVisualsController < ApplicationController
   #
   def ensure_folio_member
     redirect = true
-    @owner = false
-    @contributor = false
-
     @audio_visual = AudioVisual
       .includes(round: { folio: :organisation })
       .where(id: params[:id]).first
@@ -114,12 +104,11 @@ class AudioVisualsController < ApplicationController
 
         if (!membership.nil? and
             (membership[:organisation_admin] or membership[:folio_member]))
+          @organisation_admin = membership[:organisation_admin]
+          @folio_member = membership[:folio_member]
           @contributor = (membership[:folio_role] >= 2)
           redirect = false
         end
-      else
-        # Audio visual does not belong to a folio so allow access.
-        redirect = false
       end
     end
 

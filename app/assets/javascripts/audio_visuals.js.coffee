@@ -4,8 +4,8 @@ Anonymous function which executes once the page has finished loading.
 jQuery ->
   if $('#av_feedback').length
     # Get a reference to the critique and comment content regions.
-    critiqueContainer = $('#av_critiques')
-    commentContainer = $('#av_comments')
+    critiqueContainer = $('#av_critiques_wrapper')
+    commentContainer = $('#av_comments_wrapper')
 
     # Check if the audio visual can be critiqued and/or commented.
     critiquable = critiqueContainer.length
@@ -72,7 +72,15 @@ jQuery ->
     # selected for replying.
     setupReply = (replyLink) ->
       componentID = replyLink.attr('data-id')
-      replyFormWrapper = $('#component_reply_form_wrapper')
+
+      # Get the content wrapper for the active tab.
+      if critiqueTab.hasClass('active')
+        activeTab = $('#av_critiques_wrapper')
+      else
+        activeTab = $('#av_comments_wrapper')
+
+      # Get the reply form for the active tab.
+      replyFormWrapper = activeTab.find('.component_reply_form_wrapper')
 
       # Get the component element in which the reply form is currently
       # embedded (if any).
@@ -89,12 +97,12 @@ jQuery ->
       existingReplyText = replyContent.find('pre')
 
       # Update the content of the form.
-      $('#hidComponentID').val(componentID)
+      replyFormWrapper.find('input[name="component_id"]').val(componentID)
       if existingReplyText.length
         existingReplyText.hide()
-        $('#txtReplyContent').val(existingReplyText.text())
+        replyFormWrapper.find('textarea[name="reply_content"]').val(existingReplyText.text())
       else
-        $('#txtReplyContent').val("")
+        replyFormWrapper.find('textarea[name="reply_content"]').val("")
 
       # Insert the reply form into the component being replied to and make
       # it visible. Finally, show its parent.
@@ -105,7 +113,14 @@ jQuery ->
 
     # Cancels a reply to a critique component or comment.
     cancelReply = (cancelLink) ->
-      replyFormWrapper = $('#component_reply_form_wrapper')
+      # Get the content wrapper for the active tab.
+      if critiqueTab.hasClass('active')
+        activeTab = $('#av_critiques_wrapper')
+      else
+        activeTab = $('#av_comments_wrapper')
+
+      # Get the reply form for the active tab.
+      replyFormWrapper = activeTab.find('.component_reply_form_wrapper')
 
       # Get the reply wrapper and show the reply text if it exists.
       replyWrapper = replyFormWrapper.parents('.component_reply_wrapper')
@@ -117,7 +132,7 @@ jQuery ->
       replyWrapper.hide() if replyWrapper.hasClass('new')
 
       # Wipe the content of the text area and hide the form wrapper.
-      $('#txtReplyContent').val("")
+      replyFormWrapper.find('textarea[name="reply_content"]').val("")
       replyFormWrapper.hide()
 
       return false
@@ -137,12 +152,25 @@ jQuery ->
       $.getScript path
 
     # Setup spinner for replying to a critique component.
-    $('#component_reply_form')
+    $('#critique_reply_form')
       .live 'ajax:before', ->
-        $('#component_reply_spinner').show()
-        $('#btnAddReply').hide()
-        $('#component_reply_cancel').hide()
+        $(this).find('.component_reply_spinner').show()
+        $(this).find('input[type="submit"]').hide()
+        $(this).find('.cancel_reply_link').hide()
+        return true
       .live 'ajax:complete', ->
-        $('#component_reply_spinner').hide()
-        $('#btnAddReply').show()
-        $('#component_reply_cancel').show()
+        $(this).find('.component_reply_spinner').hide()
+        $(this).find('input[type="submit"]').show()
+        $(this).find('.cancel_reply_link').show()
+        return true
+
+    # Setup spinner for adding/editing a comment.
+    $('#add_comment_form_wrapper > form')
+      .live 'ajax:before', ->
+        $(this).find('.add_comment_spinner').show()
+        $(this).find('input[type="submit"]').hide()
+        return true
+      .live 'ajax:complete', ->
+        $(this).find('.add_comment_spinner').hide()
+        $(this).find('input[type="submit"]').show()
+        return true

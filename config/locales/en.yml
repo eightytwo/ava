@@ -31,6 +31,7 @@ en:
     logout: "logout"
     new: "new"
     add_audio_visual: "add audio visual"
+    add_critique: "add your critique"
     reply: "reply"
     cancel: "cancel"
 
@@ -246,9 +247,13 @@ en:
       tabs:
         critique: "Critiques" 
         comment: "Comments"
-      comments:
-        title: "Add a comment"
+      reply_form:
+        title: "Add a reply"
         add: "Add"
+      comment_form:
+        titles:
+          add: "Add a comment"
+          edit: "Edit your comment"
     new:
       title: "Upload Audio Visual"
     create:
