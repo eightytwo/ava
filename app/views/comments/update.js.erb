@@ -24,7 +24,7 @@ var el = $('#add_comment_form_wrapper > form');
 
     // Render the pagination links.
     $('#av_comments').append(
-      "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {avid: @audio_visual.id}) %>"
+      "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {controller: 'comments', avid: @audio_visual.id}) %>"
     );
   <% end %>
 
