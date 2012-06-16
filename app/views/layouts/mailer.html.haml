@@ -1,0 +1,21 @@
+!!! 5
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=UTF-8", http: {equiv: "Content-Type"}}
+
+  %body
+    Hello #{@recipient.organisation_display_name},
+
+    %br
+
+    = yield
+
+    %br
+    %br
+
+    This is an automatically generated email, please do not reply.
+
+    %br
+
+    Thanks,
+    The AudioVisualArcade team.

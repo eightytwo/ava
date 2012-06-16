@@ -6,9 +6,7 @@ class CritiquesController < ApplicationController
 
   # GET /critiques?avid=1
   def index
-    logger.debug "JKHSDFJKHSDFJKHSDJKFHSD"
     if @can_view
-      logger.debug "JKHSDFJKHSDFJKHSDJKFHSD"
       @critiques = Critique
         .includes(critique_components: :critique_category)
         .joins(critique_components: :critique_category)

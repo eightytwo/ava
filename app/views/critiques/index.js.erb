@@ -1,4 +1,8 @@
-// Render the critiques.
-$('#av_critiques').html(
-  "<%= escape_javascript(render partial: 'critique', collection: @critiques)%>"
-);
+<% if @critiques.nil? or @critiques.count == 0 %>
+  $('#av_critiques').html("<%= t('critique.index.no_critiques') %>");
+<% else %>
+  // Render the critiques.
+  $('#av_critiques').html(
+    "<%= escape_javascript(render partial: 'critique', collection: @critiques)%>"
+  );
+<% end %>

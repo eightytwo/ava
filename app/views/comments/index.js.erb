@@ -1,4 +1,6 @@
-<% if !@comments.nil? %>
+<% if @comments.nil? or @comments.count == 0 %>
+  $('#av_comments').html("<%= t('comment.index.no_comments') %>");
+<% else %>
   // Render the comments.
   $('#av_comments').html(
     "<%= escape_javascript(render partial: 'comment', collection: @comments, locals: {audio_visual: @audio_visual}) %>"
@@ -8,7 +10,7 @@
   $('#av_comments').append(
     "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {avid: @audio_visual.id}) %>"
   );
-
-  // Render the form.
-  $("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");
 <% end %>
+
+// Render the form.
+  $("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");

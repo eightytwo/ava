@@ -269,6 +269,8 @@ en:
       audio_visual_category: "Category"
 
   critique:
+    index:
+      no_critiques: "No critiques have been added."
     new:
       title: "New Critique"
     create:
@@ -285,3 +287,11 @@ en:
     reply:
       success: "Comment was successfully added."
       failure: "There was an error adding the comment."
+
+  comment:
+    index:
+      no_comments: "No comments have been added."
+
+  mailer:
+    subjects:
+      new_audio_visual: "New audio visual added to %{round}"

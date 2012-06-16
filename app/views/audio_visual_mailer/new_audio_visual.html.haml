@@ -1,0 +1,7 @@
+#{@user.organisation_display_name} has added a new audio visual titled
+#{@audio_visual.title} to #{@round.name}.
+
+%br
+
+Click the following link to view the audio visual.
+= audio_visual_url(@audio_visual, host: "example.com")
