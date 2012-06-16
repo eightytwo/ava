@@ -40,18 +40,27 @@
               %li{id: "av_tab_critique"}= t("audio_visual.show.tabs.critique")
             - if @show_comments
               %li{id: "av_tab_comment"}= t("audio_visual.show.tabs.comment")
+        
         #tab_base
+        
         - if @show_critiques
           #av_critiques_wrapper
             - if @can_critique
               = link_to t("links.add_critique"), new_critique_path(avid: @audio_visual.id)
+              %br
+              %br
+            
             #av_critiques{data: {load: critiques_path(avid: @audio_visual, format: :js)}}
+            
             .component_reply_form_wrapper
               = form_tag(critique_component_reply_path, remote: true, id: "critique_reply_form") do
                 = render partial: "reply_form"
+        
         - if @show_comments
           #av_comments_wrapper
+            
             #av_comments{data: {load: comments_path(avid: @audio_visual, format: :js)}}
+            
             - if @can_comment
               .component_reply_form_wrapper
                 = form_tag(comment_reply_path, remote: true, id: "comment_reply_form") do
