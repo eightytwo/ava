@@ -65,6 +65,6 @@ Ava::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Added as part of the Devise installation
+  # Set the host for urls included in emails.
   config.action_mailer.default_url_options = { :host => 'localhost:3002' }
 end

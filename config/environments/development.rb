@@ -36,6 +36,6 @@ Ava::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # Added as part of Devise installation
+  # Set the host for urls included in emails.
   config.action_mailer.default_url_options = { :host => 'localhost:3002' }
 end

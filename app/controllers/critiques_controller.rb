@@ -41,6 +41,12 @@ class CritiquesController < ApplicationController
     @critique.user = current_user
 
     if @critique.save
+      # Send a notification to the audio visual owner that a critique has
+      # posted.
+      CritiqueMailer.new_critique(
+        @audio_visual.user, @audio_visual, current_user
+      ).deliver
+      
       redirect_to @audio_visual, notice: I18n.t("critique.create.success")
     else
       render action: "new"
@@ -50,7 +56,14 @@ class CritiquesController < ApplicationController
   # PUT /critiques/1
   def update
     if @critique.update_attributes(params[:critique])
-      redirect_to audio_visual_path(@critique.audio_visual_id), notice: I18n.t("critique.update.success")
+      # Send a notification to the audio visual owner that a critique has
+      # updated.
+      CritiqueMailer.new_critique(
+        @critique.audio_visual.user, @critique.audio_visual, current_user
+      ).deliver
+
+      redirect_to(audio_visual_path(@critique.audio_visual_id),
+        notice: I18n.t("critique.update.success"))
     else
       render action: "edit"
     end
@@ -60,7 +73,8 @@ class CritiquesController < ApplicationController
   def destroy
     @critique.destroy
 
-    redirect_to @critique.audio_visual_id, notice: I18n.t("critique.delete.success")
+    redirect_to(@critique.audio_visual_id,
+      notice: I18n.t("critique.delete.success"))
   end
 
   private
@@ -111,7 +125,8 @@ class CritiquesController < ApplicationController
         if !membership.nil? and membership[:folio_role] >= 2
           redirect = false
 
-          @categories = CritiqueCategory.categories_for_organisation(organisation)
+          @categories = CritiqueCategory.categories_for_organisation(
+            organisation)
         end
       end
     end
@@ -126,8 +141,8 @@ class CritiquesController < ApplicationController
     
     # Get the critique in question and its components.
     @critique = Critique
-      .includes(critique_components: :critique_category)
-      .joins(critique_components: :critique_category)
+      .includes(:audio_visual, critique_components: :critique_category)
+      .joins(:audio_visual, critique_components: :critique_category)
       .order("critique_components.id")
       .where(id: params[:id]).first
 
