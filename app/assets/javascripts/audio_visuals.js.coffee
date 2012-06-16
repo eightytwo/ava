@@ -141,13 +141,8 @@ jQuery ->
     Ajax related functionality
     ###
 
-    # Make asynchronous html content fetches.
-    $("div[data-format='html']").each ->
-      path = $(this).attr('data-load')
-      $(this).load path
-
-    # Make asynchronous js content fetches.
-    $("div[data-format='js']").each ->
+    # Make asynchronous content fetches.
+    $("div[data-load]").each ->
       path = $(this).attr('data-load')
       $.getScript path
 

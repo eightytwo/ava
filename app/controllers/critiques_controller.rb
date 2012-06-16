@@ -1,7 +1,25 @@
 class CritiquesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :ensure_view_index, only: :index
   before_filter :ensure_folio_contributor, only: [:new, :create]
   before_filter :ensure_critique_author, only: [:edit, :update, :destroy]
+
+  # GET /critiques?avid=1
+  def index
+    logger.debug "JKHSDFJKHSDFJKHSDJKFHSD"
+    if @can_view
+      logger.debug "JKHSDFJKHSDFJKHSDJKFHSD"
+      @critiques = Critique
+        .includes(critique_components: :critique_category)
+        .joins(critique_components: :critique_category)
+        .where(audio_visual_id: @audio_visual.id)
+        .order("critiques.updated_at DESC, critique_components.id ASC")
+
+      respond_to do |format|
+        format.js { @critiques }
+      end
+    end
+  end
 
   # GET /critiques/new
   def new
@@ -48,6 +66,30 @@ class CritiquesController < ApplicationController
   end
 
   private
+  # Ensures the current user can view critiques for an audio visual.
+  #
+  def ensure_view_index
+    @can_view = false
+    av_id = params[:avid] ? params[:avid] : params[:critique][:audio_visual_id]
+
+    @audio_visual = AudioVisual
+      .includes(round: {folio: :organisation})
+      .joins(round: {folio: :organisation})
+      .where(id: av_id).first
+
+    if !@audio_visual.nil?
+      organisation = @audio_visual.round.folio.organisation
+      membership = current_user.organisation_membership_summary(
+        organisation, @audio_visual.round.folio)
+
+      if !membership.nil? and 
+        (membership[:organisation_admin] or membership[:folio_role] >= 2)
+        @can_view = true
+        @categories = CritiqueCategory.categories_for_organisation(organisation)
+      end
+    end
+  end
+
   # Ensures the current user is a contributor of the folio of the supplied
   # round. At this stage if no round is supplied no contributions to the
   # site can be made.

@@ -1,0 +1,4 @@
+// Render the critiques.
+$('#av_critiques').html(
+  "<%= escape_javascript(render partial: 'critique', collection: @critiques)%>"
+);

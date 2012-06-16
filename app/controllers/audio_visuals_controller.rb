@@ -2,18 +2,7 @@ class AudioVisualsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: [:show, :comments]
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
-  before_filter :ensure_folio_contributor, only: [:new, :create, :critiques]
-
-  # GET /av/1/critiques
-  def critiques
-    @critiques = Critique
-      .includes(critique_components: :critique_category)
-      .joins(critique_components: :critique_category)
-      .where(audio_visual_id: params[:id])
-      .order("critiques.updated_at DESC, critique_components.id ASC")
-
-    render layout: false
-  end
+  before_filter :ensure_folio_contributor, only: [:new, :create]
 
   # GET /av/1
   def show
