@@ -58,7 +58,7 @@ class CritiquesController < ApplicationController
     if @critique.update_attributes(params[:critique])
       # Send a notification to the audio visual owner that a critique has
       # updated.
-      CritiqueMailer.new_critique(
+      CritiqueMailer.updated_critique(
         @critique.audio_visual.user, @critique.audio_visual, current_user
       ).deliver
 

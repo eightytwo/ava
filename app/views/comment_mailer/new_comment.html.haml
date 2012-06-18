@@ -1,0 +1,6 @@
+#{@user.organisation_display_name} has commented on your audio visual titled #{@audio_visual.title}.
+
+%br
+
+Click the following link to view the comment.
+= link_to @audio_visual.title, audio_visual_url(@audio_visual)

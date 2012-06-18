@@ -49,7 +49,7 @@ class AudioVisualsController < ApplicationController
         # Send out a notification to the members of the folio.
         @round.folio.users.each do |recipient|
           # Skip the current user, they know they've added a new AV.
-          next if recipient.id == current_user.id         
+          next if recipient.id == current_user.id
           
           AudioVisualMailer.new_audio_visual(
             recipient, @audio_visual, @round, current_user

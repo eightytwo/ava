@@ -8,6 +8,6 @@ class AudioVisualMailer < BaseMailer
     @user = user
     
     mail(to: recipient.email,
-         subject: I18n.t("mailer.subjects.new_audio_visual", round: round.name))
+         subject: I18n.t("mailer.subjects.audio_visual.new", round: round.name))
   end
 end

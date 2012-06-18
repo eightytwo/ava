@@ -294,6 +294,11 @@ en:
 
   mailer:
     subjects:
-      new_audio_visual: "New audio visual added to %{round}"
-      new_critique: "New critique added to %{audio_visual}"
-      updated_critique: "Updated critique on %{audio_visual}"
+      audio_visual:
+        new: "New audio visual added to %{round}"
+      critique:
+        new: "New critique added to %{audio_visual}"
+        updated: "Updated critique on %{audio_visual}"
+      comment:
+        new: "New comment added to %{audio_visual}"
+        updated: "Updated comment on %{audio_visual}"

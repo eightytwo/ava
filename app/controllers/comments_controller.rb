@@ -53,6 +53,14 @@ class CommentsController < ApplicationController
       @comment.user_id = current_user.id
       
       if @comment.save
+        # Send a notification to the audio visual owner that a critique has
+        # posted.
+        if current_user.id != @audio_visual.user.id
+          CommentMailer.new_comment(
+            @audio_visual.user, @audio_visual, current_user
+          ).deliver
+        end
+
         # Fetch the latest comments.
         @comments = fetch_comments
       end
@@ -63,6 +71,14 @@ class CommentsController < ApplicationController
   def update
     if @folio_member
       if @comment.update_attributes(params[:comment])
+        # Send a notification to the audio visual owner that a critique has
+        # posted.
+        if current_user.id != @audio_visual.user.id
+          CommentMailer.updated_comment(
+            @audio_visual.user, @audio_visual, current_user
+          ).deliver
+        end
+
         # Fetch the latest comments.
         @comments = fetch_comments
         
