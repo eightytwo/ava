@@ -27,8 +27,8 @@ en:
     delete: "remove"
     edit: "edit"
     invite: "invite"
-    login: "login"
-    logout: "logout"
+    login: "log in"
+    logout: "log out"
     new: "new"
     add_audio_visual: "add audio visual"
     add_critique: "add your critique"
@@ -42,7 +42,7 @@ en:
     folios: "My Folios"
     greeting: "Hello %{name}"
     home: "home"
-    logout: "Logout"
+    logout: "Log Out"
 
   form:
     error_title:
@@ -68,8 +68,8 @@ en:
       submit: "Create"
 
   login:
-    title: "Login"
-    submit: "Login"
+    title: "Log In"
+    submit: "Log In"
 
   register_account:
     title: "Register"
