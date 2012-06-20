@@ -1,10 +1,10 @@
 class AudioVisualCategoriesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_organisation_admin
+  before_filter :get_categories, except: [:new, :edit]
 
   # GET /audio_visual_categories
   def index
-    @categories = AudioVisualCategory.where(organisation_id: @organisation.id).order(:name).all
   end
 
   # GET /audio_visual_categories/new
@@ -39,8 +39,12 @@ class AudioVisualCategoriesController < ApplicationController
 
   # DELETE /audio_visual_categories/1
   def destroy
-    @category.destroy
-    redirect_to audio_visual_categories_path(oid: @organisation.id), notice: I18n.t("audio_visual_category.delete.success")
+    begin
+      @category.destroy
+      redirect_to audio_visual_categories_path(oid: @organisation.id), notice: I18n.t("audio_visual_category.delete.success")
+    rescue ActiveRecord::DeleteRestrictionError => e
+      redirect_to audio_visual_categories_path(oid: @organisation.id), alert: I18n.t("audio_visual_category.delete.failure.foreign_key")
+    end
   end
 
   private
@@ -72,5 +76,14 @@ class AudioVisualCategoriesController < ApplicationController
     end
 
     redirect_to root_url if !is_admin
+  end
+
+  # Gets the existing audio visual categories for the organisation.
+  #
+  def get_categories
+    @categories = AudioVisualCategory
+      .where(organisation_id: @organisation.id)
+      .order(:name)
+      .all
   end
 end

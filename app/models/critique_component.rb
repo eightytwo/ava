@@ -1,5 +1,5 @@
 class CritiqueComponent < ActiveRecord::Base
-  belongs_to :critique, :inverse_of => :critique_components
+  belongs_to :critique, inverse_of: :critique_components
   belongs_to :critique_category
   
   attr_accessible :content, :reply, :reply_created_at, :reply_updated_at,

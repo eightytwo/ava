@@ -1,6 +1,6 @@
 class CritiqueCategory < ActiveRecord::Base
   belongs_to :organisation
-  has_many :critique_components
+  has_many :critique_components, dependent: :restrict
   
   attr_accessible :name, :parent_id, :organisation_id, :critiquable
 

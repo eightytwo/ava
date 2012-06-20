@@ -1,10 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :organisation_users
+  has_many :organisation_users, dependent: :delete_all
   has_many :organisations, through: :organisation_users
-  has_many :folio_users
+  has_many :folio_users, dependent: :delete_all
   has_many :folios, through: :folio_users
-  has_many :critiques
-  has_many :comments
+  has_many :critiques, dependent: :delete_all
+  has_many :comments, dependent: :delete_all
+  has_many :audio_visuals, dependent: :delete_all
 
   # Ensure null is inserted into these columns if empty string.
   nilify_blanks :only => [:first_name, :last_name]

@@ -214,6 +214,8 @@ en:
     delete:
       confirm: "Are you sure?"
       success: "Audio visual category was successfully removed."
+      failure:
+        foreign_key: "Unable to remove category as it is in use by one or more audio visuals."
 
   critique_category:
     index:
@@ -232,6 +234,8 @@ en:
     delete:
       confirm: "Are you sure?"
       success: "Critique category was successfully removed."
+      failure:
+        foreign_key: "Unable to remove category as it is in use by one or more audio visuals."
     labels:
       parent_id: "Parent Category"
 

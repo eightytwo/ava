@@ -39,9 +39,14 @@ class CritiqueCategoriesController < ApplicationController
 
   # DELETE /critique_categories/1
   def destroy
-    @category.destroy
-
-    redirect_to critique_categories_path(oid: @organisation.id), notice: I18n.t("critique_category.delete.success")
+    begin
+      @category.destroy
+      redirect_to critique_categories_path(oid: @organisation.id),
+        notice: I18n.t("critique_category.delete.success")
+    rescue ActiveRecord::DeleteRestrictionError => e
+      redirect_to critique_categories_path(oid: @organisation.id),
+        alert: I18n.t("critique_category.delete.failure.foreign_key")
+    end
   end
 
   private

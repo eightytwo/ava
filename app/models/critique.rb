@@ -1,7 +1,7 @@
 class Critique < ActiveRecord::Base
   belongs_to :audio_visual
   belongs_to :user
-  has_many :critique_components, :inverse_of => :critique
+  has_many :critique_components, inverse_of: :critique, dependent: :delete_all
   
   attr_accessible :audio_visual_id, :user_id, :critique_components_attributes
   accepts_nested_attributes_for :critique_components

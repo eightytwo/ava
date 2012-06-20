@@ -9,6 +9,6 @@ class CreateCritiques < ActiveRecord::Migration
     add_index :critiques, :audio_visual_id
     add_index :critiques, :user_id
     add_foreign_key(:critiques, :audio_visuals, dependent: :delete)
-    add_foreign_key(:critiques, :users, dependent: :restrict)
+    add_foreign_key(:critiques, :users, dependent: :delete)
   end
 end

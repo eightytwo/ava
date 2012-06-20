@@ -2,8 +2,8 @@ class AudioVisual < ActiveRecord::Base
   belongs_to :user
   belongs_to :round
   belongs_to :audio_visual_category
-  has_many :critiques
-  has_many :comments
+  has_many :critiques, dependent: :delete_all
+  has_many :comments, dependent: :delete_all
 
   attr_accessible :description, :external_reference, :length, :location,
                   :music, :production_notes, :rating, :tags, :title, :views,
