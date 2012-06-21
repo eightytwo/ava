@@ -1,12 +1,13 @@
 class Critique < ActiveRecord::Base
-  belongs_to :audio_visual
+  belongs_to :round_audio_visual
   belongs_to :user
   has_many :critique_components, inverse_of: :critique, dependent: :delete_all
   
-  attr_accessible :audio_visual_id, :user_id, :critique_components_attributes
+  attr_accessible :round_audio_visual_id, :user_id,
+                  :critique_components_attributes
   accepts_nested_attributes_for :critique_components
 
-  validates :audio_visual_id, presence: true
+  validates :round_audio_visual_id, presence: true
   validates :user_id, presence: true
 
   before_update :check_update_modified

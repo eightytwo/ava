@@ -1,0 +1,32 @@
+.field_wrapper
+  = f.label :public
+  = f.check_box(:public, {id: "cbxPublic"})
+
+#cbxComments.field_wrapper.hidden
+  = f.label t("audio_visual.labels.allow_public_commenting")
+  = f.check_box :allow_commenting
+
+.field_wrapper
+  = f.label :title
+  = f.text_field :title, autofocus: true
+
+.field_wrapper
+  = f.label :description
+  = f.text_area :description
+
+.field_wrapper
+  = f.label :music
+  = f.text_field :music
+
+.field_wrapper
+  = f.label :location
+  = f.text_field :location
+
+.field_wrapper
+  = f.label :production_notes
+  = f.text_area :production_notes
+
+.field_wrapper
+  = f.label :tags
+  .field_tip= t("form.tips.separate_comma")
+  = f.text_field :tags

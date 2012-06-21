@@ -4,13 +4,13 @@ class CritiquesController < ApplicationController
   before_filter :ensure_folio_contributor, only: [:new, :create]
   before_filter :ensure_critique_author, only: [:edit, :update, :destroy]
 
-  # GET /critiques?avid=1
+  # GET /critiques?ravid=1
   def index
     if @can_view
       @critiques = Critique
         .includes(critique_components: :critique_category)
         .joins(critique_components: :critique_category)
-        .where(audio_visual_id: @audio_visual.id)
+        .where(round_audio_visual_id: @round_audio_visual.id)
         .order("critiques.updated_at DESC, critique_components.id ASC")
 
       respond_to do |format|
@@ -22,7 +22,7 @@ class CritiquesController < ApplicationController
   # GET /critiques/new
   def new
     @critique = Critique.new
-    @critique.audio_visual = @audio_visual
+    @critique.round_audio_visual = @round_audio_visual
 
     @categories.each do |category|
       @critique.critique_components.build({
@@ -44,10 +44,12 @@ class CritiquesController < ApplicationController
       # Send a notification to the audio visual owner that a critique has
       # posted.
       CritiqueMailer.new_critique(
-        @audio_visual.user, @audio_visual, current_user
+        @round_audio_visual.audio_visual.user,
+        @round_audio_visual.audio_visual,
+        current_user
       ).deliver
       
-      redirect_to @audio_visual, notice: I18n.t("critique.create.success")
+      redirect_to @round_audio_visual, notice: I18n.t("critique.create.success")
     else
       render action: "new"
     end
@@ -59,10 +61,12 @@ class CritiquesController < ApplicationController
       # Send a notification to the audio visual owner that a critique has
       # updated.
       CritiqueMailer.updated_critique(
-        @critique.audio_visual.user, @critique.audio_visual, current_user
+        @critique.round_audio_visual.audio_visual.user,
+        @critique.round_audio_visual.audio_visual,
+        current_user
       ).deliver
 
-      redirect_to(audio_visual_path(@critique.audio_visual_id),
+      redirect_to(round_audio_visual_path(@critique.round_audio_visual_id),
         notice: I18n.t("critique.update.success"))
     else
       render action: "edit"
@@ -73,7 +77,7 @@ class CritiquesController < ApplicationController
   def destroy
     @critique.destroy
 
-    redirect_to(@critique.audio_visual_id,
+    redirect_to(@critique.round_audio_visual_id,
       notice: I18n.t("critique.delete.success"))
   end
 
@@ -82,17 +86,17 @@ class CritiquesController < ApplicationController
   #
   def ensure_view_index
     @can_view = false
-    av_id = params[:avid] ? params[:avid] : params[:critique][:audio_visual_id]
+    rav_id = params[:ravid] ? params[:ravid] : params[:critique][:round_audio_visual_id]
 
-    @audio_visual = AudioVisual
+    @round_audio_visual = RoundAudioVisual
       .includes(round: {folio: :organisation})
       .joins(round: {folio: :organisation})
-      .where(id: av_id).first
+      .where(id: rav_id).first
 
-    if !@audio_visual.nil?
-      organisation = @audio_visual.round.folio.organisation
+    if !@round_audio_visual.nil?
+      organisation = @round_audio_visual.round.folio.organisation
       membership = current_user.organisation_membership_summary(
-        organisation, @audio_visual.round.folio)
+        organisation, @round_audio_visual.round.folio)
 
       if !membership.nil? and 
         (membership[:organisation_admin] or membership[:folio_role] >= 2)
@@ -108,19 +112,19 @@ class CritiquesController < ApplicationController
   #
   def ensure_folio_contributor
     redirect = true
-    av_id = params[:avid] ? params[:avid] : params[:critique][:audio_visual_id]
+    rav_id = params[:ravid] ? params[:ravid] : params[:critique][:round_audio_visual_id]
 
-    @audio_visual = AudioVisual
-      .includes(round: {folio: :organisation})
-      .joins(round: {folio: :organisation})
-      .where(id: av_id).first
+    @round_audio_visual = RoundAudioVisual
+      .includes(:audio_visual, round: {folio: :organisation})
+      .joins(:audio_visual, round: {folio: :organisation})
+      .where(id: rav_id).first
 
-    if !@audio_visual.nil?
+    if !@round_audio_visual.nil?
       # Ensure the owner of the audio visual cannot submit a critique.
-      if @audio_visual.user_id != current_user.id
-        organisation = @audio_visual.round.folio.organisation
+      if @round_audio_visual.audio_visual.user_id != current_user.id
+        organisation = @round_audio_visual.round.folio.organisation
         membership = current_user.organisation_membership_summary(
-          organisation, @audio_visual.round.folio)
+          organisation, @round_audio_visual.round.folio)
 
         if !membership.nil? and membership[:folio_role] >= 2
           redirect = false
@@ -141,8 +145,8 @@ class CritiquesController < ApplicationController
     
     # Get the critique in question and its components.
     @critique = Critique
-      .includes(:audio_visual, critique_components: :critique_category)
-      .joins(:audio_visual, critique_components: :critique_category)
+      .includes(:round_audio_visual, critique_components: :critique_category)
+      .joins(:round_audio_visual, critique_components: :critique_category)
       .order("critique_components.id")
       .where(id: params[:id]).first
 

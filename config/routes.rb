@@ -27,6 +27,7 @@ Ava::Application.routes.draw do
   resources :critiques, except: [:show]
   resources :comments, except: [:show, :new, :delete]
   resources :audio_visuals, except: :index, path: "av"
+  resources :round_audio_visuals, except: :index, path: "rav"
   
   post "/critique_components/reply" => "critique_components#reply", as: :critique_component_reply
   post "/comments/reply" => "comments#reply", as: :comment_reply

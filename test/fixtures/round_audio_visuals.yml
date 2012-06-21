@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  round: 
+  audio_visual: 
+  audio_visual_category: 
+  allow_critiquing: false
+  allow_commenting: false
+
+two:
+  round: 
+  audio_visual: 
+  audio_visual_category: 
+  allow_critiquing: false
+  allow_commenting: false

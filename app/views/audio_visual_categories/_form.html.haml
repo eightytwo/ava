@@ -8,7 +8,7 @@
 
 .form_content
   = form_for(@category) do |f|
-    - if params[:action] == "new"
+    - if f.object.new_record?
       = f.hidden_field :organisation_id
 
     .field_wrapper

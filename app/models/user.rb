@@ -73,6 +73,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  # The name to use when displaying this user publicly.
+  #
+  def public_display_name
+    return organisation_display_name
+  end
+
   # Returns true if the user belongs to an organisation, otherwise false.
   #
   def organisations?

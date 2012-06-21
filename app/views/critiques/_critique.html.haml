@@ -13,7 +13,7 @@
       .component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
         .critique_category
           %div
-            - if critique.audio_visual.user_id == current_user.id and !component.content.nil? and component.reply.nil?
+            - if critique.round_audio_visual.audio_visual.user_id == current_user.id and !component.content.nil? and component.reply.nil?
               .right= link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: component.id}}
             %h4.component_title= component.critique_category.name
           
@@ -22,4 +22,4 @@
               .component_content
                 %pre= component.content
 
-              = render partial: "audio_visuals/component_reply", locals: {component: component, audio_visual: component.critique.audio_visual}
+              = render partial: "audio_visuals/component_reply", locals: {component: component, audio_visual: component.critique.round_audio_visual.audio_visual}

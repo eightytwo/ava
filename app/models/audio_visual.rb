@@ -1,15 +1,12 @@
 class AudioVisual < ActiveRecord::Base
   belongs_to :user
-  belongs_to :round
-  belongs_to :audio_visual_category
-  has_many :critiques, dependent: :delete_all
+  has_many :round_audio_visuals, dependent: :delete_all
+  has_many :rounds, through: :round_audio_visuals
   has_many :comments, dependent: :delete_all
 
   attr_accessible :description, :external_reference, :length, :location,
                   :music, :production_notes, :rating, :tags, :title, :views,
-                  :round_id, :user_id, :audio_visual_category_id,
-                  :allow_critiquing, :allow_commenting, :public,
-                  :thumbnail
+                  :user_id, :public, :thumbnail, :allow_commenting
 
   validates :description, presence: true
   validates :title, presence: true
@@ -18,8 +15,18 @@ class AudioVisual < ActiveRecord::Base
   validates :music, presence: true
   validates :location, presence: true
   validates :production_notes, presence: true
-  validates :audio_visual_category_id, presence: true, if: :round_id?
+
+  before_save :verify_public_commenting
 
   # Set the per page value for will_paginate.
   self.per_page = 12
+
+  private
+  # Ensures public commenting is disabled if the audio visual is not
+  # set to public.
+  #
+  def verify_public_commenting
+    self.allow_commenting = false if !self.public
+    return true
+  end
 end

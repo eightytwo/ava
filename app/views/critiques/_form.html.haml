@@ -9,8 +9,8 @@
 .form_content
   - if @critique.critique_components.length > 0
     = form_for(@critique) do |f|
-      - if params[:action] == "new"
-        = f.hidden_field :audio_visual_id
+      - if f.object.new_record?
+        = f.hidden_field :round_audio_visual_id
 
       = f.fields_for :critique_components do |component|
         - offset = component.object.critique_category.depth
@@ -28,4 +28,4 @@
     = t("critique_category.index.no_categories")  
 
   .links_wrapper
-    = link_to t("links.back"), @critique.audio_visual
+    = link_to t("links.back"), @critique.round_audio_visual

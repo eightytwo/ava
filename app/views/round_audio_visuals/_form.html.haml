@@ -1,0 +1,33 @@
+- if @round_audio_visual.errors.any?
+  #error_explanation
+    %h3= t("form.error_title", count: @round_audio_visual.errors.count)
+
+    %ul
+    - @round_audio_visual.errors.full_messages.each do |msg|
+      %li= msg
+
+.form_content
+  = form_for(@round_audio_visual) do |f|
+    = f.hidden_field :round_id
+
+    .field_wrapper
+      = f.label :round
+      = "#{@round.folio.organisation.name} > #{@round.folio.name} > #{@round.name}"
+
+    .field_wrapper
+      = f.label t("audio_visual.labels.audio_visual_category")
+      = f.select :audio_visual_category_id, options_from_collection_for_select(@audio_visual_categories, "id", "name")
+
+    .field_wrapper
+      = f.label t("audio_visual.labels.allow_critiquing")
+      = f.check_box :allow_critiquing
+
+    .field_wrapper
+      = f.label t("audio_visual.labels.allow_commenting")
+      = f.check_box :allow_commenting
+
+    = f.fields_for :audio_visual, @audio_visual do |av_form|
+      = render :partial => 'audio_visuals/audio_visual_form', :locals => { f: av_form }
+
+    .field_wrapper
+      = f.submit({class: "button small green"})

@@ -2,7 +2,7 @@
   #title
     - if @round.open? and @contributor
       .right
-        = link_to(t("links.add_audio_visual"), new_audio_visual_path(rid: @round.id), {class: "regular"})
+        = link_to(t("links.add_audio_visual"), new_round_audio_visual_path(rid: @round.id), {class: "regular"})
 
     %h3
       = link_to @round.folio.organisation.name, @round.folio.organisation
@@ -12,9 +12,8 @@
       = @round.name
 
   #content
-    - if @audio_visuals.nil? or @audio_visuals.count == 0
+    - if @round_audio_visuals.nil? or @round_audio_visuals.count == 0
       = t("round.show.no_audio_visuals")
     - else
-      = render partial: "audio_visual", collection: @audio_visuals
-      .clear
-      = will_paginate @audio_visuals
+      = render partial: "round_audio_visual", collection: @round_audio_visuals
+      = will_paginate @round_audio_visuals

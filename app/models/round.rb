@@ -1,6 +1,7 @@
 class Round < ActiveRecord::Base
   belongs_to :folio
-  has_many :audio_visuals, dependent: :delete_all
+  has_many :round_audio_visuals, dependent: :delete_all
+  has_many :audio_visuals, through: :round_audio_visuals
 
   attr_accessible :end_date, :name, :start_date, :folio_id
 

@@ -1,0 +1,51 @@
+- javascript 'audio_visuals'
+
+#container
+  #title
+    - if @owner
+      .right= link_to(t("links.edit"), edit_round_audio_visual_path(@round_audio_visual), {class: "regular"})
+    %h3
+      = link_to @round_audio_visual.round.name, @round_audio_visual.round
+      .arrow_right
+      = @audio_visual.title
+      %span.regular by
+      = @audio_visual.user.organisation_display_name
+
+  #content
+    = render 'audio_visuals/audio_visual'
+
+    - if @show_critiques or @show_comments
+      #av_feedback
+        #tabs
+          %ul
+            - if @show_critiques
+              %li{id: "av_tab_critique"}= t("audio_visual.show.tabs.critique")
+            - if @show_comments
+              %li{id: "av_tab_comment"}= t("audio_visual.show.tabs.comment")
+        
+        #tab_base
+        
+        - if @show_critiques
+          #av_critiques_wrapper
+            - if @can_critique
+              = link_to t("links.add_critique"), new_critique_path(ravid: @round_audio_visual.id)
+              %br
+              %br
+            
+            #av_critiques{data: {load: critiques_path(ravid: @round_audio_visual, format: :js)}}
+            
+            .component_reply_form_wrapper
+              = form_tag(critique_component_reply_path, remote: true, id: "critique_reply_form") do
+                = render partial: "audio_visuals/reply_form"
+        
+        - if @show_comments
+          #av_comments_wrapper
+            
+            #av_comments{data: {load: comments_path(ravid: @round_audio_visual, format: :js)}}
+            
+            - if @can_comment
+              .component_reply_form_wrapper
+                = form_tag(comment_reply_path, remote: true, id: "comment_reply_form") do
+                  = render partial: "audio_visuals/reply_form"
+
+              #add_comment_form_wrapper

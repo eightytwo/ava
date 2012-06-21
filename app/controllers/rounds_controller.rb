@@ -5,9 +5,9 @@ class RoundsController < ApplicationController
 
   # GET /rounds/1
   def show
-    @audio_visuals = AudioVisual
-      .includes(:user)
-      .joins(:user)
+    @round_audio_visuals = RoundAudioVisual
+      .includes(audio_visual: :user)
+      .joins(audio_visual: :user)
       .where(round_id: @round.id)
       .paginate(page: params[:page])
       .order("audio_visuals.created_at DESC")

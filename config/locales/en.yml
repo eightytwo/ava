@@ -271,6 +271,9 @@ en:
       success: "Audio visual was succssfully removed."
     labels:
       audio_visual_category: "Category"
+      allow_critiquing: "Allow critiquing by folio members"
+      allow_commenting: "Allow commenting by folio members"
+      allow_public_commenting: "Allow public commenting"
 
   critique:
     index:

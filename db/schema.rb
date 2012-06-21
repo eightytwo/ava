@@ -24,29 +24,24 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   add_index "audio_visual_categories", ["organisation_id"], :name => "index_audio_visual_categories_on_organisation_id"
 
   create_table "audio_visuals", :force => true do |t|
-    t.integer  "user_id",                                     :null => false
-    t.integer  "round_id"
-    t.string   "title",                                       :null => false
-    t.string   "description",                                 :null => false
-    t.integer  "audio_visual_category_id"
-    t.integer  "views",                    :default => 0
+    t.integer  "user_id",                               :null => false
+    t.string   "title",                                 :null => false
+    t.string   "description",                           :null => false
+    t.integer  "views",              :default => 0
     t.decimal  "rating"
     t.string   "external_reference"
     t.string   "thumbnail"
-    t.string   "music",                                       :null => false
-    t.string   "location",                                    :null => false
-    t.string   "production_notes",                            :null => false
-    t.string   "tags",                                        :null => false
+    t.string   "music",                                 :null => false
+    t.string   "location",                              :null => false
+    t.string   "production_notes",                      :null => false
+    t.string   "tags",                                  :null => false
     t.integer  "length"
-    t.boolean  "allow_critiquing",         :default => false, :null => false
-    t.boolean  "allow_commenting",         :default => false, :null => false
-    t.boolean  "public",                   :default => false, :null => false
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.boolean  "public",             :default => false, :null => false
+    t.boolean  "allow_commenting",   :default => false, :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
-  add_index "audio_visuals", ["audio_visual_category_id"], :name => "index_audio_visuals_on_audio_visual_category_id"
-  add_index "audio_visuals", ["round_id"], :name => "index_audio_visuals_on_round_id"
   add_index "audio_visuals", ["user_id"], :name => "index_audio_visuals_on_user_id"
 
   create_table "comments", :force => true do |t|
@@ -93,13 +88,13 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   add_index "critique_components", ["critique_id"], :name => "index_critique_components_on_critique_id"
 
   create_table "critiques", :force => true do |t|
-    t.integer  "audio_visual_id", :null => false
-    t.integer  "user_id",         :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "round_audio_visual_id", :null => false
+    t.integer  "user_id",               :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
-  add_index "critiques", ["audio_visual_id"], :name => "index_critiques_on_audio_visual_id"
+  add_index "critiques", ["round_audio_visual_id"], :name => "index_critiques_on_round_audio_visual_id"
   add_index "critiques", ["user_id"], :name => "index_critiques_on_user_id"
 
   create_table "folio_roles", :force => true do |t|
@@ -149,6 +144,20 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "round_audio_visuals", :force => true do |t|
+    t.integer  "round_id",                                    :null => false
+    t.integer  "audio_visual_id",                             :null => false
+    t.integer  "audio_visual_category_id",                    :null => false
+    t.boolean  "allow_critiquing",         :default => false, :null => false
+    t.boolean  "allow_commenting",         :default => false, :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
+  add_index "round_audio_visuals", ["audio_visual_category_id"], :name => "index_round_audio_visuals_on_audio_visual_category_id"
+  add_index "round_audio_visuals", ["audio_visual_id"], :name => "index_round_audio_visuals_on_audio_visual_id"
+  add_index "round_audio_visuals", ["round_id"], :name => "index_round_audio_visuals_on_round_id"
 
   create_table "rounds", :force => true do |t|
     t.string   "name",       :null => false
@@ -212,8 +221,6 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   add_foreign_key "audio_visual_categories", "organisations", :name => "audio_visual_categories_organisation_id_fk", :dependent => :delete
   add_foreign_key "audio_visual_categories", "status_types", :name => "audio_visual_categories_status_type_id_fk", :dependent => :restrict
 
-  add_foreign_key "audio_visuals", "audio_visual_categories", :name => "audio_visuals_audio_visual_category_id_fk", :dependent => :restrict
-  add_foreign_key "audio_visuals", "rounds", :name => "audio_visuals_round_id_fk", :dependent => :delete
   add_foreign_key "audio_visuals", "users", :name => "audio_visuals_user_id_fk", :dependent => :delete
 
   add_foreign_key "comments", "audio_visuals", :name => "comments_audio_visual_id_fk", :dependent => :delete
@@ -225,8 +232,8 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   add_foreign_key "critique_components", "critique_categories", :name => "critique_components_critique_category_id_fk", :dependent => :restrict
   add_foreign_key "critique_components", "critiques", :name => "critique_components_critique_id_fk", :dependent => :delete
 
-  add_foreign_key "critiques", "audio_visuals", :name => "critiques_audio_visual_id_fk", :dependent => :delete
-  add_foreign_key "critiques", "users", :name => "critiques_user_id_fk", :dependent => :restrict
+  add_foreign_key "critiques", "round_audio_visuals", :name => "critiques_round_audio_visual_id_fk", :dependent => :delete
+  add_foreign_key "critiques", "users", :name => "critiques_user_id_fk", :dependent => :delete
 
   add_foreign_key "folio_users", "folio_roles", :name => "folio_users_folio_role_id_fk", :dependent => :restrict
   add_foreign_key "folio_users", "folios", :name => "folio_users_folio_id_fk", :dependent => :delete
@@ -236,6 +243,10 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
 
   add_foreign_key "organisation_users", "organisations", :name => "organisation_users_organisation_id_fk", :dependent => :delete
   add_foreign_key "organisation_users", "users", :name => "organisation_users_user_id_fk", :dependent => :delete
+
+  add_foreign_key "round_audio_visuals", "audio_visual_categories", :name => "round_audio_visuals_audio_visual_category_id_fk", :dependent => :restrict
+  add_foreign_key "round_audio_visuals", "audio_visuals", :name => "round_audio_visuals_audio_visual_id_fk", :dependent => :delete
+  add_foreign_key "round_audio_visuals", "rounds", :name => "round_audio_visuals_round_id_fk", :dependent => :delete
 
   add_foreign_key "rounds", "folios", :name => "rounds_folio_id_fk", :dependent => :delete
 

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :ensure_folio_member, except: :reply
+  #before_filter :ensure_folio_member, except: :reply
 
   # POST /comments/reply
   def reply
@@ -30,15 +30,18 @@ class CommentsController < ApplicationController
 
   # GET /comments?avid=1
   def index
-    if (@folio_member or @organisation_admin) and !@audio_visual.nil?
-      # Prepare a new comment for the form and set the form title.
-      @comment = Comment.new
-      @comment.audio_visual_id = @audio_visual.id
-      @form_title = I18n.t("audio_visual.show.comment_form.titles.add")
+    # if (@folio_member or @organisation_admin) and !@audio_visual.nil?
+    #   # Prepare a new comment for the form and set the form title.
+    #   @comment = Comment.new
+    #   @comment.audio_visual_id = @audio_visual.id
+    #   @form_title = I18n.t("audio_visual.show.comment_form.titles.add")
 
-      # Fetch the most recent comments.
-      @comments = fetch_comments
-    end
+    #   # Fetch the most recent comments.
+    #   @comments = fetch_comments
+    # end
+
+    @comment = Comment.new
+    @comments = []
   end
 
   # GET /comments/1/edit
