@@ -45,6 +45,7 @@ class CritiquesController < ApplicationController
       # posted.
       CritiqueMailer.new_critique(
         @round_audio_visual.audio_visual.user,
+        @round_audio_visual,
         @round_audio_visual.audio_visual,
         current_user
       ).deliver
@@ -62,6 +63,7 @@ class CritiquesController < ApplicationController
       # updated.
       CritiqueMailer.updated_critique(
         @critique.round_audio_visual.audio_visual.user,
+        @critique.round_audio_visual,
         @critique.round_audio_visual.audio_visual,
         current_user
       ).deliver

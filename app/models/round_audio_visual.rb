@@ -80,7 +80,7 @@ class RoundAudioVisual < ActiveRecord::Base
   def send_new_comment_notification(user)
     if user.id != self.audio_visual.user_id
       CommentMailer.new_comment(
-        self.audio_visual.user, self.audio_visual, user
+        self.audio_visual.user, self, self.audio_visual, user
       ).deliver
     end
   end
@@ -90,7 +90,7 @@ class RoundAudioVisual < ActiveRecord::Base
   def send_updated_comment_notification(user)
     if user.id != self.audio_visual.user_id
       CommentMailer.updated_comment(
-        self.audio_visual.user, self.audio_visual, user
+        self.audio_visual.user, self, self.audio_visual, user
       ).deliver
     end
   end
