@@ -9,7 +9,8 @@
         = render "shared/link_separator"
         = link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: comment.id}}
 
-    %h4= comment.user.organisation_display_name
+    %span.bold #{comment.user.organisation_display_name}
+    commented
 
   .component_content_wrapper
     .component_content

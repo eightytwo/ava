@@ -24,7 +24,7 @@ var el = $('#critique_reply_form');
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'audio_visuals/component_reply', locals: {component: @component, owner: @component.critique.audio_visual.user}
+      render partial: 'audio_visuals/component_reply', locals: {component: @component, owner: @component.critique.round_audio_visual.user}
     ) %>");
 
 <% end %>

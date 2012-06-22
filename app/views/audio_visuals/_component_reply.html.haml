@@ -1,7 +1,7 @@
 - if component.reply.nil?
   .component_reply_wrapper.new.hidden
     .component_reply_title
-      %span= t("audio_visual.show.reply_form.title")
+      %span.bold= t("audio_visual.show.reply_form.title")
     .component_reply_content
 
 - else
@@ -12,8 +12,8 @@
         - if owner.id == current_user.id
           = render "shared/link_separator"
           = link_to t("links.edit"), "#", {class: "component_reply_link", data: {id: component.id}}
-      %span #{owner.organisation_display_name}
-      commented
+      %span.bold #{owner.organisation_display_name}
+      replied
     
     .component_reply_content
       %pre= component.reply

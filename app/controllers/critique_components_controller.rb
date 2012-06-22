@@ -5,17 +5,17 @@ class CritiqueComponentsController < ApplicationController
   # POST /critique_components/reply
   def reply
     # Get the critique component (and its critique and audio visual).
-    if !params[:component_id].nil?
+    if !params[:id].nil?
       @component = CritiqueComponent
-        .includes(critique: :audio_visual)
-        .joins(critique: :audio_visual)
-        .where(id: params[:component_id])
+        .includes(critique: :round_audio_visual)
+        .joins(critique: :round_audio_visual)
+        .where(id: params[:id])
         .first
 
       # Only proceed with adding the reply if the current user is the
       # author of the audio visual.
       if !@component.nil? and
-         @component.critique.audio_visual.user_id == current_user.id
+         @component.critique.round_audio_visual.user.id == current_user.id
         
         # Set the reply content and save.
         @component.reply = params[:reply_content]

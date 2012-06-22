@@ -269,6 +269,7 @@ en:
       audio_visual_category: "Category"
       allow_critiquing: "Allow critiquing by folio members"
       allow_commenting: "Allow commenting by folio members"
+      public: "Make this audio visual publicly viewable"
       allow_public_commenting: "Allow public commenting"
 
   critique:

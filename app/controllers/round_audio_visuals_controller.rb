@@ -10,7 +10,7 @@ class RoundAudioVisualsController < ApplicationController
 
     # Set the flags indicating if critiques and comments can be shown.
     @show_comments = 
-      ((@contributor or @organisation_admin) and
+      ((@folio_member or @organisation_admin) and
        @round_audio_visual.allow_commenting)
     @show_critiques = 
       ((@contributor or @organisation_admin) and
