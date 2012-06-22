@@ -33,25 +33,13 @@ class AudioVisualsController < ApplicationController
 
   # POST /av
   def create
-    if @round.nil? or (!@round.nil? and @round.open?)
-      @audio_visual = AudioVisual.new(params[:audio_visual])
-      @audio_visual.user_id = current_user.id
+    @audio_visual = AudioVisual.new(params[:audio_visual])
+    @audio_visual.user_id = current_user.id
 
-      if @audio_visual.save
-        # Send out a notification to the members of the folio.
-        @round.folio.users.each do |recipient|
-          # Skip the current user, they know they've added a new AV.
-          next if recipient.id == current_user.id
-          
-          AudioVisualMailer.new_audio_visual(
-            recipient, @audio_visual, @round, current_user
-          ).deliver
-        end
-        
-        redirect_to @audio_visual, notice: I18n.t("audio_visual.create.success")
-      else
-        render action: "new"
-      end
+    if @audio_visual.save        
+      redirect_to @audio_visual, notice: I18n.t("audio_visual.create.success")
+    else
+      render action: "new"
     end
   end
 

@@ -8,8 +8,8 @@ class CritiqueMailer < BaseMailer
     
     mail(to: recipient.email,
          subject: I18n.t(
-         "mailer.subjects.critique.new",
-         audio_visual: audio_visual.title))
+          "mailer.subjects.critique.new",
+          audio_visual: audio_visual.title))
   end
 
   def updated_critique(recipient, audio_visual, user)
@@ -19,7 +19,7 @@ class CritiqueMailer < BaseMailer
     
     mail(to: recipient.email,
          subject: I18n.t(
-         "mailer.subjects.critique.updated",
-         audio_visual: audio_visual.title))
+          "mailer.subjects.critique.updated",
+          audio_visual: audio_visual.title))
   end
 end

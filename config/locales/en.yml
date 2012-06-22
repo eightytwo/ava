@@ -249,11 +249,8 @@ en:
           production_notes: "Production Notes"
           tags: "Tags"
       tabs:
-        critique: "Critiques" 
+        critique: "Critiques"
         comment: "Comments"
-      reply_form:
-        title: "Add a reply"
-        add: "Add"
     new:
       title: "Upload Audio Visual"
     create:
@@ -299,10 +296,13 @@ en:
       title: "Add a comment"
     edit:
       title: "Edit your comment"
+    reply_form:
+      title: "Add a reply"
+      add: "Add"
 
   mailer:
     subjects:
-      audio_visual:
+      round_audio_visual:
         new: "New audio visual added to %{round}"
       critique:
         new: "New critique added to %{audio_visual}"

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AudioVisualMailerTest < ActionMailer::TestCase
+class RoundAudioVisualMailerTest < ActionMailer::TestCase
   # test "the truth" do
   #   assert true
   # end
