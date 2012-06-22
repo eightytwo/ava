@@ -24,7 +24,7 @@ var el = $('#add_comment_form_wrapper > form');
 
     // Render the pagination links.
     $('#av_comments').append(
-      "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer') %>"
+      "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {action: 'index'}) %>"
     );
   <% end %>
 

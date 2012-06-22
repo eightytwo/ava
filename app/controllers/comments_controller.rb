@@ -63,6 +63,7 @@ class CommentsController < ApplicationController
           if @commentable.respond_to?(:send_updated_comment_notification)
             @commentable.send_updated_comment_notification(current_user)
           end
+
           # Fetch the latest comments and setup a new comment.
           @comments = fetch_comments
           @comment = @commentable.comments.new
@@ -102,6 +103,6 @@ class CommentsController < ApplicationController
       .includes(:user)
       .joins(:user)
       .paginate(page: params[:page])
-      .order("COALESCE(comments.reply_updated_at, comments.updated_at) DESC")
+      .order("GREATEST(comments.reply_updated_at, comments.updated_at) DESC")
   end
 end
