@@ -254,10 +254,6 @@ en:
       reply_form:
         title: "Add a reply"
         add: "Add"
-      comment_form:
-        titles:
-          add: "Add a comment"
-          edit: "Edit your comment"
     new:
       title: "Upload Audio Visual"
     create:
@@ -298,6 +294,10 @@ en:
   comment:
     index:
       no_comments: "No comments have been added."
+    new:
+      title: "Add a comment"
+    edit:
+      title: "Edit your comment"
 
   mailer:
     subjects:

@@ -3,14 +3,14 @@ class CreateAudioVisuals < ActiveRecord::Migration
     create_table :audio_visuals do |t|
       t.references :user, null: false
       t.string :title, null: false
-      t.string :description, null: false
+      t.text :description, null: false
       t.integer :views, default: 0
       t.decimal :rating
       t.string :external_reference
       t.string :thumbnail
       t.string :music, null: false
       t.string :location, null: false
-      t.string :production_notes, null: false
+      t.text :production_notes, null: false
       t.string :tags, null: false
       t.integer :length
       t.boolean :public, null:false, default: false

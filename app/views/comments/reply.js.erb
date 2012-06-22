@@ -16,7 +16,7 @@ var el = $('#comment_reply_form');
   var target = el.parents('.component_reply_wrapper');
 
   // Clear the form and move it out of the critique.
-  el.find('input[name="component_id"]').val("");
+  el.find('input[name="id"]').val("");
   el.find('textarea[name="reply_content"]').val("");
   el.find('.errors').empty();
   el.parent().hide();
@@ -24,7 +24,7 @@ var el = $('#comment_reply_form');
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'audio_visuals/component_reply', locals: {component: @comment, audio_visual: @comment.audio_visual}
+      render partial: 'audio_visuals/component_reply', locals: {component: @comment, owner: @commentable.user}
     ) %>");
 
 <% end %>

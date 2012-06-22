@@ -3,14 +3,14 @@
 <% else %>
   // Render the comments.
   $('#av_comments').html(
-    "<%= escape_javascript(render partial: 'comment', collection: @comments, locals: {audio_visual: @audio_visual}) %>"
+    "<%= escape_javascript(render partial: 'comment', collection: @comments, locals: {owner: @commentable.user}) %>"
   );
 
   // Render the pagination links.
   $('#av_comments').append(
-    "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {avid: @audio_visual.id}) %>"
+    "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer') %>"
   );
 <% end %>
 
 // Render the form.
-  $("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");
+$("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");

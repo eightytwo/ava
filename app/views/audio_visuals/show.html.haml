@@ -14,7 +14,7 @@
 
     - if @show_comments
       #av_comments_wrapper
-        #av_comments{data: {load: comments_path(avid: @audio_visual, format: :js)}}
+        #av_comments{data: {load: audio_visual_comments_path(@audio_visual, format: :js)}}
         
         - if @can_comment
           .component_reply_form_wrapper

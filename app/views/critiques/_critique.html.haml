@@ -22,4 +22,4 @@
               .component_content
                 %pre= component.content
 
-              = render partial: "audio_visuals/component_reply", locals: {component: component, audio_visual: component.critique.round_audio_visual.audio_visual}
+              = render partial: "audio_visuals/component_reply", locals: {component: component, owner: component.critique.round_audio_visual.audio_visual.user}

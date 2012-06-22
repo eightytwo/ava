@@ -3,8 +3,8 @@ class CreateCritiqueComponents < ActiveRecord::Migration
     create_table :critique_components do |t|
       t.references :critique, null: false
       t.references :critique_category, null: false
-      t.string :content
-      t.string :reply
+      t.text :content
+      t.text :reply
       t.datetime :reply_created_at
       t.datetime :reply_updated_at
       

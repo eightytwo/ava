@@ -1,12 +1,12 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :audio_visual
+  belongs_to :commentable, polymorphic: true
 
   attr_accessible :content, :user_id, :audio_visual_id
 
   validates :user_id, presence: true
-  validates :audio_visual_id, presence: true
   validates :content, presence: true
+  validates :commentable, presence: true
 
   before_save :check_update_reply_timestamp
 

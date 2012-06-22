@@ -24,10 +24,16 @@ Ava::Application.routes.draw do
   resources :folio_users, except: [:index, :show]
   resources :audio_visual_categories, except: :show, path: "av_categories"
   resources :critique_categories, except: :show
-  resources :critiques, except: [:show]
-  resources :comments, except: [:show, :new, :delete]
+  resources :critiques, except: :show
+  resources :comments, only: :edit
   resources :audio_visuals, except: :index, path: "av"
+  resources :audio_visuals, only: [] do
+    resources :comments, except: :edit
+  end
   resources :round_audio_visuals, except: :index, path: "rav"
+  resources :round_audio_visuals, only: [] do
+    resources :comments, except: :edit
+  end
   
   post "/critique_components/reply" => "critique_components#reply", as: :critique_component_reply
   post "/comments/reply" => "comments#reply", as: :comment_reply

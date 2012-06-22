@@ -9,10 +9,10 @@
     .component_reply_title
       .right
         #{time_ago_in_words(component.reply_updated_at)} ago
-        - if audio_visual.user_id == current_user.id
+        - if owner.id == current_user.id
           = render "shared/link_separator"
           = link_to t("links.edit"), "#", {class: "component_reply_link", data: {id: component.id}}
-      %span #{audio_visual.user.organisation_display_name}
+      %span #{owner.organisation_display_name}
       commented
     
     .component_reply_content

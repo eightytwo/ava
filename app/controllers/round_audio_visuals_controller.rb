@@ -8,19 +8,18 @@ class RoundAudioVisualsController < ApplicationController
   def show
     @audio_visual = @round_audio_visual.audio_visual
 
-    @critiques = RoundAudioVisual
-      .includes(critiques: :user)
-      .joins(critiques: :user)
-      .where(id: @round_audio_visual.id)
-
     # Set the flags indicating if critiques and comments can be shown.
-    @show_comments = true
+    @show_comments = 
+      ((@contributor or @organisation_admin) and
+       @round_audio_visual.allow_commenting)
     @show_critiques = 
       ((@contributor or @organisation_admin) and
        @round_audio_visual.allow_critiquing)
 
     # Determine if the current user can add a critique to the audio visual.
-    has_critiqued = (@critiques.count { |c| c.user_id == current_user.id } > 0)
+    has_critiqued = Critique.where("round_audio_visual_id = ? and user_id = ?",
+      @round_audio_visual.id, current_user.id).count > 0
+    
     @can_critique = (
       @round_audio_visual.allow_critiquing and
       !has_critiqued and
@@ -49,14 +48,14 @@ class RoundAudioVisualsController < ApplicationController
       @round_audio_visual = RoundAudioVisual.new(params[:round_audio_visual])
       @round_audio_visual.audio_visual.user_id = current_user.id
 
-      if @audio_visual.save
+      if @round_audio_visual.save
         # Send out a notification to the members of the folio.
         @round.folio.users.each do |recipient|
           # Skip the current user, they know they've added a new AV.
           next if recipient.id == current_user.id
           
           AudioVisualMailer.new_audio_visual(
-            recipient, @audio_visual, @round, current_user
+            recipient, @round_audio_visual.audio_visual, @round, current_user
           ).deliver
         end
         
@@ -69,7 +68,7 @@ class RoundAudioVisualsController < ApplicationController
 
   # PUT /rav/1
   def update
-    if @round_audio_visual.update_attributes!(params[:round_audio_visual])
+    if @round_audio_visual.update_attributes(params[:round_audio_visual])
       redirect_to @round_audio_visual, notice: I18n.t("audio_visual.update.success")
     else
       render action: "edit"
@@ -122,8 +121,8 @@ class RoundAudioVisualsController < ApplicationController
     redirect = true
     round_id = nil
 
-    if !params[:rid].nil? or !params[:audio_visual].nil?
-      round_id = params[:rid] ? params[:rid] : params[:audio_visual][:round_id]
+    if !params[:rid].nil? or !params[:round_audio_visual].nil?
+      round_id = params[:rid] ? params[:rid] : params[:round_audio_visual][:round_id]
     elsif !params[:id].nil?
       rav = RoundAudioVisual.find_by_id(params[:id])
       round_id = rav.round_id if !rav.nil?

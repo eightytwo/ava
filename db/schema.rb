@@ -26,14 +26,14 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   create_table "audio_visuals", :force => true do |t|
     t.integer  "user_id",                               :null => false
     t.string   "title",                                 :null => false
-    t.string   "description",                           :null => false
+    t.text     "description",                           :null => false
     t.integer  "views",              :default => 0
     t.decimal  "rating"
     t.string   "external_reference"
     t.string   "thumbnail"
     t.string   "music",                                 :null => false
     t.string   "location",                              :null => false
-    t.string   "production_notes",                      :null => false
+    t.text     "production_notes",                      :null => false
     t.string   "tags",                                  :null => false
     t.integer  "length"
     t.boolean  "public",             :default => false, :null => false
@@ -46,16 +46,17 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",          :null => false
-    t.integer  "audio_visual_id",  :null => false
-    t.string   "content",          :null => false
-    t.string   "reply"
+    t.text     "content",          :null => false
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.text     "reply"
     t.datetime "reply_created_at"
     t.datetime "reply_updated_at"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
 
-  add_index "comments", ["audio_visual_id"], :name => "index_comments_on_audio_visual_id"
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "critique_categories", :force => true do |t|
@@ -76,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
   create_table "critique_components", :force => true do |t|
     t.integer  "critique_id",          :null => false
     t.integer  "critique_category_id", :null => false
-    t.string   "content"
-    t.string   "reply"
+    t.text     "content"
+    t.text     "reply"
     t.datetime "reply_created_at"
     t.datetime "reply_updated_at"
     t.datetime "created_at",           :null => false
@@ -118,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
 
   create_table "folios", :force => true do |t|
     t.string   "name",            :null => false
-    t.string   "description",     :null => false
+    t.text     "description",     :null => false
     t.integer  "organisation_id", :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
@@ -139,7 +140,7 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
 
   create_table "organisations", :force => true do |t|
     t.string   "name",        :null => false
-    t.string   "description", :null => false
+    t.text     "description", :null => false
     t.string   "website"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -223,7 +224,6 @@ ActiveRecord::Schema.define(:version => 20120613052915) do
 
   add_foreign_key "audio_visuals", "users", :name => "audio_visuals_user_id_fk", :dependent => :delete
 
-  add_foreign_key "comments", "audio_visuals", :name => "comments_audio_visual_id_fk", :dependent => :delete
   add_foreign_key "comments", "users", :name => "comments_user_id_fk", :dependent => :delete
 
   add_foreign_key "critique_categories", "organisations", :name => "critique_categories_organisation_id_fk", :dependent => :delete

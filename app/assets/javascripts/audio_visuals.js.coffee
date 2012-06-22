@@ -101,7 +101,7 @@ jQuery ->
       existingReplyText = replyContent.find('pre')
 
       # Update the content of the form.
-      replyFormWrapper.find('input[name="component_id"]').val(componentID)
+      replyFormWrapper.find('input[name="id"]').val(componentID)
       if existingReplyText.length
         existingReplyText.hide()
         replyFormWrapper.find('textarea[name="reply_content"]').val(existingReplyText.text())

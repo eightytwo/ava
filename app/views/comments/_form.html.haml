@@ -1,7 +1,6 @@
 %h4= @form_title
 %br
-= form_for(@comment, :remote => true) do |f|
-  = f.hidden_field :audio_visual_id
+= form_for([@commentable, @comment], :remote => true) do |f|
   .field_wrapper
     = f.text_area :content
   .field_wrapper

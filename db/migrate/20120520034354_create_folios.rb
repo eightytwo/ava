@@ -2,7 +2,7 @@ class CreateFolios < ActiveRecord::Migration
   def change
     create_table :folios do |t|
       t.string :name, null: false
-      t.string :description, null: false
+      t.text :description, null: false
       t.references :organisation, null: false
 
       t.timestamps
