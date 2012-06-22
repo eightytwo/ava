@@ -1,11 +1,34 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+tintin:
+  email: tintin@marlinspikemotion.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: tintin
+  first_name: tintin
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+haddock:
+  email: haddock@marlinspikemotion.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: haddock
+  first_name: Captain
+  last_name: Haddock
+
+rastapopoulos:
+  email: rastapopoulos@cosmospictures.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: rastapopoulos
+  first_name: Roberto
+  last_name: Rastapopoulos
+
+sponsz:
+  email: sponsz@cosmospictures.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: sponsz
+  first_name: Colonel
+  last_name: Sponsz

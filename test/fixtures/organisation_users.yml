@@ -1,11 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+marlinkspike_tintin:
+  organisation: organisations(:marlinspike)
+  user: users(:tintin)
+  admin: true
 
-one:
-  organisation: 
-  user: 
+marlinspike_haddock:
+  organisation: organisations(:marlinspike)
+  user: users(:haddock)
   admin: false
 
-two:
-  organisation: 
-  user: 
+cosmos_rastapopoulos:
+  organisation: organisations(:cosmos)
+  user: users(:rastapopoulos)
+  admin: true
+
+cosmos_sponsz:
+  organisation: organisations(:cosmos)
+  user: users(:sponsz)
   admin: false

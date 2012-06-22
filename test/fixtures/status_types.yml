@@ -1,9 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+active:
+  id: 1
+  name: Active
+  description: Indicates a record is active.
 
-one:
-  name: MyString
-  description: MyString
+inactive:
+  id: 2
+  name: Inactive
+  description: Indicates a record is inactive.
 
-two:
-  name: MyString
-  description: MyString
+deleted:
+  id: 3
+  name: Deleted
+  description: Indicates a record is deleted.

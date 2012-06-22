@@ -1,9 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+marlinspike:
+  name: Marlinspike Motion
+  description: The best AV club in the world.
+  website: http://www.marlinspikemotion.com/
 
-one:
-  name: MyString
-  website: MyString
-
-two:
-  name: MyString
-  website: MyString
+cosmos:
+  name: Cosmos Pictures
+  description: An up and coming AV club but really a front for operating organised crime.
+  website: http://www.cosmospictures.com/

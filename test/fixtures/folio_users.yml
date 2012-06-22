@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+marlinspike_one:
+  folio: folios(:marlinspike_one)
+  user: users(:tintin)
+  folio_role: folio_roles(:admin)
 
-one:
-  folio: 
-  user: 
-  folio_role: 
-
-two:
-  folio: 
-  user: 
-  folio_role: 
+marlinspike_two:
+  folio: folios(:marlinspike_one)
+  user: users(:haddock)
+  folio_role: folio_roles(:contributor)

@@ -1,9 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+viewer:
+  id: 1
+  name: viewer
+  description: A viewer of the folio.
 
-one:
-  name: MyString
-  description: MyString
+contributor:
+  id: 2
+  name: Contributor
+  description: A contributor to the folio.
 
-two:
-  name: MyString
-  description: MyString
+admin:
+  id: 3
+  name: Administrator
+  description: An administrator of the a folio.

@@ -1,11 +1,9 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+marlinspike_one:
+  name: Folio One
+  description: The first folio for Marlinspike.
+  organisation: organisations(:marlinspike)
 
-one:
-  name: MyString
-  description: MyString
-  organisation: 
-
-two:
-  name: MyString
-  description: MyString
-  organisation: 
+marlinspike_two:
+  name: Folio Two
+  description: The second folio for Marlinspike.
+  organisation: organisations(:marlinspike)
