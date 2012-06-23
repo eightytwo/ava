@@ -23,6 +23,11 @@ marlinspike_nestor:
   user: nestor
   admin: true
 
+marlinspike_krollspell:
+  organisation: marlinspike
+  user: krollspell
+  admin: false
+
 cosmos_rastapopoulos:
   organisation: cosmos
   user: rastapopoulos
@@ -31,4 +36,9 @@ cosmos_rastapopoulos:
 cosmos_sponsz:
   organisation: cosmos
   user: sponsz
+  admin: false
+
+cosmos_krollspell:
+  organisation: cosmos
+  user: krollspell
   admin: false

@@ -172,6 +172,7 @@ class User < ActiveRecord::Base
     if !(self.last_name.nil? or self.last_name.blank?) and
        (self.first_name.nil? or self.first_name.blank?)
       errors.add(:first_name, I18n.t("edit_account.errors.first_name"))
+      return false
     end
   end
 end

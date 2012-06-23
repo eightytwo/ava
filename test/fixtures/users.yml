@@ -68,3 +68,12 @@ jolyon:
   username: jolyon
   first_name: Jolyon
   last_name: Wagg
+
+krollspell:
+  email: dr@krollspell.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: krollspell
+  first_name: Doctor
+  last_name: Krollspell
