@@ -15,6 +15,33 @@ haddock:
   first_name: Captain
   last_name: Haddock
 
+snowy:
+  email: snowy@marlinspike.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: snowy
+  first_name: Snowy
+  last_name: Dog
+
+calculus:
+  email: calculus@marlinspike.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: calculus
+  first_name: Cuthbert
+  last_name: Calculus
+
+nestor:
+  email: nestor@marlinspike.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: nestor
+  first_name: Nestor
+  last_name: Butler
+
 rastapopoulos:
   email: rastapopoulos@cosmospictures.com
   encrypted_password: <%= BCrypt::Password.create("foobar") %>
@@ -32,3 +59,12 @@ sponsz:
   username: sponsz
   first_name: Colonel
   last_name: Sponsz
+
+jolyon:
+  email: jolyon@wagg.com
+  encrypted_password: <%= BCrypt::Password.create("foobar") %>
+  confirmed_at: <%= 2.days.ago.to_s :db %>
+  confirmation_sent_at: <%= 2.days.ago.to_s :db %>
+  username: jolyon
+  first_name: Jolyon
+  last_name: Wagg

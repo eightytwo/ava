@@ -8,6 +8,21 @@ marlinspike_haddock:
   user: haddock
   admin: false
 
+marlinspike_snowy:
+  organisation: marlinspike
+  user: snowy
+  admin: false
+
+marlinspike_calculus:
+  organisation: marlinspike
+  user: calculus
+  admin: false
+
+marlinspike_nestor:
+  organisation: marlinspike
+  user: nestor
+  admin: true
+
 cosmos_rastapopoulos:
   organisation: cosmos
   user: rastapopoulos

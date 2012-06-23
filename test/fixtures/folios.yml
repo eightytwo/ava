@@ -7,3 +7,13 @@ marlinspike_two:
   name: Folio Two
   description: The second folio for Marlinspike.
   organisation: marlinspike
+
+cosmos_one:
+  name: Folio One
+  description: The first folio of Cosmos.
+  organisation: cosmos
+
+cosmos_two:
+  name: Folio Two
+  description: The second folio of Cosmos.
+  organisation: cosmos

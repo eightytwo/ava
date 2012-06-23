@@ -12,6 +12,7 @@ class RoundAudioVisual < ActiveRecord::Base
   accepts_nested_attributes_for :audio_visual
 
   validates :round_id, presence: true
+  validates :audio_visual_id, presence: true
   validates :audio_visual_category_id, presence: true
 
   # Gets the owner of the audio visual.

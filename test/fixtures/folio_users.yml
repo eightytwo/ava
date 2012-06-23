@@ -7,3 +7,18 @@ marlinspike_two:
   folio: marlinspike_one
   user: haddock
   folio_role_id: 2
+
+marlinspike_three:
+  folio: marlinspike_one
+  user: snowy
+  folio_role_id: 1
+
+marlinspike_four:
+  folio: marlinspike_two
+  user: calculus
+  folio_role_id: 3
+
+cosmos_one:
+  folio: cosmos_one
+  user: rastapopoulos
+  folio_role_id: 3
