@@ -34,4 +34,15 @@ class FolioRoleTest < ActiveSupport::TestCase
 
     assert !folio_role.save, "Updated a folio role with a blank description."
   end
+
+  test "delete role used by folio user" do
+    folio_role = FolioRole.find(folio_roles(:contributor).id)
+    
+    begin
+      folio_role.destroy
+      assert false, "Deleted a folio role used by a folio user."
+    rescue ActiveRecord::DeleteRestrictionError
+      assert true
+    end
+  end
 end
