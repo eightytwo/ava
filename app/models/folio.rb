@@ -8,5 +8,5 @@ class Folio < ActiveRecord::Base
 
   validates :name, presence: true
   validates :description, presence: true
-  validates :organisation, presence: true
+  validates :organisation_id, presence: true
 end
