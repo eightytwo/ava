@@ -1,0 +1,6 @@
+marlinkspike_f1_r1_av_one:
+  round: marlinspike_one
+  audio_visual: tintin_one
+  audio_visual_category: marlinspike_one
+  allow_critiquing: true
+  allow_commenting: true

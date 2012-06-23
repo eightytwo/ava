@@ -20,7 +20,6 @@ class AudioVisualCategoriesController < ApplicationController
   # POST /audio_visual_categories
   def create
     @category = AudioVisualCategory.new(params[:audio_visual_category])
-
     if @category.save
       redirect_to audio_visual_categories_path(oid: @organisation.id), notice: I18n.t("audio_visual_category.create.success")
     else
@@ -42,7 +41,7 @@ class AudioVisualCategoriesController < ApplicationController
     begin
       @category.destroy
       redirect_to audio_visual_categories_path(oid: @organisation.id), notice: I18n.t("audio_visual_category.delete.success")
-    rescue ActiveRecord::DeleteRestrictionError => e
+    rescue ActiveRecord::DeleteRestrictionError
       redirect_to audio_visual_categories_path(oid: @organisation.id), alert: I18n.t("audio_visual_category.delete.failure.foreign_key")
     end
   end

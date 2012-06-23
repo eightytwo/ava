@@ -5,6 +5,6 @@ class AudioVisualCategory < ActiveRecord::Base
   
   attr_accessible :organisation_id, :name
 
-  validates :organisation, presence: true
+  validates :organisation_id, presence: true
   validates :name, presence: true
 end

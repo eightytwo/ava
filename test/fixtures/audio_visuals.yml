@@ -1,0 +1,10 @@
+tintin_one:
+  user: tintin
+  title: The Shooting Star
+  description: The mystery of the extra star in the Great Bear.
+  music: Instrumental
+  location: Iceland
+  production_notes: PicturesToExe, Photoshop and Audacity
+  tags: shooting star, telescope, asteroid
+  public: false
+  allow_commenting: false

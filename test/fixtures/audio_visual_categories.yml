@@ -1,0 +1,15 @@
+marlinspike_one:
+  organisation: marlinspike
+  name: Reporting
+
+marlinspike_two:
+  organisation: marlinspike
+  name: Seafaring
+
+cosmos_one:
+  organisation: cosmos
+  name: Laundering
+
+cosmos_two:
+  organisation: cosmos
+  name: Racketeering

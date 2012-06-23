@@ -1,19 +1,19 @@
-marlinkspike_tintin:
-  organisation: organisations(:marlinspike)
-  user: users(:tintin)
+marlinspike_tintin:
+  organisation: marlinspike
+  user: tintin
   admin: true
 
 marlinspike_haddock:
-  organisation: organisations(:marlinspike)
-  user: users(:haddock)
+  organisation: marlinspike
+  user: haddock
   admin: false
 
 cosmos_rastapopoulos:
-  organisation: organisations(:cosmos)
-  user: users(:rastapopoulos)
+  organisation: cosmos
+  user: rastapopoulos
   admin: true
 
 cosmos_sponsz:
-  organisation: organisations(:cosmos)
-  user: users(:sponsz)
+  organisation: cosmos
+  user: sponsz
   admin: false

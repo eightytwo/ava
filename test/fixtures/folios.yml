@@ -1,9 +1,9 @@
 marlinspike_one:
   name: Folio One
   description: The first folio for Marlinspike.
-  organisation: organisations(:marlinspike)
+  organisation: marlinspike
 
 marlinspike_two:
   name: Folio Two
   description: The second folio for Marlinspike.
-  organisation: organisations(:marlinspike)
+  organisation: marlinspike

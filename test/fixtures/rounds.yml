@@ -1,11 +1,11 @@
 marlinspike_one:
   name: Round One
-  folio: folios(:marlinspike_one)
+  folio: marlinspike_one
   start_date: 2012-05-01
   end_date: 2012-05-31
 
 marlinspike_two:
   name: Round Two
-  folio: folios(:marlinspike_two)
+  folio: marlinspike_two
   start_date: 2012-06-01
   end_date: 2012-05-30

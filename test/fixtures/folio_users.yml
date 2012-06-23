@@ -1,9 +1,9 @@
 marlinspike_one:
-  folio: folios(:marlinspike_one)
-  user: users(:tintin)
-  folio_role: folio_roles(:admin)
+  folio: marlinspike_one
+  user: tintin
+  folio_role_id: 3
 
 marlinspike_two:
-  folio: folios(:marlinspike_one)
-  user: users(:haddock)
-  folio_role: folio_roles(:contributor)
+  folio: marlinspike_one
+  user: haddock
+  folio_role_id: 2
