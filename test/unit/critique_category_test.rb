@@ -7,14 +7,14 @@ class CritiqueCategoryTest < ActiveSupport::TestCase
   end
 
   test "update with nil organisation" do
-    category = CritiqueCategory.find(critique_categories(:marlinspike_audio).id)
+    category = critique_categories(:marlinspike_audio)
     category.organisation_id = nil
     
     assert !category.save, "Saved a category with a nil organisation reference."
   end
 
   test "update with a nonexistent organisation" do
-    category = CritiqueCategory.find(critique_categories(:marlinspike_audio).id)
+    category = critique_categories(:marlinspike_audio)
     category.organisation_id = 0
     
     begin
@@ -30,21 +30,21 @@ class CritiqueCategoryTest < ActiveSupport::TestCase
   end
 
   test "update with nil name" do
-    category = CritiqueCategory.find(critique_categories(:marlinspike_audio).id)
+    category = critique_categories(:marlinspike_audio)
     category.name = nil
     
     assert !category.save, "Updated a category with a nil name."
   end
 
   test "update with blank name" do
-    category = CritiqueCategory.find(critique_categories(:marlinspike_audio).id)
+    category = critique_categories(:marlinspike_audio)
     category.name = ""
     
     assert !category.save, "Updated a category with a blank name."
   end
 
   test "delete category used by critique" do
-    category = CritiqueCategory.find(critique_categories(:marlinspike_audio).id)
+    category = critique_categories(:marlinspike_audio)
     
     begin
       category.destroy

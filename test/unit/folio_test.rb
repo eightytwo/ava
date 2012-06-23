@@ -8,42 +8,42 @@ class FolioTest < ActiveSupport::TestCase
   end
 
   test "update with nil name" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.name = nil
 
     assert !folio.save, "Updated a folio with a nil name."
   end
 
   test "update with blank name" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.name = ""
 
     assert !folio.save, "Updated a folio with a blank name."
   end
 
   test "update with nil description" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.description = nil
 
     assert !folio.save, "Updated a folio with a nil description."
   end
 
   test "update with blank description" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.description = ""
     
     assert !folio.save, "Updated a folio with a blank description."
   end
 
   test "update with nil organisation" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.organisation_id = nil
     
     assert !folio.save, "Saved a folio with a nil organisation reference."
   end
 
   test "update with a nonexistent organisation" do
-    folio = Folio.find(folios(:marlinspike_one).id)
+    folio = folios(:marlinspike_one)
     folio.organisation_id = 0
     
     begin

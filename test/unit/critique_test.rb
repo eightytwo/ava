@@ -8,7 +8,7 @@ class CritiqueTest < ActiveSupport::TestCase
   end
 
   test "update with nil round audio visual" do
-    critique = Critique.find(critiques(:haddock_critique_on_tintin_av).id)
+    critique = critiques(:haddock_critique_on_tintin_av)
     critique.round_audio_visual_id = nil
     
     assert(
@@ -17,7 +17,7 @@ class CritiqueTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent round audio visual" do
-    critique = Critique.find(critiques(:haddock_critique_on_tintin_av).id)
+    critique = critiques(:haddock_critique_on_tintin_av)
     critique.round_audio_visual_id = 0
     
     begin
@@ -33,14 +33,14 @@ class CritiqueTest < ActiveSupport::TestCase
   end
 
   test "update with nil user" do
-    critique = Critique.find(critiques(:haddock_critique_on_tintin_av).id)
+    critique = critiques(:haddock_critique_on_tintin_av)
     critique.user_id = nil
     
     assert !critique.save, "Saved a critique with a nil user reference."
   end
 
   test "update with a nonexistent user" do
-    critique = Critique.find(critiques(:haddock_critique_on_tintin_av).id)
+    critique = critiques(:haddock_critique_on_tintin_av)
     critique.user_id = 0
     
     begin

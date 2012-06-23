@@ -8,14 +8,14 @@ class FolioUserTest < ActiveSupport::TestCase
   end
 
   test "update with nil user" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.user_id = nil
     
     assert !folio_user.save, "Saved a folio user with a nil user reference."
   end
 
   test "update with a nonexistent user" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.user_id = 0
     
     begin
@@ -31,7 +31,7 @@ class FolioUserTest < ActiveSupport::TestCase
   end
 
   test "update with nil folio" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.folio_id = nil
     
     assert(
@@ -40,7 +40,7 @@ class FolioUserTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent folio" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.folio_id = 0
     
     begin
@@ -56,7 +56,7 @@ class FolioUserTest < ActiveSupport::TestCase
   end
 
   test "update with nil folio role" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.folio_role_id = nil
     
     assert(
@@ -65,7 +65,7 @@ class FolioUserTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent folio role" do
-    folio_user = FolioUser.find(folio_users(:marlinspike_one).id)
+    folio_user = folio_users(:marlinspike_one)
     folio_user.folio_role_id = 0
     
     begin

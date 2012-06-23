@@ -8,16 +8,14 @@ class OrganisationUserTest < ActiveSupport::TestCase
   end
 
   test "update with nil user" do
-    organisation_user = OrganisationUser.find(
-      organisation_users(:marlinspike_tintin).id)
+    organisation_user = organisation_users(:marlinspike_tintin)
     organisation_user.user_id = nil
     
     assert !organisation_user.save, "Saved an organisation user with a nil user reference."
   end
 
   test "update with a nonexistent user" do
-    organisation_user = OrganisationUser.find(
-      organisation_users(:marlinspike_tintin).id)
+    organisation_user = organisation_users(:marlinspike_tintin)
     organisation_user.user_id = 0
     
     begin
@@ -33,8 +31,7 @@ class OrganisationUserTest < ActiveSupport::TestCase
   end
 
   test "update with nil organisation" do
-    organisation_user = OrganisationUser.find(
-      organisation_users(:marlinspike_tintin).id)
+    organisation_user = organisation_users(:marlinspike_tintin)
     organisation_user.organisation_id = nil
     
     assert(
@@ -43,8 +40,7 @@ class OrganisationUserTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent organisation" do
-    organisation_user = OrganisationUser.find(
-      organisation_users(:marlinspike_tintin).id)
+    organisation_user = organisation_users(:marlinspike_tintin)
     organisation_user.organisation_id = 0
     
     begin

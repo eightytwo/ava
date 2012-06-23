@@ -8,8 +8,7 @@ class CritiqueComponentTest < ActiveSupport::TestCase
   end
 
   test "update with nil critique" do
-    component = CritiqueComponent.find(
-      critique_components(:haddock_critique_one_component_one).id)
+    component = critique_components(:haddock_critique_one_component_one)
     component.critique_id = nil
     
     assert(
@@ -18,8 +17,7 @@ class CritiqueComponentTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent critique" do
-    component = CritiqueComponent.find(
-      critique_components(:haddock_critique_one_component_one).id)
+    component = critique_components(:haddock_critique_one_component_one)
     component.critique_id = 0
     
     begin
@@ -35,8 +33,7 @@ class CritiqueComponentTest < ActiveSupport::TestCase
   end
 
   test "update with nil critique category" do
-    component = CritiqueComponent.find(
-      critique_components(:haddock_critique_one_component_one).id)
+    component = critique_components(:haddock_critique_one_component_one)
     component.critique_category_id = nil
     
     assert(
@@ -45,8 +42,7 @@ class CritiqueComponentTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent user" do
-    component = CritiqueComponent.find(
-      critique_components(:haddock_critique_one_component_one).id)
+    component = critique_components(:haddock_critique_one_component_one)
     component.critique_category_id = 0
     
     begin

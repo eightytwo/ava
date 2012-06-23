@@ -7,16 +7,14 @@ class AudioVisualCategoryTest < ActiveSupport::TestCase
   end
 
   test "update with nil organisation" do
-    category = AudioVisualCategory.find(
-      audio_visual_categories(:marlinspike_one).id)
+    category = audio_visual_categories(:marlinspike_one)
     category.organisation_id = nil
-    
+
     assert !category.save, "Saved a category with a nil organisation reference."
   end
 
   test "update with a nonexistent organisation" do
-    category = AudioVisualCategory.find(
-      audio_visual_categories(:marlinspike_one).id)
+    category = audio_visual_categories(:marlinspike_one)
     category.organisation_id = 0
     
     begin
@@ -32,24 +30,21 @@ class AudioVisualCategoryTest < ActiveSupport::TestCase
   end
 
   test "update with nil name" do
-    category = AudioVisualCategory.find(
-      audio_visual_categories(:marlinspike_one).id)
+    category = audio_visual_categories(:marlinspike_one)
     category.name = nil
     
     assert !category.save, "Updated a category with a nil name."
   end
 
   test "update with blank name" do
-    category = AudioVisualCategory.find(
-      audio_visual_categories(:marlinspike_one).id)
+    category = audio_visual_categories(:marlinspike_one)
     category.name = ""
     
     assert !category.save, "Updated a category with a blank name."
   end
 
   test "delete category used by round audio visual" do
-    category = AudioVisualCategory.find(
-      audio_visual_categories(:marlinspike_one).id)
+    category = audio_visual_categories(:marlinspike_one)
     
     begin
       category.destroy

@@ -8,14 +8,14 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "update with nil user" do
-    comment = Comment.find(comments(:haddock_one).id)
+    comment = comments(:haddock_one)
     comment.user_id = nil
     
     assert !comment.save, "Saved a comment with a nil user reference."
   end
 
   test "update with a nonexistent organisation" do
-    comment = Comment.find(comments(:haddock_one).id)
+    comment = comments(:haddock_one)
     comment.user_id = 0
     
     begin
@@ -31,14 +31,14 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "update with nil content" do
-    comment = Comment.find(comments(:haddock_one).id)
+    comment = comments(:haddock_one)
     comment.content = nil
 
     assert !comment.save, "Updated a comment with nil content."
   end
 
   test "update with blank content" do
-    comment = Comment.find(comments(:haddock_one).id)
+    comment = comments(:haddock_one)
     comment.content = ""
 
     assert !comment.save, "Updated a comment with blank content."

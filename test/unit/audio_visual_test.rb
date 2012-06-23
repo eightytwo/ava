@@ -8,7 +8,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil user" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.user_id = nil
 
     assert(
@@ -17,7 +17,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nonexistent user" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.user_id = 0
 
     begin
@@ -33,21 +33,21 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil title" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.title = nil
 
     assert !audio_visual.save, "Updated an audio visual with a nil title."
   end
 
   test "update with blank title" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.title = ""
 
     assert !audio_visual.save, "Updated an audio visual with a blank title."
   end
 
   test "update with nil description" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.description = nil
 
     assert(
@@ -56,7 +56,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with blank description" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.description = ""
 
     assert(
@@ -65,7 +65,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil music" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.music = nil
 
     assert(
@@ -74,7 +74,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with blank music" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.music = ""
 
     assert(
@@ -83,7 +83,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil location" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.location = nil
 
     assert(
@@ -92,7 +92,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with blank location" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.location = ""
 
     assert(
@@ -101,7 +101,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil production notes" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.production_notes = nil
 
     assert(
@@ -110,7 +110,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with blank production notes" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.production_notes = ""
 
     assert(
@@ -119,7 +119,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil tags" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.tags = nil
 
     assert(
@@ -128,7 +128,7 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with blank tags" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.tags = ""
 
     assert(
@@ -137,13 +137,13 @@ class AudioVisualTest < ActiveSupport::TestCase
   end
 
   test "verify public commenting" do
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
     audio_visual.public = false
     audio_visual.allow_commenting = true
 
     audio_visual.save
 
-    audio_visual = AudioVisual.find(audio_visuals(:tintin_one).id)
+    audio_visual = audio_visuals(:tintin_one)
 
     assert(
       !audio_visual.allow_commenting,

@@ -8,16 +8,14 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil round" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.round_id = nil
     
     assert !rav.save, "Saved a round audio visual with a nil round reference."
   end
 
   test "update with a nonexistent round" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.round_id = 0
     
     begin
@@ -33,8 +31,7 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil audio visual" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.audio_visual_id = nil
     
     assert(
@@ -43,8 +40,7 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent audio visual" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.audio_visual_id = 0
     
     begin
@@ -60,8 +56,7 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with nil audio visual category" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.audio_visual_category_id = nil
     
     assert(
@@ -70,8 +65,7 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "update with a nonexistent audio visual category" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
     rav.audio_visual_category_id = 0
     
     begin
@@ -87,10 +81,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "organisation admin not in folio can see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:nestor).id)
+    user = users(:nestor)
 
     assert(
       rav.comments_visible_to?(user),
@@ -98,10 +91,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio admin can see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:tintin).id)
+    user = users(:tintin)
 
     assert(
       rav.comments_visible_to?(user),
@@ -109,10 +101,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio contributor can see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:haddock).id)
+    user = users(:haddock)
 
     assert(
       rav.comments_visible_to?(user),
@@ -120,10 +111,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio viewer can see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:snowy).id)
+    user = users(:snowy)
 
     assert(
       rav.comments_visible_to?(user),
@@ -131,10 +121,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of other folio in organisation cannot see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:calculus).id)
+    user = users(:calculus)
 
     assert(
       !rav.comments_visible_to?(user),
@@ -142,10 +131,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of other organisation cannot see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:rastapopoulos).id)
+    user = users(:rastapopoulos)
 
     assert(
       !rav.comments_visible_to?(user),
@@ -153,10 +141,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of public cannot see comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:jolyon).id)
+    user = users(:jolyon)
 
     assert(
       !rav.comments_visible_to?(user),
@@ -164,10 +151,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "organisation admin not in folio can not add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:nestor).id)
+    user = users(:nestor)
 
     assert(
       !rav.accepts_comments_from?(user),
@@ -175,10 +161,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio admin can add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:tintin).id)
+    user = users(:tintin)
 
     assert(
       rav.accepts_comments_from?(user),
@@ -186,10 +171,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio contributor can add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:haddock).id)
+    user = users(:haddock)
 
     assert(
       rav.accepts_comments_from?(user),
@@ -197,10 +181,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "folio viewer can add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:snowy).id)
+    user = users(:snowy)
 
     assert(
       rav.accepts_comments_from?(user),
@@ -208,10 +191,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of other folio in organisation cannot add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:calculus).id)
+    user = users(:calculus)
 
     assert(
       !rav.accepts_comments_from?(user),
@@ -219,10 +201,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of other organisation cannot add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:rastapopoulos).id)
+    user = users(:rastapopoulos)
 
     assert(
       !rav.accepts_comments_from?(user),
@@ -230,10 +211,9 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
   end
 
   test "member of public cannot add comments" do
-    rav = RoundAudioVisual.find(
-      round_audio_visuals(:marlinkspike_f1_r1_av_one).id)
+    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
 
-    user = User.find(users(:jolyon).id)
+    user = users(:jolyon)
 
     assert(
       !rav.accepts_comments_from?(user),
