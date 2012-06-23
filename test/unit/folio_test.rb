@@ -36,18 +36,14 @@ class FolioTest < ActiveSupport::TestCase
   end
 
   test "update with nil organisation" do
-    folio = Folio.find(
-      folios(:marlinspike_one).id)
+    folio = Folio.find(folios(:marlinspike_one).id)
     folio.organisation_id = nil
     
-    assert(
-      !folio.save,
-      "Saved a folio with a nil organisation reference.")
+    assert !folio.save, "Saved a folio with a nil organisation reference."
   end
 
   test "update with a nonexistent organisation" do
-    folio = Folio.find(
-      folios(:marlinspike_one).id)
+    folio = Folio.find(folios(:marlinspike_one).id)
     folio.organisation_id = 0
     
     begin

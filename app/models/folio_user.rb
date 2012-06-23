@@ -5,7 +5,7 @@ class FolioUser < ActiveRecord::Base
   
   attr_accessible :folio_id, :user_id, :folio_role_id
 
-  validates :folio, presence: true
-  validates :user, presence: true
-  validates :folio_role, presence: true
+  validates :folio_id, presence: true
+  validates :user_id, presence: true
+  validates :folio_role_id, presence: true
 end
