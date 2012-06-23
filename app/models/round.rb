@@ -6,7 +6,7 @@ class Round < ActiveRecord::Base
   attr_accessible :end_date, :name, :start_date, :folio_id
 
   validates :name, presence: true
-  validates :folio, presence: true
+  validates :folio_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :start_before_end
@@ -22,8 +22,12 @@ class Round < ActiveRecord::Base
   # Validates that the start date of the round is before the end date.
   #
   def start_before_end
-    if self.start_date >= self.end_date
-      errors[:base] << I18n.t("round.validation.start_before_end")
+    if !self.start_date.nil? and !self.start_date.blank? and
+       !self.end_date.nil? and !self.end_date.blank?
+      if self.start_date >= self.end_date
+        errors[:base] << I18n.t("round.validation.start_before_end")
+        return false
+      end
     end
   end
 end

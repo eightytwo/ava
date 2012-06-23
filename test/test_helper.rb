@@ -10,4 +10,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def start_of_current_month
+    Date.today.strftime("%Y-%m-01")
+  end
+
+  def end_of_current_month
+    day = Date.today.day
+    month = Date.today.month
+    Date.new(day, month, -1)
+  end
 end

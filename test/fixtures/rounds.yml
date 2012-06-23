@@ -7,5 +7,5 @@ marlinspike_one:
 marlinspike_two:
   name: Round Two
   folio: marlinspike_two
-  start_date: 2012-06-01
-  end_date: 2012-05-30
+  start_date: <%= Date.today.strftime("%Y-%m-01") %>
+  end_date: <%= Date.new(Date.today.year, Date.today.month, -1) %>
