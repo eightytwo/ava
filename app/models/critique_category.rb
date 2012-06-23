@@ -7,7 +7,7 @@ class CritiqueCategory < ActiveRecord::Base
   acts_as_nested_set
 
   validates :name, presence: true
-  validates :organisation, presence: true
+  validates :organisation_id, presence: true
 
   # Gets the critique category structure for an organisation.
   #

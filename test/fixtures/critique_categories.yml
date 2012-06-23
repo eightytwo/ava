@@ -1,0 +1,51 @@
+marlinspike_audio:
+  organisation: marlinspike
+  name: Audio
+  critiquable: false
+  lft: 1
+  rgt: 8
+  depth: 0
+
+marlinspike_narration:
+  organisation: marlinspike
+  name: Narration
+  critiquable: true
+  parent: marlinspike_audio
+  lft: 2
+  rgt: 3
+  depth: 1
+
+marlinspike_music:
+  organisation: marlinspike
+  name: Music
+  critiquable: true
+  parent: marlinspike_audio
+  lft: 2
+  rgt: 3
+  depth: 1
+
+cosmos_transitions:
+  organisation: cosmos
+  name: Transitions
+  critiquable: false
+  lft: 9
+  rgt: 16
+  depth: 0
+
+cosmos_variety:
+  organisation: cosmos
+  name: Variety
+  critiquable: true
+  parent: cosmos_transitions
+  lft: 10
+  rgt: 11
+  depth: 1
+
+cosmos_speed:
+  organisation: cosmos
+  name: Speed
+  critiquable: true
+  parent: cosmos_transitions
+  lft: 12
+  rgt: 14
+  depth: 1
