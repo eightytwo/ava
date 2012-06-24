@@ -26,6 +26,9 @@ gem 'will_paginate', '~> 3.0'
 # Send notifications when exceptions occur
 gem 'exception_notification'
 
+# For working with the Vimeo API
+gem 'vimeo'
+
 # Gems used only for assets and not required in production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

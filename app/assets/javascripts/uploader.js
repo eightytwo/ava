@@ -4,9 +4,8 @@
  */
 
 YUI({
-  filter:"raw",
   gallery: 'gallery-2011.02.09-21-32'
-}).use("uploader", 'gallery-progress-bar', function(Y) {
+}).use('uploader', 'gallery-progress-bar', function(Y) {
   var uploader,
       uploadTicketId,
       uploadUri,
@@ -14,7 +13,7 @@ YUI({
       selectedFiles = {};
 
   function init() {
-    var overlayRegion = Y.one("#selectLink").get('region');
+    var overlayRegion = Y.one("#selectFilesLink").get('region');
     Y.one("#uploaderOverlay").set("offsetWidth", overlayRegion.width);
     Y.one("#uploaderOverlay").set("offsetHeight", overlayRegion.height);
  
@@ -25,9 +24,9 @@ YUI({
     }
 
     uploader = new Y.Uploader({
-      boundingBox:"#uploaderOverlay", 
+      boundingBox: "#uploaderOverlay", 
       swfURL: swfURL
-    });	
+    }); 
 
     uploader.on("uploaderReady", setupUploader);
     uploader.on("fileselect", fileSelect);
@@ -37,22 +36,21 @@ YUI({
   }
 
   Y.on("domready", function() {
-    // Hide the upload controls until the upload endpoint has been
-    // fetched.
+    // Hide the upload controls until the upload endpoint has been fetched.
     $('#uploaderWrapper').css('visibility', 'hidden');
+    $('#uploadSpinner').hide();
 
-    $.get('/rpc?action=get_upload_ticket', function(data) {
-      var obj = JSON.parse(data);
-
+    $.get('/rav/get_ticket.json?rid=' + $('#round_audio_visual_round_id').val(), function(data) {
       // Sanity check the response data.
-      if (obj != null &&
-          obj.ticket_id != undefined &&
-          obj.ticket_id != null) {
+      if (data != null &&
+          data.ticket != null &&
+          data.ticket.id != undefined &&
+          data.ticket.id != null) {
 
         // Extract the upload uri, initialise the uploader and display
         // the controls.
-        uploadTicketId = obj.ticket_id;
-        uploadUri = obj.upload_uri;
+        uploadTicketId = data.ticket.id;
+        uploadUri = data.ticket.endpoint;
         init();
         $('#uploaderWrapper').css('visibility', 'visible');
       }
@@ -60,32 +58,30 @@ YUI({
   });
 
   function setupUploader(event) {
-    uploader.set("multiFiles", true);
-    uploader.set("simLimit", 3);
+    uploader.set("multiFiles", false);
+    uploader.set("simLimit", 1);
     uploader.set("log", true);
   
     var fileFilters = new Array({
-      description:"Videos",
-      extensions:"*.avi;*.mov;*.mpg;*.mp4"
+      description: "Videos",
+      extensions: "*.avi;*.mov;*.mpg;*.mp4"
     }); 
   
     uploader.set("fileFilters", fileFilters); 
   }
 
   function fileSelect(event) {
-    var fileData = event.fileList;	
+    var fileData = event.fileList;  
     
     for (var key in fileData) {
       if (!selectedFiles[fileData[key].id]) {
-        var output = "<tr><td>" + fileData[key].name + "</td><td>" + 
-                     fileData[key].size + "</td><td><div id='div_" + 
-                     fileData[key].id + "' class='progressbars'></div></td></tr>";
-               
-        Y.one("#filenames tbody").append(output);
+        Y.one("#files").append(
+          "<div id='div_" + fileData[key].id + "' class='progressbars'></div>"
+        );
         
         var progressBar = new Y.ProgressBar({
-          id:"pb_" + fileData[key].id,
-          layout : '<div class="{labelClass}"></div><div class="{sliderClass}"></div>'
+          id: "pb_" + fileData[key].id,
+          layout: '<div class="{labelClass}"></div><div class="{sliderClass}"></div>'
         });
    
         progressBar.render("#div_" + fileData[key].id);
@@ -95,6 +91,12 @@ YUI({
         uploadFileName = fileData[key].name;
       }
     }
+
+    // Hide the SWF container.
+    Y.one('#selectFilesLink').hide();
+    
+    // Call the file upload function.
+    uploadFiles();
   }
 
   function updateProgress(event) {
@@ -103,18 +105,24 @@ YUI({
   }
 
   function uploadComplete(event) {
+    $('#uploadSpinner').show();
     var pb = Y.Widget.getByNode("#pb_" + event.id);
     pb.set("progress", 100);
   }
 
   function uploadCompleteData(event) {
-    var uri = '/rpc?action=complete_upload';
-    uri += '&arg0=' + encodeURIComponent(JSON.stringify(uploadTicketId));
-    uri += '&arg1=' + encodeURIComponent(JSON.stringify(uploadFileName));
+    var uri = '/rav/upload_complete?';
+    uri += 'rid=' + $('#round_audio_visual_round_id').val();
+    uri += '&ticket_id=' + uploadTicketId;
+    uri += '&filename=' + uploadFileName;
 
-    console.log(uri);
     $.get(uri, function(data) {
-      // TODO: if success, route to the video page, otherwise display message.
+      if (data.stat == "ok") {
+        $('#hidExternalReference').val(data.ticket.video_id);
+        $('form').submit();
+      } else {
+        // Notify the user of an issue.
+      }
     });
   }
 

@@ -30,3 +30,18 @@
   = f.label :tags
   .field_tip= t("form.tips.separate_comma")
   = f.text_field :tags
+
+= f.hidden_field(:external_reference, {id: "hidExternalReference"})
+
+#uploaderWrapper
+  #uploaderContainer
+    #uploaderOverlay
+    #selectFilesLink
+      %a{id: "selectLink", href: "#"} select file to upload
+
+  #uploadFilesLink
+    %a{id: "uploadLink", href: "#"} upload audio visual
+
+  #files
+
+  .spinner{id: 'uploadSpinner'}

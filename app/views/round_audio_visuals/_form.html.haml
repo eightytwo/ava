@@ -28,6 +28,3 @@
 
     = f.fields_for :audio_visual, @audio_visual do |av_form|
       = render :partial => 'audio_visuals/audio_visual_form', :locals => { f: av_form }
-
-    .field_wrapper
-      = f.submit({class: "button small green"})

@@ -12,49 +12,48 @@
   z-index: 2;
 }
 
-#selectFilesLink #selectLink,
-#uploadFilesLink #uploadLink {
-  color: #00c;
-  text-decoration: underline;
-}
-
 #selectFilesLink {
+  margin-bottom: 16px;
+  width: 120px;
   z-index: 1;
 }
 
-#fileNames {
-  border-width: 1px;
-  border-style: solid;
-  padding: 5px;
+#uploadFilesLink {
+  display: none;
 }
 
 .progressbars {
-  width: 300px;
+  margin-bottom: 16px;
+  width: 269px;
 }
 
 .yui3-progressbar {
   margin-bottom: 3px;
-  border: 2px solid #c4c4c4;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
 }
 
 .yui3-progressbar .yui3-progressbar-content {
-  background-color: #fff;
   position: relative;
+  background-color: #ebebeb;
+  border: 1px solid #d7d7d7;
 }
 
 .yui3-progressbar .yui3-progressbar-label {
   position: absolute;
   top: 1px;
   left: 3px;
-  font-size: 11px;
+  font-size: 12px;
+  line-height: 24px;
 }
 
-.yui3-progressbar .yui3-progressbar-slider {
-  background-color: #e0bb30;
-  height: 15px;
-  line-height: 29px;
-  width: 0;
+.yui3-progressbar-slider {
+  width: 0px;
+  height: 26px;
+  border-color: #78b337 #6ba031 #568128;
+  background-color: #85c440;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b7dc8e), color-stop(70%, #99ce5f), color-stop(100%, #85c440));
+  background-image: -webkit-linear-gradient(top, #b7dc8e 0%, #99ce5f 70%, #85c440 100%);
+  background-image: -moz-linear-gradient(top, #b7dc8e 0%, #99ce5f 70%, #85c440 100%);
+  background-image: -ms-linear-gradient(top, #b7dc8e 0%, #99ce5f 70%, #85c440 100%);
+  background-image: -o-linear-gradient(top, #b7dc8e 0%, #99ce5f 70%, #85c440 100%);
+  background-image: linear-gradient(top, #b7dc8e 0%, #99ce5f 70%, #85c440 100%);
 }

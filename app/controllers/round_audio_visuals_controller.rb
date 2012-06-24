@@ -2,7 +2,7 @@ class RoundAudioVisualsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: :show
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
-  before_filter :ensure_folio_contributor, only: [:new, :create]
+  before_filter :ensure_folio_contributor, only: [:new, :create, :get_ticket, :upload_complete]
 
   # GET /rav/show
   def show
@@ -80,6 +80,40 @@ class RoundAudioVisualsController < ApplicationController
   def destroy
     if @round_audio_visual.destroy
       redirect_to root_url
+    end
+  end
+
+  # GET /rav/get_ticket?rid=1
+  def get_ticket
+    ticket = nil
+    upload = Vimeo::Advanced::Upload.new("", "", "", "")
+    
+    if !upload.nil?
+      ticket = upload.get_ticket
+    end
+
+    respond_to do |format|
+      format.json { render json: ticket }
+    end
+  end
+
+  # GET /rav/upload_complete?rid=1&ticket_id=X&filename=Y
+  def upload_complete
+    result = nil
+    ticket_id = params[:ticket_id]
+    filename = params[:filename]
+
+    # Ensure the ticket id and filename were supplied.
+    if !ticket_id.nil? and !filename.nil?
+      upload = Vimeo::Advanced::Upload.new("", "", "", "")
+      
+      if !upload.nil?
+        result = upload.complete(ticket_id, filename)
+      end
+    end
+
+    respond_to do |format|
+      format.json { render json: result }
     end
   end
 

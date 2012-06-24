@@ -32,27 +32,11 @@ class RoundAudioVisualTest < ActiveSupport::TestCase
 
   test "update with nil audio visual" do
     rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
-    rav.audio_visual_id = nil
+    rav.audio_visual = nil
     
     assert(
       !rav.save,
-      "Saved a round audio visual with a nil audio visual reference.")
-  end
-
-  test "update with a nonexistent audio visual" do
-    rav = round_audio_visuals(:marlinkspike_f1_r1_av_one)
-    rav.audio_visual_id = 0
-    
-    begin
-      rav.save
-      assert(
-        false,
-        "Saved a round audio visual with a reference to a nonexistent audio visual.")
-    rescue ActiveRecord::InvalidForeignKey
-      assert true
-    rescue Exception => e
-      assert false, e.message
-    end
+      "Saved a round audio visual with a nil audio visual.")
   end
 
   test "update with nil audio visual category" do

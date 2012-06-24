@@ -3,9 +3,9 @@ class CritiqueComponent < ActiveRecord::Base
   belongs_to :critique_category
   
   attr_accessible :content, :reply, :reply_created_at, :reply_updated_at,
-                  :critique_id, :critique_category_id, :critique_category
+                  :critique_category_id, :critique_category
 
-  validates :critique_id, presence: true
+  validates :critique, presence: true
   validates :critique_category_id, presence: true
 
   before_save :check_update_reply_timestamp

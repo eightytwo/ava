@@ -9,27 +9,11 @@ class CritiqueComponentTest < ActiveSupport::TestCase
 
   test "update with nil critique" do
     component = critique_components(:haddock_critique_one_component_one)
-    component.critique_id = nil
+    component.critique = nil
     
     assert(
       !component.save,
-      "Saved a component with a nil critique reference.")
-  end
-
-  test "update with a nonexistent critique" do
-    component = critique_components(:haddock_critique_one_component_one)
-    component.critique_id = 0
-    
-    begin
-      component.save
-      assert(
-        false,
-        "Saved a component with a reference to a nonexistent critique.")
-    rescue ActiveRecord::InvalidForeignKey
-      assert true
-    rescue Exception => e
-      assert false, e.message
-    end
+      "Saved a component with a nil critique.")
   end
 
   test "update with nil critique category" do
