@@ -23,6 +23,9 @@ gem "awesome_nested_set", "~> 2.1.3"
 # Pagination
 gem 'will_paginate', '~> 3.0'
 
+# Send notifications when exceptions occur
+gem 'exception_notification'
+
 # Gems used only for assets and not required in production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

@@ -50,6 +50,8 @@ GEM
       devise (>= 2.0.0)
       rails (~> 3.0)
     erubis (2.7.0)
+    exception_notification (2.6.1)
+      actionmailer (>= 3.0.4)
     execjs (1.3.1)
       multi_json (~> 1.0)
     foreigner (1.1.6)
@@ -129,6 +131,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise (>= 2.0.0)
   devise_invitable (~> 1.0.0)
+  exception_notification
   foreigner
   haml
   jquery-rails (= 2.0.2)

@@ -67,4 +67,10 @@ Ava::Application.configure do
 
   # Set the host for urls included in emails.
   config.action_mailer.default_url_options = { :host => 'localhost:3002' }
+
+  # Setup the exception notifier gem.
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[AVA] ",
+    :sender_address => %{ "AVA Exceptions" <exceptions@audiovisualarcade.com> },
+    :exception_recipients => %w{ recipient@recipientdomain.com }
 end
