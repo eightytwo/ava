@@ -1,4 +1,6 @@
 class RoundAudioVisualsController < ApplicationController
+  require 'vimeo_helper.rb'
+
   before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: :show
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
@@ -84,13 +86,8 @@ class RoundAudioVisualsController < ApplicationController
   end
 
   # GET /rav/get_ticket?rid=1
-  def get_ticket
-    ticket = nil
-    upload = Vimeo::Advanced::Upload.new("", "", "", "")
-    
-    if !upload.nil?
-      ticket = upload.get_ticket
-    end
+  def get_upload_ticket
+    ticket = VimeoHelper.get_upload_ticket()
 
     respond_to do |format|
       format.json { render json: ticket }
@@ -98,19 +95,8 @@ class RoundAudioVisualsController < ApplicationController
   end
 
   # GET /rav/upload_complete?rid=1&ticket_id=X&filename=Y
-  def upload_complete
-    result = nil
-    ticket_id = params[:ticket_id]
-    filename = params[:filename]
-
-    # Ensure the ticket id and filename were supplied.
-    if !ticket_id.nil? and !filename.nil?
-      upload = Vimeo::Advanced::Upload.new("", "", "", "")
-      
-      if !upload.nil?
-        result = upload.complete(ticket_id, filename)
-      end
-    end
+  def complete_upload
+    result = VimeoHelper.complete_upload(params[:ticket_id], params[:filename])
 
     respond_to do |format|
       format.json { render json: result }

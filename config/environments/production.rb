@@ -73,10 +73,4 @@ Ava::Application.configure do
     :email_prefix => "[AVA] ",
     :sender_address => %{ "AVA Exceptions" <exceptions@audiovisualarcade.com> },
     :exception_recipients => %w{ recipient@recipientdomain.com }
-
-  # Set the Vimeo oauth secrets.
-  config.vimeo.consumer_key = ENV['AVA_VIMEO_CONSUMER_KEY']
-  config.vimeo.consumer_secret = ENV['AVA_VIMEO_CONSUMER_SECRET']
-  config.vimeo.token = ENV['AVA_VIMEO_TOKEN']
-  config.vimeo.token_secret = ENV['AVA_VIMEO_TOKEN_SECRET']
 end

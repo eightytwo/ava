@@ -32,8 +32,8 @@ Ava::Application.routes.draw do
   end
   resources :round_audio_visuals, except: :index, path: "rav" do
     collection do
-      get "get_ticket"
-      get "upload_complete"
+      get "get_upload_ticket"
+      get "complete_upload"
     end
   end
   resources :round_audio_visuals, only: [] do

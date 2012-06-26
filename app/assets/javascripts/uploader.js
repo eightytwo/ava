@@ -40,7 +40,7 @@ YUI({
     $('#uploaderWrapper').css('visibility', 'hidden');
     $('#uploadSpinner').hide();
 
-    $.get('/rav/get_ticket.json?rid=' + $('#round_audio_visual_round_id').val(), function(data) {
+    $.get('/rav/get_upload_ticket.json?rid=' + $('#round_audio_visual_round_id').val(), function(data) {
       // Sanity check the response data.
       if (data != null &&
           data.ticket != null &&
@@ -111,7 +111,7 @@ YUI({
   }
 
   function uploadCompleteData(event) {
-    var uri = '/rav/upload_complete?';
+    var uri = '/rav/complete_upload?';
     uri += 'rid=' + $('#round_audio_visual_round_id').val();
     uri += '&ticket_id=' + uploadTicketId;
     uri += '&filename=' + uploadFileName;
