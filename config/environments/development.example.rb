@@ -38,4 +38,10 @@ Ava::Application.configure do
 
   # Set the host for urls included in emails.
   config.action_mailer.default_url_options = { :host => 'localhost:3002' }
+
+  # Set the Vimeo oauth secrets.
+  config.vimeo.consumer_key =  ''
+  config.vimeo.consumer_secret = ''
+  config.vimeo.token = ''
+  config.vimeo.token_secret = ''
 end
