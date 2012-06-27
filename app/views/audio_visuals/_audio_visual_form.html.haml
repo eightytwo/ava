@@ -31,17 +31,24 @@
   .field_tip= t("form.tips.separate_comma")
   = f.text_field :tags
 
-= f.hidden_field(:external_reference, {id: "hidExternalReference"})
+- if f.object.new_record? == true
+  = f.hidden_field(:external_reference, {id: "hidExternalReference"})
 
-#uploaderWrapper
-  #uploaderContainer
-    #uploaderOverlay
-    #selectFilesLink
-      %a{id: "selectLink", href: "#"} select file to upload
+  #uploaderWrapper
+    #uploaderContainer
+      #uploaderOverlay
+      #selectFilesLink
+        %a{id: "selectLink", href: "#"} select file to upload
 
-  #uploadFilesLink
-    %a{id: "uploadLink", href: "#"} upload audio visual
+    #uploadFilesLink
+      %a{id: "uploadLink", href: "#"} upload audio visual
 
-  #files
+    #files
 
-  .spinner{id: 'uploadSpinner'}
+    .errors.hidden Please ensure all fields are completed.
+
+    .spinner{id: 'uploadSpinner'}
+
+- else
+  .field_wrapper
+    = f.submit({class: "button small green"})

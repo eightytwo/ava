@@ -10,6 +10,8 @@ YUI({
       uploadTicketId,
       uploadUri,
       uploadFileName,
+      ticketUri,
+      finishUri,
       selectedFiles = {};
 
   function init() {
@@ -37,10 +39,22 @@ YUI({
 
   Y.on("domready", function() {
     // Hide the upload controls until the upload endpoint has been fetched.
-    $('#uploaderWrapper').css('visibility', 'hidden');
-    $('#uploadSpinner').hide();
+    Y.one('#uploaderWrapper').setStyle('visibility', 'hidden');
+    Y.one('#uploadSpinner').setStyle('display', 'none');
 
-    $.get('/rav/get_upload_ticket.json?rid=' + $('#round_audio_visual_round_id').val(), function(data) {
+    // Get the path and identifier for callbacks.
+    var callbackPath = $(location).attr('pathname').split('/')[1];
+    var callbackID = $('#round_audio_visual_round_id').val();
+    
+    // Form the ticket and finish uris.
+    ticketUri = '/' + callbackPath + '/get_upload_ticket.json'
+    finishUri = '/' + callbackPath + '/complete_upload.json'
+    if (callbackID != undefined && callbackID != null) {
+      ticketUri += '?rid=' + callbackID;
+      finishUri += '?rid=' + callbackID;
+    }
+
+    $.get(ticketUri, function(data) {
       // Sanity check the response data.
       if (data != null &&
           data.ticket != null &&
@@ -52,7 +66,7 @@ YUI({
         uploadTicketId = data.ticket.id;
         uploadUri = data.ticket.endpoint;
         init();
-        $('#uploaderWrapper').css('visibility', 'visible');
+        Y.one('#uploaderWrapper').setStyle('visibility', 'visible');
       }
     });
   });
@@ -71,6 +85,13 @@ YUI({
   }
 
   function fileSelect(event) {
+    // Validate the form first before continuing with the upload.
+    if (!validateForm()) {
+      $('.errors').show();
+      return;
+    }
+
+    $('.errors').hide();
     var fileData = event.fileList;  
     
     for (var key in fileData) {
@@ -93,7 +114,8 @@ YUI({
     }
 
     // Hide the SWF container.
-    Y.one('#selectFilesLink').hide();
+    Y.one('#uploaderOverlay').setStyle('visibility', 'hidden');
+    Y.one('#selectFilesLink').setStyle('display', 'none');
     
     // Call the file upload function.
     uploadFiles();
@@ -111,8 +133,7 @@ YUI({
   }
 
   function uploadCompleteData(event) {
-    var uri = '/rav/complete_upload?';
-    uri += 'rid=' + $('#round_audio_visual_round_id').val();
+    var uri = finishUri;
     uri += '&ticket_id=' + uploadTicketId;
     uri += '&filename=' + uploadFileName;
 
@@ -133,6 +154,17 @@ YUI({
       {},
       "file_data"
     );
+  }
+
+  function validateForm() {
+    var valid = true;
+
+    $(':text, textarea').each(function() {
+      if ($(this).val() == "")
+        valid = false;
+    });
+
+    return valid;
   }
 
   Y.one("#uploadFilesLink").on("click", uploadFiles);
