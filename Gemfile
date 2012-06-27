@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-# Rails and Postgresql
+# Rails, Postgresql and the Thin webserver
 gem 'rails', '3.2.3'
 gem 'pg', '0.13.2'
+gem 'thin'
 
 # jQuery automation in Rails
 gem 'jquery-rails', '2.0.2'
