@@ -45,10 +45,10 @@
 
     #files
 
-    .errors.hidden Please ensure all fields are completed.
+    .errors.hidden= t("audio_visual.validation.missing_fields")
 
     .spinner{id: 'uploadSpinner'}
 
 - else
   .field_wrapper
-    = f.submit({class: "button small green"})
+    = f.submit({class: "button green"})

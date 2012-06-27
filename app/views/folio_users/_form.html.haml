@@ -26,7 +26,7 @@
       = f.select :folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name", selected: @folio_user.folio_role_id)
 
     .field_wrapper
-      = f.submit({class: "button small green"})
+      = f.submit({class: "button green"})
 
   .links_wrapper
     = link_to t("links.back"), @folio

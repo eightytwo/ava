@@ -116,7 +116,8 @@ h4 {
     margin: 6px 10px 0px 10px;
     width: 7px;
     height: 7px;
-    background: url(right_arrow.png) no-repeat;
+    background-image: url(sprite.png);
+    background-position: 0px 0px;
   }
 }
 
@@ -339,7 +340,8 @@ tr:last-child > td {
   float: left;
   width: 20px;
   height: 26px;
-  background: url(down_arrow.png) no-repeat;
+  background-image: url(sprite.png);
+  background-position: 0px -7px;
   cursor: pointer;
 }
 
@@ -442,54 +444,7 @@ input[type='submit']:hover.button {
   cursor: pointer;
 }
 
-input[type='submit'].button.large {
-  height: 37px;
-  font-size: 14px;
-  line-height: 14px;
-}
-
 input[type='submit']:hover.button { background-position: 0 -28px; }
-input[type='submit']:hover.button.large { background-position: 0 -35px; }
-
-input[type='submit'].button.white {
-  border: 1px solid #d3d3d3;
-  color: #555555!important;
-  background-image: url(button_white.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.8);
-}
-
-input[type='submit'].button.large.white { background-image: url(button_white_large.png); }
-input[type='submit']:hover.button.white { border: 1px solid #c4c4c4; }
-
-input[type='submit'].button.grey {
-  border: 1px solid #b5b5b5;
-  color: #555555!important;
-  background-image: url(button_grey.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.grey { background-image: url(button_grey_large.png); }
-input[type='submit']:hover.button.grey { border: 1px solid #989898; }
-
-input[type='submit'].button.red {
-  border: 1px solid #df6f8b;
-  color: #913944!important;
-  background-image: url(button_red.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.3);
-}
-
-input[type='submit'].button.large.red { background-image: url(button_red_large.png); }
-input[type='submit']:hover.button.red { border: 1px solid #c36079; }
-
-input[type='submit'].button.orange {
-  border: 1px solid #f5b74e;
-  color: #996633!important;
-  background-image: url(button_orange.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.orange { background-image: url(button_orange_large.png); }
-input[type='submit']:hover.button.orange { border: 1px solid #d29a3a; }
 
 input[type='submit'].button.green {
   border: 1px solid #adc671;
@@ -498,58 +453,7 @@ input[type='submit'].button.green {
   text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
 }
 
-input[type='submit'].button.large.green { background-image: url(button_green_large.png); }
 input[type='submit']:hover.button.green { border: 1px solid #8bb14d; }
-
-input[type='submit'].button.teal {
-  border: 1px solid #90c6c8;
-  color: #437b7d;
-  background-image: url(button_teal.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.teal { background-image: url(button_teal_large.png); }
-input[type='submit']:hover.button.teal { border: 1px solid #7db9bb; }
-
-input[type='submit'].button.blue {
-  border: 1px solid #8dc5da;
-  color: #42788e !important;
-  background-image: url(button_blue.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.blue { background-image: url(button_blue_large.png); }
-input[type='submit']:hover.button.blue { border: 1px solid #7caec0; }
-
-input[type='submit'].button.navy {
-  border: 1px solid #a2afb8;
-  color: #515f6a!important;
-  background-image: url(button_navy.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.navy { background-image: url(button_navy_large.png); }
-input[type='submit']:hover.button.navy { border: 1px solid #8996a0; }
-
-input[type='submit'].button.purple {
-  border: 1px solid #bc9db9;
-  color: #7b5777!important;
-  background-image: url(button_purple.png);
-  text-shadow: 0 1px 0 rgba(255,255,255, 0.4);
-}
-
-input[type='submit'].button.large.purple { background-image: url(button_purple_large.png); }
-input[type='submit']:hover.button.purple { border: 1px solid #a482a0; }
-
-input[type='submit'].button.black {
-  border: 1px solid #4c4c4c;
-  color: #ffffff!important;
-  background-image: url(button_black.png);
-  text-shadow: 0 1px 0 rgba(0,0,0, 0.4);
-}
-
-input[type='submit'].button.large.black { background-image: url(button_black_large.png); }
-input[type='submit']:hover.button.black { border: 1px solid #2c2c2c; }
 
 /*----- Miscellaneous classes -----*/
 .bold {

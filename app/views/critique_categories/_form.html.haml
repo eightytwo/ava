@@ -28,7 +28,7 @@
       = f.select :parent_id, [nil] + sorted_nested_set_options(CritiqueCategory, :name, @category) {|i| "#{'-' * i.level} #{i.name}" }
 
     .field_wrapper
-      = f.submit({class: "button small green"})
+      = f.submit({class: "button green"})
 
     .links_wrapper
       = link_to t("links.back"), critique_categories_path(oid: @organisation.id)
