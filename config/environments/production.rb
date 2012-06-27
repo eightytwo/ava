@@ -72,5 +72,5 @@ Ava::Application.configure do
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[AVA] ",
     :sender_address => %{ "AVA Exceptions" <exceptions@audiovisualarcade.com> },
-    :exception_recipients => %w{ recipient@recipientdomain.com }
+    :exception_recipients => %w{ admin@null.net }
 end
