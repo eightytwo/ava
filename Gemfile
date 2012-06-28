@@ -30,9 +30,10 @@ gem 'exception_notification'
 # For working with the Vimeo API
 gem 'vimeo'
 
+gem 'haml'
+
 # Gems used only for assets and not required in production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'haml'
   gem 'uglifier', '>= 1.0.3'
 end
