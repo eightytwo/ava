@@ -34,7 +34,7 @@ gem 'vimeo'
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'haml'
-  gem 'less'
-  gem 'therubyracer', :platform => :ruby
+  #gem 'less'
+  #gem 'therubyracer', :platform => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
