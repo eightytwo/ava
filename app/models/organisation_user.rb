@@ -9,6 +9,7 @@ class OrganisationUser < ActiveRecord::Base
   validate :last_administrator, if: "!admin"
 
   before_destroy :last_administrator
+  after_destroy :remove_folio_user
 
   # Retrieves an OrganisationUser record for a given organisation and user.
   #
@@ -17,8 +18,9 @@ class OrganisationUser < ActiveRecord::Base
 
     # Ensure the organisation and user objects are qualified.
     if !organisation.nil? and !user.nil?
-      organisation_user = OrganisationUser.where("organisation_id = ? and user_id = ?",
-        organisation.id, user.id).first
+      organisation_user = OrganisationUser
+        .where("organisation_id = ? and user_id = ?",
+               organisation.id, user.id).first
     end
 
     return organisation_user
@@ -42,5 +44,14 @@ class OrganisationUser < ActiveRecord::Base
         return false
       end
     end
+  end
+
+  # Removes the user from any folios within the organisation they are being
+  # removed from.
+  #
+  def remove_folio_user
+    FolioUser.delete_all(
+      ["folio_id IN (?) and user_id = ?",
+       self.organisation.folios.map(&:id), self.user_id])
   end
 end

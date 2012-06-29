@@ -1,13 +1,13 @@
-- if @organisation_user.errors.any?
+- if organisation_user.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @organisation_user.errors.count)
+    %h3= t("form.error_title", count: organisation_user.errors.count)
 
     %ul
-    - @organisation_user.errors.full_messages.each do |msg|
+    - organisation_user.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@organisation_user) do |f|
+  = form_for(organisation_user) do |f|
     .field_wrapper
       = f.label t("organisation_user.edit.labels.administrator")
       = f.check_box :admin
@@ -16,4 +16,4 @@
       = f.submit({class: "button green"})
   
   .links_wrapper
-    = link_to t("links.back"), organisation_path(@organisation_user.organisation_id)
+    = link_to t("links.back"), organisation_path(organisation_user.organisation_id)
