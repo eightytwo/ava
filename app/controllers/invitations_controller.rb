@@ -1,4 +1,5 @@
 class InvitationsController < Devise::InvitationsController
+  skip_before_filter :authenticate_user!
   before_filter :get_organisation_data, only: [:new, :create]
 
   # GET /resource/invitation/new

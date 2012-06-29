@@ -1,6 +1,5 @@
 class CritiqueComponentsController < ApplicationController
   respond_to :js
-  before_filter :authenticate_user!
 
   # POST /critique_components/reply
   def reply

@@ -1,13 +1,13 @@
-- if @category.errors.any?
+- if category.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @category.errors.count)
+    %h3= t("form.error_title", count: category.errors.count)
 
     %ul
     - @category.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@category) do |f|
+  = form_for(category) do |f|
     - if f.object.new_record?
       = f.hidden_field :organisation_id
 
@@ -23,4 +23,4 @@
       = f.submit({class: "button green"})
 
     .links_wrapper
-      = link_to t("links.back"), audio_visual_categories_path(oid: @organisation.id)
+      = link_to t("links.back"), audio_visual_categories_path(oid: organisation.id)

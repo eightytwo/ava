@@ -1,19 +1,19 @@
-- if @category.errors.any?
+- if category.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @category.errors.count)
+    %h3= t("form.error_title", count: category.errors.count)
 
     %ul
-    - @category.errors.full_messages.each do |msg|
+    - category.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@category) do |f|
+  = form_for(category) do |f|
     - if f.object.new_record?
       = f.hidden_field :organisation_id
 
     .field_wrapper
       = f.label :organisation
-      = @category.organisation.name
+      = category.organisation.name
 
     .field_wrapper
       = f.label :name
@@ -25,10 +25,10 @@
 
     .field_wrapper
       = f.label t("critique_category.labels.parent_id")
-      = f.select :parent_id, [nil] + sorted_nested_set_options(CritiqueCategory, :name, @category) {|i| "#{'-' * i.level} #{i.name}" }
+      = f.select :parent_id, [nil] + sorted_nested_set_options(CritiqueCategory, :name, category) {|i| "#{'-' * i.level} #{i.name}" }
 
     .field_wrapper
       = f.submit({class: "button green"})
 
     .links_wrapper
-      = link_to t("links.back"), critique_categories_path(oid: @organisation.id)
+      = link_to t("links.back"), critique_categories_path(oid: organisation)

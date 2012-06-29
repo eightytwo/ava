@@ -1,5 +1,4 @@
 class FoliosController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: :show
   before_filter :ensure_organisation_admin, except: :show
 

@@ -2,7 +2,7 @@
   %td.thin
     = member.user.organisation_display_name
 
-  - if @organisation_admin
+  - if current_user.can_manage?(organisation)
     %td.thin.admin_column
       = link_to t("links.edit"), edit_organisation_user_path(member)
       = render "shared/link_separator"

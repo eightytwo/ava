@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :load_commentable, except: [:edit, :reply]
   before_filter :load_commentable_for_edit, only: [:edit, :reply]
 

@@ -8,9 +8,10 @@ gem 'thin'
 # jQuery automation in Rails
 gem 'jquery-rails', '2.0.2'
 
-# User authentication
+# User authentication and authorization
 gem 'devise', '>= 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
+gem 'authority'
 
 # Foreign key support
 gem 'foreigner'

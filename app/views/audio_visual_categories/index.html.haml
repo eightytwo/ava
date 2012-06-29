@@ -2,22 +2,22 @@
   #title
     %h3
       = t("audio_visual_category.index.title")
-      = link_to(@organisation.name, @organisation)
+      = link_to(organisation.name, organisation)
 
   #content
     %table.single{cellspacing: "0"}
       %tr
         %th= t("audio_visual_category.index.category_name")
-        %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: @organisation.id)
+        %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: organisation.id)
 
-      - if @categories.count > 0
-        - @categories.each do |category|
+      - if categories.count > 0
+        - categories.each do |c|
           %tr{class: cycle("odd", "even")}
-            %td= category.name
+            %td= c.name
             %td.admin_column
-              = link_to t("links.edit"), edit_audio_visual_category_path(category)
+              = link_to t("links.edit"), edit_audio_visual_category_path(c)
               = render "shared/link_separator"
-              = link_to t("links.delete"), category, confirm: t("audio_visual_category.delete.confirm"), method: :delete
+              = link_to t("links.delete"), c, confirm: t("audio_visual_category.delete.confirm"), method: :delete
       - else
         %tr
           %td{colspan: "2"}= t("audio_visual_category.index.no_categories")
@@ -25,4 +25,4 @@
     %br
     %br
 
-    = link_to t("links.back"), @organisation
+    = link_to t("links.back"), organisation

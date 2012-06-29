@@ -2,17 +2,17 @@
   #title
     %h3
       = t("critique_category.index.title")
-      = link_to(@organisation.name, @organisation)
+      = link_to(organisation.name, organisation)
 
   #content
     %table.single{cellspacing: "0"}
       %tr
         %th= t("critique_category.index.category_name")
         %th= t("critique_category.index.critiquable")
-        %th.text_right= link_to t("links.new"), new_critique_category_path(oid: @organisation.id)
+        %th.text_right= link_to t("links.new"), new_critique_category_path(oid: organisation)
 
-      - if @categories.count > 0
-        - @categories.each do |category|
+      - if categories.count > 0
+        - categories.each do |category|
           %tr{class: cycle("odd", "even")}
             %td
               - if category[:level] > 0
@@ -34,4 +34,4 @@
     %br
     %br
 
-    = link_to t("links.back"), @organisation
+    = link_to t("links.back"), organisation

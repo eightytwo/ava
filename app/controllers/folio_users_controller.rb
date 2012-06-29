@@ -1,5 +1,4 @@
 class FolioUsersController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_folio_admin, except: [:new, :create]
   before_filter :ensure_organisation_admin, only: [:new, :create]
 

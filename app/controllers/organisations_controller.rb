@@ -1,7 +1,7 @@
 class OrganisationsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :ensure_organisation_member, except: :index
-  before_filter :ensure_organisation_admin, except: [:index, :show]
+  helper_method :organisation
+
+  authority_action({ edit: 'manage', update: 'manage' })
 
   # GET /organisations
   def index
@@ -16,14 +16,16 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   def show
+    authorize_action_for(organisation)
+
     @admins, @members = [], []
 
-    # Get the members of this organisation and some of their user details
+    # Get the members of this Organisation and some of their user details
     # in one hit.
     organisation_users = OrganisationUser
       .includes(:user)
       .joins(:user)
-      .where(organisation_id: @organisation)      
+      .where(organisation_id: organisation.id)      
       .order("LOWER(COALESCE(users.first_name||users.last_name, users.first_name, users.username))")
 
     # Separate the administrators and members into their own arrays.
@@ -31,47 +33,30 @@ class OrganisationsController < ApplicationController
       u.admin ? @admins.append(u) : @members.append(u)
     end
 
-    # Get the folios of the organisation.
-    @folios = Folio.where(organisation_id: @organisation).order(:name).all
+    # Get the folios of the Organisation.
+    @folios = organisation.folios.order(:name)
   end
 
   # GET /organisations/1/edit
   def edit
+    authorize_action_for(organisation)
   end
 
   # PUT /organisations/1
   def update
-    if @organisation.update_attributes(params[:organisation])
-      redirect_to @organisation, notice: I18n.t("organisation.update.success")
+    authorize_action_for(organisation)
+
+    if organisation.update_attributes(params[:organisation])
+      redirect_to organisation, notice: I18n.t("organisation.update.success")
     else
       render action: "edit"
     end
   end
 
-  protected
-  # Ensures the current user is a member of the requested organisation.
+  private
+  # Gets the Organisation being operated on.
   #
-  def ensure_organisation_member
-    @organisation = Organisation.find_by_id(params[:id])
-
-    if @organisation.nil?
-      redirect_to root_url
-    else
-      # Get the current user's membership in this organisation.
-      organisation_user = OrganisationUser.find_by_organisation_and_user(
-        @organisation, current_user)
-
-      if organisation_user.nil?
-        redirect_to root_url
-      else
-        @organisation_admin = organisation_user.admin
-      end
-    end
-  end
-
-  # Ensures the current user is an administrator of the requested organisation.
-  #
-  def ensure_organisation_admin
-    redirect_to root_url unless @organisation_admin
+  def organisation
+    @organisation ||= Organisation.find(params[:id])
   end
 end

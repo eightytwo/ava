@@ -1,5 +1,4 @@
 class OrganisationUsersController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_organisation_admin
 
   # GET /organisation_users/1/edit

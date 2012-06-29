@@ -1,13 +1,14 @@
 #container.half_width
-  %h3
-    = t("organisation.index.title")
+  #title
+    %h3= t("organisation.index.title")
 
   #content
     %table.single{cellspacing: "0"}
       %tr
-        %th= t("organisation.index.sub_title")
+        %th{colspan: 2}= t("organisation.index.sub_title")
 
       - if @organisations.count > 0
         - @organisations.each do |organisation|
           %tr{class: cycle("odd", "even")}
             %td= link_to organisation.name, organisation_path(organisation)
+            %td= organisation.description

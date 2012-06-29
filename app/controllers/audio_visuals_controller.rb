@@ -1,5 +1,4 @@
 class AudioVisualsController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
 
   # GET /av/1

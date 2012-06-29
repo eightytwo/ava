@@ -1,7 +1,6 @@
 class RoundAudioVisualsController < ApplicationController
   require 'vimeo_helper.rb'
 
-  before_filter :authenticate_user!
   before_filter :ensure_folio_member, only: :show
   before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
   before_filter :ensure_folio_contributor, only: [:new, :create, :get_ticket, :upload_complete]

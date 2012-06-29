@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Authority::UserAbilities
+
   has_many :organisation_users, dependent: :delete_all
   has_many :organisations, through: :organisation_users
   has_many :folio_users, dependent: :delete_all

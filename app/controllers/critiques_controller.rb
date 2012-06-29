@@ -1,5 +1,4 @@
 class CritiquesController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :ensure_view_index, only: :index
   before_filter :ensure_folio_contributor, only: [:new, :create]
   before_filter :ensure_critique_author, only: [:edit, :update, :destroy]
