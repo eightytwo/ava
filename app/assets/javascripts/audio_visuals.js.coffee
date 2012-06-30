@@ -6,6 +6,10 @@ jQuery ->
     $('#cbxPublic').click ->
       $('#cbxComments').toggle()
 
+    # Display the comments checkbox if the public checkbox is ticked.
+    if $('#cbxPublic').is(':checked')
+      $('#cbxComments').toggle()      
+
   if $('#av_feedback').length
     # Get a reference to the critique and comment content regions.
     critiqueContainer = $('#av_critiques_wrapper')

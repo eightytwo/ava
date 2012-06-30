@@ -2,23 +2,22 @@
 
 #container
   #title
-    - if @owner
-      .right= link_to(t("links.edit"), edit_audio_visual_path(@audio_visual), {class: "regular"})
+    - if current_user.can_manage?(audio_visual)
+      .right= link_to(t("links.edit"), edit_audio_visual_path(audio_visual), {class: "regular"})
     %h3
-      = @audio_visual.title
+      = audio_visual.title
       %span.regular by
-      = @audio_visual.user.public_display_name
+      = audio_visual.user.public_display_name
 
   #content
     = render 'audio_visual'
 
-    - if @show_comments
+    - if audio_visual.allow_commenting
       #av_comments_wrapper
-        #av_comments{data: {load: audio_visual_comments_path(@audio_visual, format: :js)}}
+        #av_comments{data: {load: audio_visual_comments_path(audio_visual, format: :js)}}
         
-        - if @can_comment
-          .component_reply_form_wrapper
-            = form_tag(comment_reply_path, remote: true, id: "comment_reply_form") do
-              = render partial: "reply_form"
+        .component_reply_form_wrapper
+          = form_tag(comment_reply_path, remote: true, id: "comment_reply_form") do
+            = render partial: "reply_form"
 
-          #add_comment_form_wrapper
+        #add_comment_form_wrapper

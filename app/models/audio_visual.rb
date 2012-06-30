@@ -1,4 +1,7 @@
 class AudioVisual < ActiveRecord::Base
+  include Authority::Abilities
+  self.authorizer_name = 'AudioVisualAuthorizer'
+
   belongs_to :user
   has_many :round_audio_visuals, dependent: :delete_all
   has_many :rounds, through: :round_audio_visuals

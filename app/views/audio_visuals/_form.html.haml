@@ -1,17 +1,14 @@
-- if @audio_visual.errors.any?
+- if audio_visual.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @audio_visual.errors.count)
+    %h3= t("form.error_title", count: audio_visual.errors.count)
 
     %ul
-    - @audio_visual.errors.full_messages.each do |msg|
+    - audio_visual.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@audio_visual) do |f|
+  = form_for(audio_visual) do |f|
     = render :partial => 'audio_visual_form', :locals => { f: f }
 
-    .field_wrapper
-      = f.submit({class: "button green"})
-
     .links_wrapper
-      = link_to t("links.back"), @audio_visual
+      = link_to t("links.back"), audio_visual

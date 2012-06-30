@@ -1,5 +1,13 @@
 class AudioVisualsController < ApplicationController
-  before_filter :ensure_av_owner, only: [:edit, :update, :destroy]
+  helper_method :audio_visual
+
+  authority_action({
+    new: 'manage',
+    edit: 'manage',
+    create: 'manage',
+    update: 'manage',
+    destroy: 'manage'
+  })
 
   # GET /av/1
   def show
@@ -8,22 +16,13 @@ class AudioVisualsController < ApplicationController
       .joins(:user)
       .where(id: params[:id]).first
 
-    if !@audio_visual.nil? and
-      (@audio_visual.public or @audio_visual.user_id == current_user.id)
-      # Set a flag indicating if the current user is the owner of the av.
-      @owner = (@audio_visual.user_id == current_user.id)
-
-      # Set the flags indicating if comments can be shown and added.
-      @show_comments = true
-      @can_comment = @audio_visual.allow_commenting
-    else
-      redirect_to root_url
-    end
+    authorize_action_for(audio_visual)
   end
 
   # GET /av/new
   def new
-    @audio_visual = AudioVisual.new
+    @audio_visual = AudioVisual.new(user_id: current_user.id)
+    authorize_action_for(audio_visual)
   end
 
   # GET /av/1/edit
@@ -35,25 +34,31 @@ class AudioVisualsController < ApplicationController
     @audio_visual = AudioVisual.new(params[:audio_visual])
     @audio_visual.user_id = current_user.id
 
-    if @audio_visual.save        
-      redirect_to @audio_visual, notice: I18n.t("audio_visual.create.success")
+    authorize_action_for(audio_visual)
+
+    if audio_visual.save        
+      redirect_to audio_visual, notice: I18n.t("audio_visual.create.success")
     else
-      render action: "new"
+      render action: :new
     end
   end
 
   # PUT /av/1
   def update
-    if @audio_visual.update_attributes(params[:audio_visual])
-      redirect_to @audio_visual, notice: I18n.t("audio_visual.update.success")
+    authorize_action_for(audio_visual)
+
+    if audio_visual.update_attributes(params[:audio_visual])
+      redirect_to audio_visual, notice: I18n.t("audio_visual.update.success")
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 
   # DELETE /av/1
   def destroy
-    if @audio_visual.destroy
+    authorize_action_for(audio_visual)
+
+    if audio_visual.destroy
       redirect_to root_url, notice: I18n.t("audio_visual.delete.success")
     else
       redirect_to root_url, notice: I18n.t("audio_visual.delete.success")
@@ -61,19 +66,9 @@ class AudioVisualsController < ApplicationController
   end
 
   private
-  # Ensures the current user is the owner of the audio visual.
+  # Gets the audio visual being operated on.
   #
-  def ensure_av_owner
-    owner = false
-    @audio_visual = AudioVisual
-      .includes(:user)
-      .joins(:user)
-      .where(id: params[:id]).first
-
-    if !@audio_visual.nil?
-      owner = true if @audio_visual.user_id == current_user.id
-    end
-
-    redirect_to root_url if !owner
+  def audio_visual
+    @audio_visual ||= AudioVisual.find(params[:id])
   end
 end
