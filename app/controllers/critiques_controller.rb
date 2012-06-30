@@ -46,7 +46,7 @@ class CritiquesController < ApplicationController
     if critique.save
       redirect_to round_audio_visual, notice: I18n.t("critique.create.success")
     else
-      render action: "new"
+      render action: :new
     end
   end
 
@@ -59,7 +59,7 @@ class CritiquesController < ApplicationController
         round_audio_visual_path(round_audio_visual),
         notice: I18n.t("critique.update.success"))
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 
