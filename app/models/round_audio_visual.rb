@@ -1,4 +1,7 @@
 class RoundAudioVisual < ActiveRecord::Base
+  include Authority::Abilities
+  self.authorizer_name = 'RoundAudioVisualAuthorizer'
+
   belongs_to :round
   belongs_to :audio_visual
   belongs_to :audio_visual_category
@@ -14,6 +17,8 @@ class RoundAudioVisual < ActiveRecord::Base
   validates :round_id, presence: true
   validates :audio_visual, presence: true
   validates :audio_visual_category_id, presence: true
+
+  after_create :send_new_notification
 
   # Gets the owner of the audio visual.
   #
@@ -76,23 +81,16 @@ class RoundAudioVisual < ActiveRecord::Base
     return accepts
   end
 
-  # Sends a notification to the owner of the audio visual that a new comment
-  # has been added.
-  def send_new_comment_notification(user)
-    if user.id != self.audio_visual.user_id
-      CommentMailer.new_comment(
-        self.audio_visual.user, self, self.audio_visual, user
-      ).deliver
-    end
-  end
+  private
+  # Sends a notification to the members of the folio indicating a new
+  # audio visual has been added to the round.
+  #
+  def send_new_notification
+    self.round.folio.users.each do |recipient|
+      # Skip the current user, they know they've added a new AV.
+      next if recipient == self.user
 
-  # Sends a notification to the owner of the audio visual that a new comment
-  # has been added.
-  def send_updated_comment_notification(user)
-    if user.id != self.audio_visual.user_id
-      CommentMailer.updated_comment(
-        self.audio_visual.user, self, self.audio_visual, user
-      ).deliver
+      RoundAudioVisualMailer.new_audio_visual(recipient, self).deliver
     end
   end
 end

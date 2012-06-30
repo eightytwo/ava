@@ -1,4 +1,7 @@
 class AudioVisualAuthorizer < ApplicationAuthorizer
+  # A public audio visual is readable by anyone, otherwise only the audio
+  # visual owner or a site administrator can read an audio visual.
+  #
   def readable_by?(user)
     resource.public or resource.user == user or user.admin?
   end

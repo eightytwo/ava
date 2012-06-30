@@ -16,15 +16,15 @@ var el = $('#add_comment_form_wrapper > form');
   $('#comment_content').val("");
   el.find('.errors').empty();
     
-  <% if !@comments.nil? %>
+  <% if comments %>
     // Render the comments.
     $('#av_comments').html(
-      "<%= escape_javascript(render partial: 'comment', collection: @comments, locals: {owner: @commentable.user}) %>"
+      "<%= escape_javascript(render partial: 'comment', collection: comments, locals: {owner: commentable.user}) %>"
     );
 
     // Render the pagination links.
     $('#av_comments').append(
-      "<%= escape_javascript(will_paginate @comments, renderer: 'RemoteLinkRenderer', params: {action: 'index'}) %>"
+      "<%= escape_javascript(will_paginate comments, renderer: 'RemoteLinkRenderer', params: {action: 'index'}) %>"
     );
   <% end %>
 

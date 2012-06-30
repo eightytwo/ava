@@ -1,22 +1,22 @@
-- if @round_audio_visual.errors.any?
+- if round_audio_visual.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @round_audio_visual.errors.count)
+    %h3= t("form.error_title", count: round_audio_visual.errors.count)
 
     %ul
-    - @round_audio_visual.errors.full_messages.each do |msg|
+    - round_audio_visual.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@round_audio_visual) do |f|
+  = form_for(round_audio_visual) do |f|
     = f.hidden_field :round_id
 
     .field_wrapper
       = f.label :round
-      = "#{@round.folio.organisation.name} > #{@round.folio.name} > #{@round.name}"
+      = "#{organisation.name} > #{folio.name} > #{round.name}"
 
     .field_wrapper
       = f.label t("audio_visual.labels.audio_visual_category")
-      = f.select :audio_visual_category_id, options_from_collection_for_select(@audio_visual_categories, "id", "name")
+      = f.select :audio_visual_category_id, options_from_collection_for_select(organisation.audio_visual_categories.order(:name), "id", "name")
 
     .field_wrapper
       = f.label t("audio_visual.labels.allow_critiquing")

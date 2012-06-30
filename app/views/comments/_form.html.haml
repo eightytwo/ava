@@ -1,6 +1,6 @@
 %h4= @form_title
 %br
-= form_for([@commentable, @comment], :remote => true) do |f|
+= form_for([commentable, @comment], :remote => true) do |f|
   .field_wrapper
     = f.text_area :content
   .field_wrapper

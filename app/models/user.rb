@@ -137,6 +137,12 @@ class User < ActiveRecord::Base
     self.folios.where(id: folio).count == 1
   end
 
+  # Returns true if the user has critiqued a given round audio visual.
+  #
+  def has_critiqued_audio_visual(round_audio_visual)
+    self.critiques.where(round_audio_visual_id: round_audio_visual).count > 0
+  end
+
   # Returns a summary of the user's membership of a given organisation
   # and folio.
   #

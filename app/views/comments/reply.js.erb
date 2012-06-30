@@ -24,7 +24,7 @@ var el = $('#comment_reply_form');
 
   // Render the reply partial.
   target.replaceWith("<%= escape_javascript( 
-      render partial: 'audio_visuals/component_reply', locals: {component: @comment, owner: @commentable.user}
+      render partial: 'audio_visuals/component_reply', locals: {component: @comment, owner: commentable.user}
     ) %>");
 
 <% end %>

@@ -1,7 +1,4 @@
 class FolioUsersController < ApplicationController
-  #before_filter :ensure_folio_admin, except: [:new, :create]
-  #before_filter :ensure_organisation_admin, only: [:new, :create]
-
   helper_method :folio_user, :folio, :organisation
 
   authority_action({

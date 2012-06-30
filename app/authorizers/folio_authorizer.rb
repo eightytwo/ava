@@ -1,5 +1,5 @@
 class FolioAuthorizer < ApplicationAuthorizer
-  # Only members of a folio can view the folio.
+  # Only members of a folio or an organisation administrator can view the folio.
   #
   def readable_by?(user)
     user.member_of_folio?(resource) or

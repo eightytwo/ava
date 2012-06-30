@@ -1,6 +1,6 @@
-#{@user.organisation_display_name} has added a new audio visual titled "#{@audio_visual.title}" to #{@round.name}.
+#{@round_audio_visual.user.organisation_display_name} has added a new audio visual titled "#{@round_audio_visual.audio_visual.title}" to #{@round_audio_visual.round.name}.
 
 %br
 
 Click the following link to view the audio visual.
-= link_to @audio_visual.title, round_audio_visual_url(@round_audio_visual)
+= link_to @round_audio_visual.audio_visual.title, round_audio_visual_url(@round_audio_visual)

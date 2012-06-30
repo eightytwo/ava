@@ -2,10 +2,10 @@
 
 #container
   #title
-    - if @owner
-      .right= link_to(t("links.edit"), edit_round_audio_visual_path(@round_audio_visual), {class: "regular"})
+    - if current_user.can_manage?(round_audio_visual)
+      .right= link_to(t("links.edit"), edit_round_audio_visual_path(round_audio_visual), {class: "regular"})
     %h3
-      = link_to @round_audio_visual.round.name, @round_audio_visual.round
+      = link_to round.name, round
       .arrow_right
       = @audio_visual.title
       %span.regular by
@@ -27,12 +27,12 @@
         
         - if @show_critiques
           #av_critiques_wrapper
-            - if @can_critique
-              = link_to t("links.add_critique"), new_critique_path(ravid: @round_audio_visual.id)
+            - if current_user.can_critique?(round_audio_visual)
+              = link_to t("links.add_critique"), new_critique_path(ravid: round_audio_visual)
               %br
               %br
             
-            #av_critiques{data: {load: critiques_path(ravid: @round_audio_visual, format: :js)}}
+            #av_critiques{data: {load: critiques_path(ravid: round_audio_visual, format: :js)}}
             
             .component_reply_form_wrapper
               = form_tag(critique_component_reply_path, remote: true, id: "critique_reply_form") do
@@ -40,9 +40,9 @@
         
         - if @show_comments
           #av_comments_wrapper
-            #av_comments{data: {load: round_audio_visual_comments_path(@round_audio_visual, format: :js)}}
+            #av_comments{data: {load: round_audio_visual_comments_path(round_audio_visual, format: :js)}}
 
-            - if @can_comment
+            - if current_user.can_comment?(round_audio_visual)
               .component_reply_form_wrapper
                 = form_tag(comment_reply_path, remote: true, id: "comment_reply_form") do
                   = render partial: "audio_visuals/reply_form"

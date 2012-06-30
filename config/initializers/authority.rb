@@ -50,7 +50,9 @@ Authority.configure do |config|
     :update => 'updatable',
     :delete => 'deletable',
     :manage => 'manageable',
-    :contribute => 'contributable'
+    :contribute => 'contributable',
+    :critique => 'critiquable',
+    :comment => 'commentable'
   }
 
   # SECURITY_VIOLATION_HANDLER
