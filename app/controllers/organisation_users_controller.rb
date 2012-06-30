@@ -21,7 +21,7 @@ class OrganisationUsersController < ApplicationController
         organisation_user.organisation,
         notice: I18n.t("organisation_user.update.success"))
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 

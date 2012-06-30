@@ -33,7 +33,7 @@ class RoundAudioVisualAuthorizer < ApplicationAuthorizer
   #
   def manageable_by?(user)
     resource.user == user or
-    user.administrator_of_organisation?(resource.round.folio.organisation) or
-    user.admin?
+    user.administrator_of_folio?(resource.round.folio) or
+    user.administrator_of_organisation?(resource.round.folio.organisation)
   end
 end

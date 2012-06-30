@@ -8,7 +8,7 @@
     %table.single{cellspacing: "0"}
       %tr
         %th= t("audio_visual_category.index.category_name")
-        %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: organisation.id)
+        %th.text_right= link_to t("links.new"), new_audio_visual_category_path(oid: organisation)
 
       - if categories.count > 0
         - categories.each do |c|

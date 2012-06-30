@@ -49,7 +49,7 @@ class OrganisationsController < ApplicationController
     if organisation.update_attributes(params[:organisation])
       redirect_to organisation, notice: I18n.t("organisation.update.success")
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 

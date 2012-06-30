@@ -26,61 +26,6 @@ class RoundAudioVisual < ActiveRecord::Base
     self.audio_visual.user
   end
 
-  # Checks if the comments associated with this round audio visual
-  # can be viewed by a given user.
-  #
-  def comments_visible_to?(user)
-    visible = false
-
-    # Get the round, folio and organisation associated with this
-    # round audio visual in one db hit.
-    round = Round
-      .includes(folio: :organisation)
-      .joins(folio: :organisation)
-      .where(id: self.round_id)
-      .first
-
-    if !round.nil?
-      # Get a summary of the user's membership in the organisation/folio.
-      membership = user.organisation_membership_summary(
-        round.folio.organisation, round.folio)
-
-      if !membership.nil? and
-        (membership[:organisation_admin] or membership[:folio_member])
-        visible = true
-      end
-    end
-
-    return visible
-  end
-
-  # Checks if this round audio visual can be commented on by a
-  # given user.
-  #
-  def accepts_comments_from?(user)
-    accepts = false
-
-    # Get the round, folio and organisation associated with this
-    # round audio visual in one db hit.
-    round = Round
-      .includes(folio: :organisation)
-      .joins(folio: :organisation)
-      .where(id: self.round_id)
-      .first
-
-    if !round.nil?
-      # Get a summary of the user's membership in the organisation/folio.
-      membership = user.organisation_membership_summary(
-        round.folio.organisation, round.folio)
-
-      if !membership.nil? and membership[:folio_member]
-        accepts = true
-      end
-    end
-
-    return accepts
-  end
-
   private
   # Sends a notification to the members of the folio indicating a new
   # audio visual has been added to the round.

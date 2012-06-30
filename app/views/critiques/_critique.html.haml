@@ -2,7 +2,7 @@
   .critique_title
     .right
       #{time_ago_in_words(critique.updated_at)} ago
-      - if critique.user.id == current_user.id
+      - if current_user.can_update?(critique)
         = render "shared/link_separator"
         = link_to t("links.edit"), edit_critique_path(critique)
 
@@ -13,11 +13,11 @@
       .component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
         .critique_category
           %div
-            - if critique.round_audio_visual.audio_visual.user_id == current_user.id and !component.content.nil? and component.reply.nil?
+            - if critique.round_audio_visual.audio_visual.user_id == current_user.id and component.content and component.reply.nil?
               .right= link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: component.id}}
             %h4.component_title= component.critique_category.name
           
-          - if !component.content.nil?
+          - if component.content
             .component_content_wrapper
               .component_content
                 %pre= component.content

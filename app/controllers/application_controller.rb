@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   #   - the root path of the website.
   #
   def after_sign_in_path_for(resource)
-    if !session["user_return_to"].nil?
+    if session["user_return_to"]
       session["user_return_to"]
     elsif current_user.organisations.count > 0
       organisations_path

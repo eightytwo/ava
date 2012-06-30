@@ -1,14 +1,14 @@
-- if @critique.errors.any?
+- if critique.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @critique.errors.count)
+    %h3= t("form.error_title", count: critique.errors.count)
 
     %ul
-      - @critique.errors.full_messages.each do |msg|
+      - critique.errors.full_messages.each do |msg|
         %li= msg
 
 .form_content
-  - if @critique.critique_components.length > 0
-    = form_for(@critique) do |f|
+  - if critique.critique_components.length > 0
+    = form_for(critique) do |f|
       - if f.object.new_record?
         = f.hidden_field :round_audio_visual_id
 
@@ -28,4 +28,4 @@
     = t("critique_category.index.no_categories")  
 
   .links_wrapper
-    = link_to t("links.back"), @critique.round_audio_visual
+    = link_to t("links.back"), round_audio_visual

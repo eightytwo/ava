@@ -11,28 +11,13 @@ class OrganisationUser < ActiveRecord::Base
   before_destroy :last_administrator
   after_destroy :remove_folio_user
 
-  # Retrieves an OrganisationUser record for a given organisation and user.
-  #
-  def self.find_by_organisation_and_user(organisation, user)
-    organisation_user = nil
-
-    # Ensure the organisation and user objects are qualified.
-    if !organisation.nil? and !user.nil?
-      organisation_user = OrganisationUser
-        .where("organisation_id = ? and user_id = ?",
-               organisation.id, user.id).first
-    end
-
-    return organisation_user
-  end
-
   private
   # Ensures an organisation cannot be left with no administrators, either
   # through the deletion of the last administrator or updating the admin
   # property of the last administrator to false.
   #
   def last_administrator
-    if !self.organisation_id.nil?
+    if self.organisation_id
       # Check if this user is currently stored as an organisation administrator
       # and get the number of administrators in the organisation.
       is_admin = (self.admin or (!self.admin and self.admin_changed?))

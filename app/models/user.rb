@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
   # first, and failing that use their username.
   #
   def organisation_display_name
-    has_first_name = !(self.first_name.nil? or self.first_name.blank?)
-    has_last_name = !(self.last_name.nil? or self.last_name.blank?)
+    has_first_name = (self.first_name and !self.first_name.blank?)
+    has_last_name = (self.last_name and !self.last_name.blank?)
 
     if has_first_name and has_last_name
       [self.first_name, self.last_name].join(" ")
@@ -143,42 +143,6 @@ class User < ActiveRecord::Base
     self.critiques.where(round_audio_visual_id: round_audio_visual).count > 0
   end
 
-  # Returns a summary of the user's membership of a given organisation
-  # and folio.
-  #
-  def organisation_membership_summary(organisation, folio)
-    # Setup a default result package.
-    result = {
-      organisation_member: false,
-      organisation_admin: false,
-      folio_member: false,
-      folio_role: 0
-    }
-
-    # Get the id of the folio if supplied, otherwise set to zero.
-    folio_id = folio.nil? ? 0 : folio.id
-
-    if !organisation.nil?
-      summary = User
-        .select("organisation_users.admin AS organisation_admin, folio_users.folio_role_id AS folio_role")
-        .joins("INNER JOIN organisation_users ON organisation_users.user_id = users.id AND organisation_users.organisation_id = " + organisation.id.to_s)
-        .joins("LEFT JOIN folio_users ON folio_users.user_id = users.id AND folio_users.folio_id = " + folio_id.to_s)
-        .where(id: self.id ).first
-
-      if !summary.nil?
-        result[:organisation_member] = true
-        result[:organisation_admin] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(summary.organisation_admin)
-        
-        if !summary.folio_role.nil?
-          result[:folio_member] = true
-          result[:folio_role] = summary.folio_role.to_i
-        end
-      end
-    end
-
-    return result
-  end
-
   private
   # A callback which is executed after a user accepts an invitation.
   #
@@ -189,13 +153,13 @@ class User < ActiveRecord::Base
     folio_role = FolioRole.find(self.invitation_folio_role_id)
 
     # Establish the user in the organisation and folio.
-    if !organisation.nil?
+    if organisation
       OrganisationUser.create(organisation_id: organisation.id,
                               user_id: self.id,
                               admin: self.invitation_organisation_admin)
     end
 
-    if !folio.nil? and !folio_role.nil?
+    if folio and folio_role
       FolioUser.create(folio_id: folio.id,
                        user_id: self.id,
                        folio_role_id: folio_role.id)
@@ -214,7 +178,7 @@ class User < ActiveRecord::Base
   # Ensures the user has a first name if a last name has been supplied.
   #
   def last_name_if_first_name_exists
-    if !(self.last_name.nil? or self.last_name.blank?) and
+    if (self.last_name and !self.last_name.blank?) and
        (self.first_name.nil? or self.first_name.blank?)
       errors.add(:first_name, I18n.t("edit_account.errors.first_name"))
       return false

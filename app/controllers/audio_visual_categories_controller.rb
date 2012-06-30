@@ -33,10 +33,10 @@ class AudioVisualCategoriesController < ApplicationController
 
     if @category.save
       redirect_to(
-        audio_visual_categories_path(oid: organisation.id),
+        audio_visual_categories_path(oid: organisation),
         notice: I18n.t("audio_visual_category.create.success"))
     else
-      render action: "new"
+      render action: :new
     end
   end
 
@@ -46,10 +46,10 @@ class AudioVisualCategoriesController < ApplicationController
 
     if category.update_attributes(params[:audio_visual_category])
       redirect_to(
-        audio_visual_categories_path(oid: organisation.id),
+        audio_visual_categories_path(oid: organisation),
         notice: I18n.t("audio_visual_category.update.success"))
     else
-      render action: "edit"
+      render action: :edit
     end
   end
 
@@ -60,11 +60,11 @@ class AudioVisualCategoriesController < ApplicationController
     begin
       category.destroy
       redirect_to(
-        audio_visual_categories_path(oid: organisation.id),
+        audio_visual_categories_path(oid: organisation),
         notice: I18n.t("audio_visual_category.delete.success"))
     rescue ActiveRecord::DeleteRestrictionError
       redirect_to(
-        audio_visual_categories_path(oid: organisation.id),
+        audio_visual_categories_path(oid: organisation),
         alert: I18n.t("audio_visual_category.delete.failure.foreign_key"))
     end
   end
