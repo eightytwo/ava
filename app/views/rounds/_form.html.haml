@@ -1,13 +1,13 @@
-- if @round.errors.any?
+- if round.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @round.errors.count)
+    %h3= t("form.error_title", count: round.errors.count)
 
     %ul
-      - @round.errors.full_messages.each do |msg|
+      - round.errors.full_messages.each do |msg|
         %li= msg
 
 .form_content
-  = form_for(@round) do |f|
+  = form_for(round) do |f|
     = f.hidden_field :folio_id
 
     .field_wrapper
@@ -26,4 +26,4 @@
       = f.submit({class: "button green"})
 
   .links_wrapper
-    = link_to t("links.back"), @folio
+    = link_to t("links.back"), folio

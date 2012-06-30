@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   # The name to use when displaying this user publicly.
   #
   def public_display_name
-    return organisation_display_name
+    organisation_display_name
   end
 
   # Returns true if the user belongs to an organisation, otherwise false.
@@ -97,13 +97,44 @@ class User < ActiveRecord::Base
   # Returns the organisations of which the user is an administrator.
   #
   def administered_organisations
-    return self.organisations.where("admin = true").order(:name)
+    self.organisations.where(admin: true).order(:name)
   end
 
-  # Returns the folios of which the user is an administrator.
+  # Returns true if the user is an administrator of a given organisation.
   #
-  def administered_folios
-    return self.folios.where("folio_role_id = 3").order(:name)
+  def administrator_of_organisation?(organisation)
+    self.organisations
+      .where("organisation_users.organisation_id = ? and admin = true",
+             organisation)
+      .count == 1
+  end
+
+  # Returns true if the user is a member of a given organisation.
+  #
+  def member_of_organisation?(organisation)
+    self.organisations.where(id: organisation).count == 1
+  end
+
+  # Returns true if the user is an administrator of a given folio.
+  #
+  def administrator_of_folio?(folio)
+    self.folios
+      .where("folio_users.folio_id = ? and folio_role_id = 3", folio)
+      .count == 1
+  end
+
+  # Returns true if the user is a contributor of a given folio.
+  #
+  def contributor_of_folio?(folio)
+    self.folios
+      .where("folio_users.folio_id = ? and folio_role_id >= 2", folio)
+      .count == 1
+  end
+
+  # Returns true if the user is a member of a given folio.
+  #
+  def member_of_folio?(folio)
+    self.folios.where(id: folio).count == 1
   end
 
   # Returns a summary of the user's membership of a given organisation

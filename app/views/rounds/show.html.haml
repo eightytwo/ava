@@ -1,15 +1,15 @@
 #container
   #title
-    - if @round.open? and @contributor
+    - if round.open? and current_user.can_contribute?(folio)
       .right
-        = link_to(t("links.add_audio_visual"), new_round_audio_visual_path(rid: @round.id), {class: "regular"})
+        = link_to(t("links.add_audio_visual"), new_round_audio_visual_path(rid: round), {class: "regular"})
 
     %h3
-      = link_to @round.folio.organisation.name, @round.folio.organisation
+      = link_to organisation.name, organisation
       .arrow_right
-      = link_to @round.folio.name, @round.folio
+      = link_to folio.name, folio
       .arrow_right
-      = @round.name
+      = round.name
 
   #content
     - if @round_audio_visuals.nil? or @round_audio_visuals.count == 0

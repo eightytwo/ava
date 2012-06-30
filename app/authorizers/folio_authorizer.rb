@@ -2,15 +2,21 @@ class FolioAuthorizer < ApplicationAuthorizer
   # Only members of a folio can view the folio.
   #
   def readable_by?(user)
-    user.folios.include?(resource) ||
-    user.administered_organisations.include?(resource.organisation)
+    user.member_of_folio?(resource) or
+    user.administrator_of_organisation?(resource.organisation)
+  end
+
+  # Only contributors of a folio can add content.
+  #
+  def contributable_by?(user)
+    user.contributor_of_folio?(resource)
   end
 
   # A user who is either an administrator of the folio or an administrator
   # of the folio's organisation can manage the folio.
   #
   def manageable_by?(user)
-    user.administered_folios.include?(resource) ||
-    user.administered_organisations.include?(resource.organisation)
+    user.administrator_of_folio?(resource) or
+    user.administrator_of_organisation?(resource.organisation)
   end
 end
