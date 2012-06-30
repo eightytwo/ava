@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
   # Returns the organisations of which the user is an administrator.
   #
   def administered_organisations
-    self.organisations.where(admin: true).order(:name)
+    self.organisations.where("admin = true").order(:name)
   end
 
   # Returns true if the user is an administrator of a given organisation.
