@@ -70,24 +70,23 @@ class CritiqueCategoriesController < ApplicationController
   end
 
   private
-  # Gets the CritiqueCategory being operated on.
+  # Gets the critique category being operated on.
   #
   def category
     @category ||= CritiqueCategory.find(params[:id])
   end
 
-  # Gets the Organisation of the CritiqueCategory.
+  # Gets the organisation of the critique category.
   #
-  # If no organisaton id has been supplied as a querystring parameter
-  # (required for the index and new actions) derive the Organisation
-  # from the CritiqueCategory.
+  # This is primarily required for the index and new actions when no
+  # critique category exists.
   #
   def organisation
     @organisation ||=
       params[:oid] ? Organisation.find(params[:oid]) : category.organisation
   end
 
-  # Gets the existing AudioVisualCategories for the Organisation.
+  # Gets the existing audio visual categories for the organisation.
   #
   def categories
     @categories ||= CritiqueCategory.categories_for_organisation(organisation)

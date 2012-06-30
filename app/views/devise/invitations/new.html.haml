@@ -9,10 +9,10 @@
         = f.label :email
         = f.email_field :email, autofocus: true
 
-      - if current_user.organisations?
+      - if organisations.count > 0
         .field_wrapper
           = f.label t("invitation.create.labels.organisation")
-          = f.select :invitation_organisation_id, options_from_collection_for_select(@organisations, "id", "name")
+          = f.select :invitation_organisation_id, options_from_collection_for_select(organisations, "id", "name")
 
         .field_wrapper
           = f.label t("invitation.create.labels.organisation_admin")
@@ -20,11 +20,11 @@
 
         .field_wrapper
           = f.label t("invitation.create.labels.folio")
-          = f.select :invitation_folio_id, options_from_collection_for_select(@folios, "id", "name")
+          = f.select :invitation_folio_id, options_from_collection_for_select(folios, "id", "name")
 
         .field_wrapper
           = f.label t("invitation.create.labels.folio_role")
-          = f.select :invitation_folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name")
+          = f.select :invitation_folio_role_id, options_from_collection_for_select(folio_roles, "id", "name")
 
       .field_wrapper
         = f.submit(t("invitation.create.submit"), {class: "button green"})

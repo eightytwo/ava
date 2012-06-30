@@ -34,7 +34,7 @@ class OrganisationsController < ApplicationController
     end
 
     # Get the folios of the Organisation.
-    @folios = organisation.folios.order(:name)
+    @folios = organisation.folios.order(:name).all
   end
 
   # GET /organisations/1/edit
@@ -54,7 +54,7 @@ class OrganisationsController < ApplicationController
   end
 
   private
-  # Gets the Organisation being operated on.
+  # Gets the organisation being operated on.
   #
   def organisation
     @organisation ||= Organisation.find(params[:id])

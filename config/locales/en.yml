@@ -23,17 +23,18 @@ en:
       update: "Update"
 
   links:
+    add: "add"
+    add_audio_visual: "add audio visual"
+    add_critique: "add your critique"
     back: "back"
+    cancel: "cancel"
     delete: "remove"
     edit: "edit"
     invite: "invite"
     login: "log in"
     logout: "log out"
     new: "new"
-    add_audio_visual: "add audio visual"
-    add_critique: "add your critique"
     reply: "reply"
-    cancel: "cancel"
 
   menu:
     about: "about"

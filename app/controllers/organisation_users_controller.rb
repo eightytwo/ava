@@ -30,7 +30,6 @@ class OrganisationUsersController < ApplicationController
     authorize_action_for(organisation_user.organisation)
     organisation = organisation_user.organisation
 
-    # Delete the OrganisationUser relation record.
     if organisation_user.destroy
       redirect_to(
         organisation,
@@ -39,7 +38,7 @@ class OrganisationUsersController < ApplicationController
   end
 
   private
-  # Get the OrganisationUser record being operated on.
+  # Get the organisation user being operated on.
   #
   def organisation_user
     @organisation_user ||= OrganisationUser

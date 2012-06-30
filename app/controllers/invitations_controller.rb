@@ -1,6 +1,7 @@
 class InvitationsController < Devise::InvitationsController
   skip_before_filter :authenticate_user!
-  before_filter :get_organisation_data, only: [:new, :create]
+  
+  helper_method :organisations, :folios, :folio_roles
 
   # GET /resource/invitation/new
   def new
@@ -14,10 +15,11 @@ class InvitationsController < Devise::InvitationsController
     if params[:user].has_key?(:invitation_organisation_id) and
        !params[:user].has_key?(:invitation_folio_id)
 
-       # Construct the resource and add the error message.
-       self.resource = build_resource
-       self.resource.errors.add(:folio, I18n.t("invitation.create.errors.folio_required"))
-       respond_with_navigational(resource) { render :new }
+      # Construct the resource and add the error message.
+      self.resource = build_resource
+      self.resource.errors.add(
+        :folio, I18n.t("invitation.create.errors.folio_required"))
+      respond_with_navigational(resource) { render :new }
     else
       super
     end
@@ -33,15 +35,24 @@ class InvitationsController < Devise::InvitationsController
     super
   end
 
-  protected
-  # Retrieve data for organisation related drop down lists
-  # if the inviter belongs to an organisation.
+  private
+  # Get the organisations administered by the current user. The current
+  # user can invite someone to join these organisations.
   #
-  def get_organisation_data
-    if current_user.organisations?
-      @organisations = current_user.administered_organisations
-      @folios = @organisations[0].folios
-      @folio_roles = FolioRole.all
-    end
+  def organisations
+    @organisations ||= current_user.administered_organisations
+  end
+
+  # Get the folios of the first organisation administered by the current
+  # user.
+  #
+  def folios
+    @folios ||= organisations[0].folios
+  end
+
+  # Get the folio roles.
+  #
+  def folio_roles
+    @folio_roles ||= FolioRole.all
   end
 end

@@ -70,24 +70,23 @@ class AudioVisualCategoriesController < ApplicationController
   end
 
   private
-  # Gets the AudioVisualCategory being operated on.
+  # Gets the audio visual category being operated on.
   #
   def category
     @category ||= AudioVisualCategory.find(params[:id])
   end
 
-  # Gets the Organisation of the AudioVisualCategory.
+  # Gets the organisation of the audio visual category.
   #
-  # If no organisaton id has been supplied as a querystring parameter
-  # (required for the index and new actions) derive the Organisation
-  # from the AudioVisualCategory.
+  # This is primarily required for the index and new actions when no
+  # audio visual category exists.
   #
   def organisation
     @organisation ||=
       params[:oid] ? Organisation.find(params[:oid]) : category.organisation
   end
 
-  # Gets the existing AudioVisualCategories for the Organisation.
+  # Gets the existing audio visual categories for the organisation.
   #
   def categories
     @categories ||= organisation.audio_visual_categories.order(:name)

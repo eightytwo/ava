@@ -97,7 +97,13 @@ class User < ActiveRecord::Base
   # Returns the organisations of which the user is an administrator.
   #
   def administered_organisations
-    return self.organisations.where("admin = true")
+    return self.organisations.where("admin = true").order(:name)
+  end
+
+  # Returns the folios of which the user is an administrator.
+  #
+  def administered_folios
+    return self.folios.where("folio_role_id = 3").order(:name)
   end
 
   # Returns a summary of the user's membership of a given organisation

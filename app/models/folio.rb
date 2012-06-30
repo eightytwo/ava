@@ -1,4 +1,7 @@
 class Folio < ActiveRecord::Base
+  include Authority::Abilities
+  self.authorizer_name = 'FolioAuthorizer'
+
   belongs_to :organisation
   has_many :folio_users, dependent: :delete_all
   has_many :users, through: :folio_users

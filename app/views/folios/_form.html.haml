@@ -1,13 +1,13 @@
-- if @folio.errors.any?
+- if folio.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @folio.errors.count)
+    %h3= t("form.error_title", count: folio.errors.count)
 
     %ul
-    - @folio.errors.full_messages.each do |msg|
+    - folio.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@folio) do |f|
+  = form_for(folio) do |f|
     = f.hidden_field :organisation_id
     
     .field_wrapper
@@ -22,4 +22,4 @@
       = f.submit({class: "button green"})
 
   .links_wrapper
-    = link_to t("links.back"), @organisation
+    = link_to t("links.back"), organisation
