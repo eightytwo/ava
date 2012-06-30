@@ -38,7 +38,7 @@ class OrganisationUsersController < ApplicationController
   end
 
   private
-  # Get the organisation user being operated on.
+  # Gets the organisation user being operated on.
   #
   def organisation_user
     @organisation_user ||= OrganisationUser

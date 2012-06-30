@@ -36,21 +36,21 @@ class InvitationsController < Devise::InvitationsController
   end
 
   private
-  # Get the organisations administered by the current user. The current
+  # Gets the organisations administered by the current user. The current
   # user can invite someone to join these organisations.
   #
   def organisations
     @organisations ||= current_user.administered_organisations
   end
 
-  # Get the folios of the first organisation administered by the current
+  # Gets the folios of the first organisation administered by the current
   # user.
   #
   def folios
     @folios ||= organisations[0].folios
   end
 
-  # Get the folio roles.
+  # Gets the folio roles.
   #
   def folio_roles
     @folio_roles ||= FolioRole.all

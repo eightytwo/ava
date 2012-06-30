@@ -82,16 +82,15 @@ class FoliosController < ApplicationController
   end
 
   private
-  # Get the Folio being operated on.
+  # Get the folio being operated on.
   #
   def folio
     @folio ||= Folio.find(params[:id])
   end
 
-  # Gets the Organisation of the Folio.
+  # Gets the organisation of the folio.
   #
-  # This is primarily required for the index and new actions when no
-  # Folio exists.
+  # This is primarily required for the new action when no folio exists.
   #
   def organisation
     @organisation ||=

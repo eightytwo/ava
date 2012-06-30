@@ -1,32 +1,32 @@
-- if @folio_user.errors.any?
+- if folio_user.errors.any?
   #error_explanation
-    %h3= t("form.error_title", count: @folio_user.errors.count)
+    %h3= t("form.error_title", count: folio_user.errors.count)
 
     %ul
-    - @folio_user.errors.full_messages.each do |msg|
+    - folio_user.errors.full_messages.each do |msg|
       %li= msg
 
 .form_content
-  = form_for(@folio_user) do |f|
+  = form_for(folio_user) do |f|
     = f.hidden_field :folio_id
     
     .field_wrapper
       = f.label t("folio_user.labels.folio")
-      = @folio.name
+      = folio.name
 
     .field_wrapper
       = f.label t("folio_user.labels.user")
-      - if params[:action] == "edit"
-        = @folio_user.user.organisation_display_name
-      - else
+      - if f.object.new_record?
         = f.select :user_id, options_from_collection_for_select(@members, "id", "organisation_display_name")
+      - else
+        = folio_user.user.organisation_display_name
 
     .field_wrapper
       = f.label t("folio_user.labels.folio_role")
-      = f.select :folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name", selected: @folio_user.folio_role_id)
+      = f.select :folio_role_id, options_from_collection_for_select(@folio_roles, "id", "name", selected: folio_user.folio_role_id)
 
     .field_wrapper
       = f.submit({class: "button green"})
 
   .links_wrapper
-    = link_to t("links.back"), @folio
+    = link_to t("links.back"), folio
