@@ -8,3 +8,14 @@ tintin_one:
   tags: shooting star, telescope, asteroid
   public: false
   allow_commenting: false
+
+public_one:
+  user: jolyon
+  title: A public audio visual.
+  description: This is an audio visual which is viewable by anyone.
+  music: Theme from Jaws
+  location: Amity Beach
+  production_notes: Aperture
+  tags: shars, beach, sea
+  public: true
+  allow_commenting: true

@@ -1,4 +1,6 @@
 class AudioVisualsController < ApplicationController
+  #skip_before_filter :authenticate_user!, only: :show
+
   helper_method :audio_visual
 
   authority_action({
@@ -27,6 +29,7 @@ class AudioVisualsController < ApplicationController
 
   # GET /av/1/edit
   def edit
+    authorize_action_for(audio_visual)
   end
 
   # POST /av
