@@ -22,36 +22,25 @@ class Critique < ActiveRecord::Base
   # if so sets the updated_at field of the critique to now.
   #
   def check_update_modified
-    self.critique_components.each do |component|
-      if component.changed.count > 0
-        self.updated_at = DateTime.now
-        break
-      end
-    end
+    self.updated_at = DateTime.now if self.critique_components.any? {
+      |c| c.content_changed?
+    }
   end
 
   # Sends a notification to the audio visual owner indicating a new
   # critique has been posted.
   #
   def send_new_notification
-    self.critique_components.each do |component|
-      if component.changed.count > 0
-        CritiqueMailer.new_critique(self.round_audio_visual, self.user).deliver
-        break
-      end
-    end
+    CritiqueMailer.new_critique(self.round_audio_visual, self.user).deliver
   end
 
   # Sends a notification to the audio visual owner indicating an existing
   # critique has been updated.
   #
   def send_update_notification
-    self.critique_components.each do |component|
-      if component.changed.count > 0
-        CritiqueMailer.updated_critique(
-          self.round_audio_visual, self.user).deliver
-        break
-      end
+    if self.updated_at_changed?
+      CritiqueMailer.updated_critique(
+        self.round_audio_visual, self.user).deliver
     end
   end
 end

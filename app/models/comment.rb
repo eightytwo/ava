@@ -37,10 +37,13 @@ class Comment < ActiveRecord::Base
   # same user as the owner of the commentable resource.
   #
   def send_new_notification
-    if self.content_changed? and self.user != self.commentable.user.id
-      CommentMailer.new_comment(
-        self.commentable.user, self.commentable, self.commentable.audio_visual, self.user
-      ).deliver
+    if self.content_changed? and self.user != self.commentable.user
+      # Determine the resource the comment is for and call the appropriate
+      # mailer method.
+      if self.commentable_type.constantize == RoundAudioVisual
+        CommentMailer.new_round_audio_visual_comment(
+          self.commentable, self.user).deliver
+      end
     end
   end
 
@@ -51,10 +54,13 @@ class Comment < ActiveRecord::Base
   # same user as the owner of the commentable resource.
   #
   def send_update_notification
-    if self.content_changed? and self.user != self.commentable.user.id
-      CommentMailer.updated_comment(
-        self.commentable.user, self.commentable, self.commentable.audio_visual, self.user
-      ).deliver
+    if self.content_changed? and self.user != self.commentable.user
+      # Determine the resource the comment is for and call the appropriate
+      # mailer method.
+      if self.commentable_type.constantize == RoundAudioVisual
+        CommentMailer.updated_round_audio_visual_comment(
+          self.commentable, self.user).deliver
+      end
     end
   end
 end

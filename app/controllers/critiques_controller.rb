@@ -33,6 +33,12 @@ class CritiquesController < ApplicationController
 
   # GET /critiques/1/edit
   def edit
+    @critique = Critique
+      .includes(:round_audio_visual, critique_components: :critique_category)
+      .joins(:round_audio_visual, critique_components: :critique_category)
+      .order("critique_components.id")
+      .where(id: params[:id]).first
+
     authorize_action_for(critique)
   end
 
