@@ -313,3 +313,15 @@ en:
       comment:
         new: "New comment added to %{audio_visual}"
         updated: "Updated comment on %{audio_visual}"
+
+  contact:
+    title: "Contact Us"
+    new_message:
+      success: "Message was successfully delivered."
+      validation: "Please complete all fields."
+    form:
+      name: "Name"
+      email: "Email"
+      body: "Body"
+      send: "Send"
+

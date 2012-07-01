@@ -1,0 +1,26 @@
+.form_wrapper.narrow
+  %h2= t("contact.title")
+
+  - if @message.errors.any?
+    #error_explanation
+      %h3= t("form.error_title", count: @message.errors.count)
+
+      %ul
+        - @message.errors.full_messages.each do |msg|
+          %li= msg
+  .form_content
+    = form_for @message, url: contact_path do |f|
+      .field_wrapper
+        = label_tag t("contact.form.name")
+        = f.text_field :name
+
+      .field_wrapper
+        = label_tag t("contact.form.email")
+        = f.text_field :email
+
+      .field_wrapper
+        = label_tag t("contact.form.body")
+        = f.text_area :body
+
+      .field_wrapper
+        = submit_tag(t("contact.form.send"), {class: "button green"})

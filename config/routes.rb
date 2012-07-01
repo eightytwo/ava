@@ -43,6 +43,9 @@ Ava::Application.routes.draw do
   post "/critique_components/reply" => "critique_components#reply", as: :critique_component_reply
   post "/comments/reply" => "comments#reply", as: :comment_reply
 
+  match 'contact' => 'contact#new', :as => 'contact', :via => :get
+  match 'contact' => 'contact#create', :as => 'contact', :via => :post
+
   get "home/index"
 
   # You can have the root of your site routed with "root"

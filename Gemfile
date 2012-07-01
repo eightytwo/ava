@@ -31,7 +31,11 @@ gem 'exception_notification'
 # For working with the Vimeo API
 gem 'vimeo'
 
+# For working with haml.
 gem 'haml'
+
+# Databaseless models.
+gem 'active_attr'
 
 # Gems used only for assets and not required in production
 group :assets do

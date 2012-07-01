@@ -50,6 +50,16 @@ Ava::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => 'localhost:3002' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com'
+  }
 
   # Enable threaded mode
   # config.threadsafe!
@@ -64,9 +74,6 @@ Ava::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Set the host for urls included in emails.
-  config.action_mailer.default_url_options = { :host => 'localhost:3002' }
 
   # Setup the exception notifier gem.
   config.middleware.use ExceptionNotifier,
