@@ -22,7 +22,7 @@ class Critique < ActiveRecord::Base
   # if so sets the updated_at field of the critique to now.
   #
   def check_update_modified
-    self.updated_at = DateTime.now if self.critique_components.any? {
+    self.touch if self.critique_components.any? {
       |c| c.content_changed?
     }
   end

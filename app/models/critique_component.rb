@@ -18,7 +18,7 @@ class CritiqueComponent < ActiveRecord::Base
   # and if so sets the reply created/updated timestamps correctly.
   def check_update_reply_timestamp
     if self.reply_changed?
-      timestamp = DateTime.now
+      timestamp = Time.now
       self.reply_created_at = timestamp if self.reply_created_at.nil?
       self.reply_updated_at = timestamp
     end
