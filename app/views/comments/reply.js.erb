@@ -11,7 +11,7 @@ var el = $('#comment_reply_form');
   // Display the errors on the form.
   el.find('.errors').html(errors);
 
-<% else %>
+<% elsif @comment %>
   // Get the reply wrapper element which will be replaced with the new content.
   var target = el.parents('.component_reply_wrapper');
 

@@ -12,14 +12,18 @@ class CommentsController < ApplicationController
   # POST /comments/reply
   def reply
     # Ensure the current user can update comments for the resource.
-    if current_user.can_comment?(commentable)
-      if commentable.user == current_user and @comment
-        @comment.reply = params[:reply_content]
-        @comment.update_record_without_timestamping
+    if @comment and
+       current_user.can_comment?(commentable) and
+       commentable.user == current_user
+      @comment.reply = params[:reply_content]
+      @comment.update_record_without_timestamping
 
-        respond_to do |format|
-          format.js { @comment }
-        end
+      respond_to do |format|
+        format.js { @comment }
+      end
+    else
+      respond_to do |format|
+        format.js { nil }
       end
     end
   end
