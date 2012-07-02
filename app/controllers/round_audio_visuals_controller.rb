@@ -22,11 +22,11 @@ class RoundAudioVisualsController < ApplicationController
     @audio_visual = round_audio_visual.audio_visual
 
     # Set the flags indicating if critiques and comments can be shown.
-    @show_comments = current_user.can_read?(folio) and
-                     round_audio_visual.allow_commenting
-    @show_critiques = (current_user.can_contribute?(folio) or
-                       current_user.can_manage?(organisation)) and
-                      round_audio_visual.allow_critiquing
+    @show_comments = (current_user.can_read?(folio) and
+                      round_audio_visual.allow_commenting)
+    @show_critiques = ((current_user.can_contribute?(folio) or
+                        current_user.can_manage?(organisation)) and
+                       round_audio_visual.allow_critiquing)
   end
 
   # GET /rav/new

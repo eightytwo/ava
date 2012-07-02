@@ -29,20 +29,18 @@
 
 - if f.object.new_record? == true
   = f.hidden_field(:external_reference, {id: "hidExternalReference"})
+  = hidden_field_tag(:hidSwfPath, asset_path("swfupload/dependencies/swfupload.swf"))
 
-  #uploaderWrapper
-    #uploaderContainer
-      #uploaderOverlay
-      #selectFilesLink
-        %a{id: "selectLink", href: "#"} select file to upload
+  #uploadControls
+    #uploadProgressBarContainer
+      #uploadProgressLabel
+      #uploadProgressBar
+    #selectFilesLink select file to upload
 
-    #uploadFilesLink
-      %a{id: "uploadLink", href: "#"} upload audio visual
-
-    #files
-
+    #uploadContainer
+    
     .errors.hidden= t("audio_visual.validation.missing_fields")
-
+    
     .spinner{id: 'uploadSpinner'}
 
 - else

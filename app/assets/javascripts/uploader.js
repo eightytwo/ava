@@ -1,138 +1,104 @@
-/**
- * This JavaScript file handles the uploader control which
- * leverages Yahoo's YUI toolkit.
- */
+//= require swfupload/swfupload
 
-YUI({
-  gallery: 'gallery-2011.02.09-21-32'
-}).use('uploader', 'gallery-progress-bar', function(Y) {
-  var uploader,
+$(function() {
+  // Uploader control.
+  var swfu;
+
+  var progressContainerWidth,
       uploadTicketId,
       uploadUri,
       uploadFileName,
       ticketUri,
-      finishUri,
-      selectedFiles = {};
+      finishUri;
 
-  function init() {
-    var overlayRegion = Y.one("#selectFilesLink").get('region');
-    Y.one("#uploaderOverlay").set("offsetWidth", overlayRegion.width);
-    Y.one("#uploaderOverlay").set("offsetHeight", overlayRegion.height);
- 
-    var swfURL = Y.Env.cdn + "uploader/assets/uploader.swf";
-
-    if (Y.UA.ie >= 6) {
-      swfURL += "?t=" + Y.guid();
-    }
-
-    uploader = new Y.Uploader({
-      boundingBox: "#uploaderOverlay", 
-      swfURL: swfURL
-    }); 
-
-    uploader.on("uploaderReady", setupUploader);
-    uploader.on("fileselect", fileSelect);
-    uploader.on("uploadprogress", updateProgress);
-    uploader.on("uploadcomplete", uploadComplete);
-    uploader.on("uploadcompletedata", uploadCompleteData);
+  // Get the path and identifier for callbacks.
+  var callbackPath = $(location).attr('pathname').split('/')[1];
+  var callbackID = $('#round_audio_visual_round_id').val();
+  
+  // Form the ticket and finish uris.
+  ticketUri = '/' + callbackPath + '/get_upload_ticket.json'
+  finishUri = '/' + callbackPath + '/complete_upload.json'
+  if (callbackID != undefined && callbackID != null) {
+    ticketUri += '?rid=' + callbackID;
+    finishUri += '?rid=' + callbackID;
   }
 
-  Y.on("domready", function() {
-    // Hide the upload controls until the upload endpoint has been fetched.
-    Y.one('#uploaderWrapper').setStyle('visibility', 'hidden');
-    Y.one('#uploadSpinner').setStyle('display', 'none');
+  /**
+   * Validates the form and ensures all text fields have been completed.
+   */
+  function validateForm() {
+    var valid = true;
 
-    // Get the path and identifier for callbacks.
-    var callbackPath = $(location).attr('pathname').split('/')[1];
-    var callbackID = $('#round_audio_visual_round_id').val();
-    
-    // Form the ticket and finish uris.
-    ticketUri = '/' + callbackPath + '/get_upload_ticket.json'
-    finishUri = '/' + callbackPath + '/complete_upload.json'
-    if (callbackID != undefined && callbackID != null) {
-      ticketUri += '?rid=' + callbackID;
-      finishUri += '?rid=' + callbackID;
-    }
-
-    $.get(ticketUri, function(data) {
-      // Sanity check the response data.
-      if (data != null &&
-          data.ticket != null &&
-          data.ticket.id != undefined &&
-          data.ticket.id != null) {
-
-        // Extract the upload uri, initialise the uploader and display
-        // the controls.
-        uploadTicketId = data.ticket.id;
-        uploadUri = data.ticket.endpoint;
-        init();
-        Y.one('#uploaderWrapper').setStyle('visibility', 'visible');
-      }
+    $(':text, textarea').each(function() {
+      if ($(this).val() == "")
+        valid = false;
     });
-  });
 
-  function setupUploader(event) {
-    uploader.set("multiFiles", false);
-    uploader.set("simLimit", 1);
-    uploader.set("log", true);
-  
-    var fileFilters = new Array({
-      description: "Videos",
-      extensions: "*.avi;*.mov;*.mpg;*.mp4"
-    }); 
-  
-    uploader.set("fileFilters", fileFilters); 
+    return valid;
   }
 
-  function fileSelect(event) {
-    // Validate the form first before continuing with the upload.
-    if (!validateForm()) {
-      $('.errors').show();
-      return;
-    }
-
-    $('.errors').hide();
-    var fileData = event.fileList;  
-    
-    for (var key in fileData) {
-      if (!selectedFiles[fileData[key].id]) {
-        Y.one("#files").append(
-          "<div id='div_" + fileData[key].id + "' class='progressbars'></div>"
-        );
-        
-        var progressBar = new Y.ProgressBar({
-          id: "pb_" + fileData[key].id,
-          layout: '<div class="{labelClass}"></div><div class="{sliderClass}"></div>'
-        });
-   
-        progressBar.render("#div_" + fileData[key].id);
-        progressBar.set("progress", 0);
-               
-        selectedFiles[fileData[key].id] = true;
-        uploadFileName = fileData[key].name;
+  /**
+   * Handles the file queued event and validates the form before initiating
+   * the upload process.
+   */
+  function fileQueued(file) {
+    if (validateForm()) {
+      $('.errors').hide();
+      uploadFileName = file.name;
+      
+      try {
+        swfu.startUpload();
+      } catch(ex) {
       }
+    } else {
+      $('.errors').show();
+      swfu.cancelUpload(null, false);
     }
+  }
 
-    // Hide the SWF container.
-    Y.one('#uploaderOverlay').setStyle('visibility', 'hidden');
-    Y.one('#selectFilesLink').setStyle('display', 'none');
+  /**
+   * Handles the upload start event and hides the select files link.
+   */
+  function uploadStarted(file) {
+    // Hide the swf uploader.
+    $('#selectFilesLink').hide();
+    swfu.setButtonDisabled(true);
+    swfu.setButtonCursor(SWFUpload.CURSOR.ARROW);
+    swfu.setButtonDimensions(0, 0);
     
-    // Call the file upload function.
-    uploadFiles();
+    // Prepare the progress bar.
+    $('#uploadProgressBarContainer').show();
+    progressContainerWidth = $('#uploadProgressBarContainer').width();
+    return true;
   }
 
-  function updateProgress(event) {
-    var pb = Y.Widget.getByNode("#pb_" + event.id);
-    pb.set("progress", Math.round(100 * event.bytesLoaded / event.bytesTotal));
+  /**
+   * Handles the upload progress event, rendering a progress bar.
+   */
+  function uploadProgress(file, bytesLoaded, bytesTotal) {
+    try {
+      var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
+      var width = progressContainerWidth * (percent / 100);
+      $('#uploadProgressLabel').text('Uploaded: ' + percent + '%');
+      $('#uploadProgressBar').width(width + 'px');
+    } catch (e) {
+    }
   }
 
-  function uploadComplete(event) {
+  /**
+   * Handles the upload success event of the file upload process and
+   * displays a spinner to indicate further processing by the upload
+   * complete event handler.
+   */
+  function uploadSuccess(file, server_data, receivedResponse) {
     $('#uploadSpinner').show();
-    var pb = Y.Widget.getByNode("#pb_" + event.id);
-    pb.set("progress", 100);
   }
 
-  function uploadCompleteData(event) {
+  /**
+   * Handles the completion of the file upload process by sending
+   * a finish upload request to the server.
+   */
+  function uploadCompleted(file) {
     var uri = finishUri;
     uri += '&ticket_id=' + uploadTicketId;
     uri += '&filename=' + uploadFileName;
@@ -147,25 +113,52 @@ YUI({
     });
   }
 
-  function uploadFiles(event) {
-    uploader.uploadAll(
-      uploadUri,
-      "POST",
-      {},
-      "file_data"
-    );
-  }
+  /**
+   * Retrieves an upload ticket and configures the swf uploader.
+   */
+  function init() {
+    $('#uploadSpinner').hide();
 
-  function validateForm() {
-    var valid = true;
+    var buttonWidth = $('#selectFilesLink').width();
+    var buttonHeight = $('#selectFilesLink').height();
 
-    $(':text, textarea').each(function() {
-      if ($(this).val() == "")
-        valid = false;
+    $.get(ticketUri, function(data) {
+      // Sanity check the response data.
+      if (data != null &&
+          data.ticket != null &&
+          data.ticket.id != undefined &&
+          data.ticket.id != null) {
+
+        // Extract the upload uri, initialise the uploader and display
+        // the controls.
+        uploadTicketId = data.ticket.id;
+        uploadUri = data.ticket.endpoint;
+       
+        swfu = new SWFUpload({
+          upload_url: uploadUri,
+          flash_url: $('#hidSwfPath').val(),
+          file_post_name: "file_data",
+          file_queue_limit: 1,
+          
+          file_queued_handler: fileQueued,
+          upload_start_handler: uploadStarted,
+          upload_progress_handler: uploadProgress,
+          upload_success_handler: uploadSuccess,
+          upload_complete_handler: uploadCompleted,
+
+          button_cursor: SWFUpload.CURSOR.HAND,
+          button_height: buttonHeight,
+          button_placeholder_id: 'uploadContainer',
+          button_width: buttonWidth,
+          button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT
+        });
+
+        // Move the select files link on top of the swf uploader.
+        $('#selectFilesLink').position().top = $('#SWFUpload_0').position().top;
+      }
     });
-
-    return valid;
   }
 
-  Y.one("#uploadFilesLink").on("click", uploadFiles);
+  // Kick off the swf uploader initialization.
+  init();
 });
