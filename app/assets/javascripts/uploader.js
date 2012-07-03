@@ -29,7 +29,7 @@ $(function() {
   function validateForm() {
     var valid = true;
 
-    $(':text, textarea').each(function() {
+    $('[type="text"], textarea').each(function() {
       if ($(this).val() == "")
         valid = false;
     });
