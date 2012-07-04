@@ -139,6 +139,8 @@ $(function() {
           flash_url: $('#hidSwfPath').val(),
           file_post_name: "file_data",
           file_queue_limit: 1,
+          file_types : "*.avi;*.mov;*.mp4;*.mpg;*.wmv;",
+          file_types_description: "Video Files",
           
           file_queued_handler: fileQueued,
           upload_start_handler: uploadStarted,
