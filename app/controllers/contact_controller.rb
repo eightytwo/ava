@@ -12,7 +12,6 @@ class ContactController < ApplicationController
       ContactMailer.new_message(@message).deliver
       redirect_to root_url, notice: I18n.t("contact.new_message.success")
     else
-      #flash.now.alert = I18n.t("contact.new_message.validation")
       render :new
     end
   end
