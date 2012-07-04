@@ -66,6 +66,7 @@ en:
         folio_role: "Folio Role"
       errors:
         folio_required: "must be supplied"
+        organisation_user_exists: "The user already belongs to the organisation"
     accept:
       title: "Create Your Account"
       submit: "Create"
@@ -315,6 +316,9 @@ en:
       comment:
         new: "New comment added to %{audio_visual}"
         updated: "Updated comment on %{audio_visual}"
+      organisation_user:
+        new: "Added to organisation"
+      contact: "Contact from AVA"
 
   contact:
     title: "Contact Us"
