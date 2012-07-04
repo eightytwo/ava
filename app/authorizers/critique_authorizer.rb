@@ -12,7 +12,7 @@ class CritiqueAuthorizer < ApplicationAuthorizer
     user == resource.user
   end
 
-  # A critique can only be updated by its owner.
+  # A critique can only be deleted by its owner.
   #
   def deletable_by?(user)
     user == resource.user

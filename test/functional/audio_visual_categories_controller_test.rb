@@ -154,50 +154,70 @@ class AudioVisualCategoriesControllerTest < ActionController::TestCase
 
   test "should update audio_visual_category as admin of organisation" do
     sign_in users(:tintin)
-    
+    new_name = "The new category"
+
     put(
       :update,
       id: @audio_visual_category,
       audio_visual_category: {
-        name: @audio_visual_category.name
+        name: new_name
       })
     
-    assert_redirected_to audio_visual_categories_path(oid: organisations(:marlinspike))
+    assert_equal(
+      new_name,
+      AudioVisualCategory.find(@audio_visual_category).name)
+
+    assert_redirected_to(
+      audio_visual_categories_path(oid: organisations(:marlinspike)))
   end
 
   test "should not update audio_visual_category as admin of different organisation" do
     sign_in users(:rastapopoulos)
-    
+    new_name = "The new category"
+
     put(
       :update,
       id: @audio_visual_category,
       audio_visual_category: {
-        name: @audio_visual_category.name
+        name: new_name
       })
     
     assert_response 403
+    assert_not_equal(
+      new_name,
+      AudioVisualCategory.find(@audio_visual_category).name)
   end
 
   test "should not update audio_visual_category as member of organisation" do
     sign_in users(:haddock)
+    new_name = "The new category"
     
     put(
       :update,
       id: @audio_visual_category,
       audio_visual_category: {
-        name: @audio_visual_category.name
+        name: new_name
       })
     
     assert_response 403
+    assert_not_equal(
+      new_name,
+      AudioVisualCategory.find(@audio_visual_category).name)
   end
 
   test "should not update audio_visual_category as member of public" do
+    new_name = "The new category"
+
     put(
       :update,
       id: @audio_visual_category,
       audio_visual_category: {
-        name: @audio_visual_category.name
+        name: new_name
       })
+    
+    assert_not_equal(
+      new_name,
+      AudioVisualCategory.find(@audio_visual_category).name)
     
     assert_redirected_to new_user_session_path
   end

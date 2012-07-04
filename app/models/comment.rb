@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  include Authority::Abilities
+  self.authorizer_name = 'CritiqueAuthorizer'
+  
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 

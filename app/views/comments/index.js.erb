@@ -13,4 +13,6 @@
 <% end %>
 
 // Render the form.
-$("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");
+<% if @comment %>
+  $("#add_comment_form_wrapper").html("<%= escape_javascript(render partial: 'form')%>");
+<% end %>
