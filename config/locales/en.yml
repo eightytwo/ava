@@ -22,6 +22,8 @@ en:
       submit: "Save"
       update: "Update"
 
+  application_name: "AudioVisualArcade"
+
   links:
     add: "add"
     add_audio_visual: "add audio visual"

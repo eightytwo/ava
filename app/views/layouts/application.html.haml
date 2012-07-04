@@ -5,7 +5,7 @@
     %meta{name: "description", content: "A community driven site for the sharing and critiquing of diaporamas."}
     %meta{name: "author", content: "eightytwo"}
 
-    %title AudioVisualArcade
+    %title= t("application_name")
     %link{rel: "shortcut icon", href: "/favicon.ico?v2"}
     = stylesheet_link_tag "custom"
     = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"
@@ -25,7 +25,7 @@
             %a{href: "/contact", title: "Contact"}= t("menu.contact")
 
       %header
-        %span.site_heading AudioVisualArcade
+        %span.site_heading= t("application_name")
         %span.site_caption a community driven site for the
         %span.site_caption.site_caption_bold sharing
         %span.site_caption and

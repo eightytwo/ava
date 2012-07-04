@@ -46,6 +46,8 @@ Ava::Application.routes.draw do
   match 'contact' => 'contact#new', :as => 'contact', :via => :get
   match 'contact' => 'contact#create', :as => 'contact', :via => :post
 
+  match 'about' => 'home#about', :as => 'about', :via => :get
+
   get "home/index"
 
   # You can have the root of your site routed with "root"
