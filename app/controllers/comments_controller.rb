@@ -11,6 +11,8 @@ class CommentsController < ApplicationController
 
   # POST /comments/reply
   def reply
+    @comment = Comment.find(params[:id])
+
     # Ensure the current user can update comments for the resource.
     if @comment and
        current_user.can_comment?(commentable) and
@@ -19,11 +21,11 @@ class CommentsController < ApplicationController
       @comment.update_record_without_timestamping
 
       respond_to do |format|
-        format.js { @comment }
+        format.js { }
       end
     else
       respond_to do |format|
-        format.js { nil }
+        format.js { }
       end
     end
   end
