@@ -32,4 +32,10 @@ class AudioVisual < ActiveRecord::Base
     self.allow_commenting = false if !self.public
     return true
   end
+
+  # Ensures tags are in lower case.
+  #
+  def lower_case_tags
+    self.tags.downcase!
+  end
 end
