@@ -19,9 +19,6 @@
 /config/database.yml
 /config/initializers/vimeo.rb
 
-# Ignore css less files
-/app/assets/stylesheets/*.less
-
 *.rbc
 *.sassc
 .sass-cache
