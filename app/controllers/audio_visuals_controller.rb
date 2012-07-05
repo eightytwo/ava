@@ -19,6 +19,10 @@ class AudioVisualsController < ApplicationController
       .where(id: params[:id]).first
 
     authorize_action_for(audio_visual)
+
+    # Increment the view count for the audio visual and save.
+    @audio_visual.views += 1
+    @audio_visual.save
   end
 
   # GET /av/new
