@@ -36,7 +36,7 @@ class FoliosController < ApplicationController
     end
 
     # Get the folios of the organisation.
-    @rounds = folio.rounds.order(:name).all
+    @rounds = folio.rounds.order("start_date DESC").all
   end
 
   # GET /folios/new?oid=1

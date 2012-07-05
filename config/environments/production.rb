@@ -81,6 +81,6 @@ Ava::Application.configure do
   # Setup the exception notifier gem.
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[AVA] ",
-    :sender_address => %{ "AVA Exceptions" <exceptions@audiovisualarcade.com> },
+    :sender_address => %{ "AVA Exceptions" <exceptions@avarcade.herokuapp.com> },
     :exception_recipients => %w{ admin@null.net }
 end

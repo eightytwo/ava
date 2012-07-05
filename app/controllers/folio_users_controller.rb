@@ -36,8 +36,8 @@ class FolioUsersController < ApplicationController
 
   # POST /folio_users
   def create
-    authorize_action_for(organisation)
     @folio_user = FolioUser.new(params[:folio_user])
+    authorize_action_for(organisation)
 
     if @folio_user.save
       redirect_to folio, notice: I18n.t("folio_user.create.success")
