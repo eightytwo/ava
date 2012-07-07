@@ -45,7 +45,7 @@
         
       - if @rounds.count > 0
         - @rounds.each do |round|
-          %tr{class: cycle("odd", "even")}
+          %tr{class: round.open? ? "current_round" : cycle("odd", "even")}
             %td= link_to round.name, round
             %td= l(round.start_date)
             %td= l(round.end_date)
