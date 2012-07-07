@@ -12,8 +12,10 @@
       = @audio_visual.user.organisation_display_name
 
   #content
-    = render 'audio_visuals/audio_visual'
+    = render 'audio_visuals/audio_visual_summary'
     
+    = render 'audio_visuals/audio_visual_player'
+
     - if @show_critiques or @show_comments
       #av_feedback
         #tabs

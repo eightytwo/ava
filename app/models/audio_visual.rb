@@ -9,7 +9,7 @@ class AudioVisual < ActiveRecord::Base
 
   attr_accessible :description, :external_reference, :length, :location,
                   :music, :production_notes, :rating, :tags, :title, :views,
-                  :user_id, :public, :thumbnail, :allow_commenting
+                  :user_id, :thumbnail, :allow_commenting
 
   validates :description, presence: true
   validates :title, presence: true
@@ -20,6 +20,7 @@ class AudioVisual < ActiveRecord::Base
   validates :production_notes, presence: true
 
   before_save :verify_public_commenting
+  before_save :lower_case_tags
 
   # Set the per page value for will_paginate.
   self.per_page = 12

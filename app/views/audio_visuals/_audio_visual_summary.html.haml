@@ -1,0 +1,12 @@
+#av_summary
+  %h4= t("audio_visual.show.summary.title")
+  %dl
+    %dt= t("audio_visual.show.summary.headings.description")
+    %dd= simple_format(@audio_visual.description)
+    %dt= t("audio_visual.show.summary.headings.music")
+    %dd= @audio_visual.music
+    %dt= t("audio_visual.show.summary.headings.location")
+    %dd= @audio_visual.location
+    %dt= t("audio_visual.show.summary.headings.production_notes")
+    %dd= @audio_visual.production_notes
+

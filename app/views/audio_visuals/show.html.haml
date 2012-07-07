@@ -10,7 +10,9 @@
       = audio_visual.user.public_display_name
 
   #content
-    = render 'audio_visual'
+    = render 'audio_visual_summary'
+
+    = render 'audio_visual_player'
 
     - if audio_visual.allow_commenting
       #av_comments_wrapper

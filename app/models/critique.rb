@@ -8,6 +8,7 @@ class Critique < ActiveRecord::Base
   
   attr_accessible :round_audio_visual_id, :user_id,
                   :critique_components_attributes
+
   accepts_nested_attributes_for :critique_components
 
   validates :round_audio_visual_id, presence: true

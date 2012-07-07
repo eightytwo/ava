@@ -47,12 +47,18 @@ h4 {
   font-weight: bold;
 }
 
+p {
+  margin: 5px 0px;
+  line-height: 18px;
+}
+
+p.large {
+  margin: 10px 0px 20px 0px;
+  line-height: 18px;
+}
+
 pre {
-  overflow-x: auto;
   white-space: pre-wrap;
-  white-space: -moz-pre-wrap !important;
-  word-wrap: break-word;
-  white-space : normal; 
   line-height: 18px;
 }
 
@@ -118,11 +124,6 @@ pre {
   #content {
     overflow: hidden;
     padding: @defaultPadding;
-
-    p {
-      margin: 10px 0px 20px 0px;
-      line-height: 18px;
-    }
   }
 
   .arrow_right {
@@ -563,10 +564,6 @@ input[type='submit']:hover.button.green { border: 1px solid #8bb14d; }
 
 
 /*----- Audio Visual styles -----*/
-#av_wrapper {
-  overflow: hidden;
-}
-
 #av_player {
   width: 600px;
   height: 338px;
@@ -593,7 +590,6 @@ input[type='submit']:hover.button.green { border: 1px solid #8bb14d; }
   dd {
     margin-bottom: @defaultPadding;
     padding: (@defaultPadding / 2) @defaultPadding;
-    line-height: 18px;
   }
 }
 
@@ -674,6 +670,11 @@ input[type='submit']:hover.button.green { border: 1px solid #8bb14d; }
   display: none;
   padding: @defaultPadding;
   padding-bottom: 0px;
+}
+
+.no_content {
+  font-style: italic;
+  color: #ccc;
 }
 
 #add_comment_form_wrapper {

@@ -13,13 +13,17 @@
       .component_wrapper{style: "margin-left: #{component.critique_category.depth * 20}px;"}
         .critique_category
           %div
-            - if critique.round_audio_visual.audio_visual.user_id == current_user.id and component.content and component.reply.nil?
+            - if critique.round_audio_visual.audio_visual.user_id == current_user.id and component.content and component.reply.nil? and component.content.length > 0
               .right= link_to t("links.reply"), "#", {class: "component_reply_link", data: {id: component.id}}
             %h4.component_title= component.critique_category.name
           
           - if component.content
             .component_content_wrapper
               .component_content
-                %pre= component.content
+                - if component.content.length > 0
+                  %pre= component.content
+                - else
+                  %span.no_content= t("critique.show.no_content")
 
-              = render partial: "audio_visuals/component_reply", locals: {component: component, owner: component.critique.round_audio_visual.audio_visual.user}
+              - if component.content.length > 0
+                = render partial: "audio_visuals/component_reply", locals: {component: component, owner: component.critique.round_audio_visual.audio_visual.user}

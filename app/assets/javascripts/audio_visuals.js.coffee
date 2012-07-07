@@ -2,14 +2,6 @@
 Anonymous function which executes once the page has finished loading.
 ###
 jQuery ->
-  if $('#new_av_form').length
-    $('#cbxPublic').click ->
-      $('#cbxComments').toggle()
-
-    # Display the comments checkbox if the public checkbox is ticked.
-    if $('#cbxPublic').is(':checked')
-      $('#cbxComments').toggle()      
-
   if $('#av_feedback').length
     # Get a reference to the critique and comment content regions.
     critiqueContainer = $('#av_critiques_wrapper')

@@ -278,6 +278,8 @@ en:
   critique:
     index:
       no_critiques: "No critiques have been added."
+    show:
+      no_content: "No comment"
     new:
       title: "New Critique"
     create:
