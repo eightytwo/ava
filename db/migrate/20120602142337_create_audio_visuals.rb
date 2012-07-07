@@ -8,8 +8,8 @@ class CreateAudioVisuals < ActiveRecord::Migration
       t.decimal :rating
       t.string :external_reference
       t.string :thumbnail
-      t.string :music, null: false
-      t.string :location, null: false
+      t.text :music, null: false
+      t.text :location, null: false
       t.text :production_notes, null: false
       t.string :tags, null: false
       t.integer :length
