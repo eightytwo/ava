@@ -32,4 +32,12 @@ module VimeoHelper
   def self.get_thumbnails(video_id)
     return video_id.nil? ? nil : @@videos.get_thumbnail_urls(video_id)
   end
+
+  # Deletes a given video.
+  #
+  def self.delete_video(video_id)
+    return if video_id.nil?
+
+    @@videos.delete(video_id)
+  end
 end

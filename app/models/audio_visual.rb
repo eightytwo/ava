@@ -1,4 +1,5 @@
 class AudioVisual < ActiveRecord::Base
+  require 'vimeo_helper.rb'
   include Authority::Abilities
   self.authorizer_name = 'AudioVisualAuthorizer'
 
@@ -21,6 +22,7 @@ class AudioVisual < ActiveRecord::Base
 
   before_save :verify_public_commenting
   before_save :lower_case_tags
+  after_destroy :delete_video
 
   # Set the per page value for will_paginate.
   self.per_page = 12
@@ -38,5 +40,11 @@ class AudioVisual < ActiveRecord::Base
   #
   def lower_case_tags
     self.tags.downcase!
+  end
+
+  # Removes the actual video file from external storage.
+  #
+  def delete_video
+    VimeoHelper.delete_video(self.external_reference)
   end
 end
