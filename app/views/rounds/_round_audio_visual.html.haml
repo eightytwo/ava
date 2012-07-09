@@ -1,6 +1,9 @@
 .round_av_wrapper
   .round_av_thumbnail
-    = link_to image_tag("https://secure-a.vimeocdn.com/thumbnails/defaults/default.300x400.jpg"), round_audio_visual_path(round_audio_visual)
+    - if round_audio_visual.audio_visual.thumbnail?
+      = link_to image_tag(round_audio_visual.audio_visual.thumbnail), round_audio_visual_path(round_audio_visual)
+    - else
+      = link_to image_tag("https://secure-a.vimeocdn.com/thumbnails/defaults/default.300x400.jpg"), round_audio_visual_path(round_audio_visual)
   .round_av_info
     .round_av_title
       = round_audio_visual.audio_visual.title

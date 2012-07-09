@@ -1,5 +1,6 @@
 class AudioVisual < ActiveRecord::Base
   require 'vimeo_helper.rb'
+
   include Authority::Abilities
   self.authorizer_name = 'AudioVisualAuthorizer'
 
@@ -26,6 +27,22 @@ class AudioVisual < ActiveRecord::Base
 
   # Set the per page value for will_paginate.
   self.per_page = 12
+
+  # Fetches thumbnails for any audio visuals which do not one.
+  #
+  def self.fetch_thumbnails
+    missing_thumbs = AudioVisual.where(thumbnail: nil)
+    
+    if missing_thumbs and missing_thumbs.length > 0
+      missing_thumbs.each do |av|
+        thumbnail = VimeoHelper.get_thumbnails(av.external_reference)
+        if thumbnail
+          av.thumbnail = thumbnail
+          av.save
+        end
+      end
+    end
+  end
 
   private
   # Ensures public commenting is disabled if the audio visual is not

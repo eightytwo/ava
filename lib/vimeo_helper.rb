@@ -30,14 +30,33 @@ module VimeoHelper
   # Retrieves the thumbnails for a given video.
   #
   def self.get_thumbnails(video_id)
-    return video_id.nil? ? nil : @@videos.get_thumbnail_urls(video_id)
+    return nil if video_id.nil?
+    
+    thumbnail = nil
+    data = @@videos.get_thumbnail_urls(video_id)
+
+    # Ensure thumbnails exist for the video.
+    if data and
+       data['thumbnails'] and
+       data['thumbnails']['thumbnail'] and
+       data['thumbnails']['thumbnail'].length > 0
+      # Choose the second thumbnail if available (as it is a more appropriate
+      # size, otherwise choose the first.
+      index = data['thumbnails']['thumbnail'].length == 1 ? 0 : 1
+
+      # Get the thumbnail URL and store it against the audio visual.
+      thumbnail = data['thumbnails']['thumbnail'][index]['_content']
+      # Use the secure URL for vimeo.
+      thumbnail.sub!("http://", "https://secure-")
+    end
+
+    return thumbnail
   end
 
   # Deletes a given video.
   #
   def self.delete_video(video_id)
     return if video_id.nil?
-
     @@videos.delete(video_id)
   end
 end
