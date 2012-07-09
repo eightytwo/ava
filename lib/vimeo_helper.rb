@@ -20,7 +20,7 @@ module VimeoHelper
   # Finalise the upload process by sending a complete message to Vimeo.
   #
   def self.complete_upload(ticket_id, filename)
-    if ticket_id.nil? || filename.nil?
+    if ticket_id.blank? || filename.blank?
       return nil
     else
       return @@upload.complete(ticket_id, filename)
@@ -30,7 +30,7 @@ module VimeoHelper
   # Retrieves the thumbnails for a given video.
   #
   def self.get_thumbnails(video_id)
-    return nil if video_id.nil?
+    return nil if video_id.blank?
     
     thumbnail = nil
     data = @@videos.get_thumbnail_urls(video_id)
@@ -56,7 +56,6 @@ module VimeoHelper
   # Deletes a given video.
   #
   def self.delete_video(video_id)
-    return if video_id.nil?
-    @@videos.delete(video_id)
+    @@videos.delete(video_id) if video_id.present?
   end
 end
