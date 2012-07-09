@@ -28,4 +28,10 @@ class ApplicationController < ActionController::Base
       super
     end
   end
+
+  # The security violation handler for Authority.
+  #
+  def access_denied(exception)
+    render file: "public/403.html", layout: true
+  end
 end

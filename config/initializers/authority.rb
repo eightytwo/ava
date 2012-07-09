@@ -61,8 +61,9 @@ Authority.configure do |config|
   #
   # Default is:
   #
-  # config.security_violation_handler = :authority_forbidden # Defined in controller.rb
-  
+  #config.security_violation_handler = :authority_forbidden # Defined in controller.rb
+  config.security_violation_handler = :access_denied
+
   # LOGGER
   # ======
   # If a user tries to perform an unauthorized action, where should we log that fact?
