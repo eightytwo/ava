@@ -39,5 +39,4 @@ jQuery ->
   if $('.slide').length
     $('.slide').first().show()
     $('.slideIndicator').click -> changeToSlide($(this))
-    #setInterval(changeSlides, 8000)
     return false
