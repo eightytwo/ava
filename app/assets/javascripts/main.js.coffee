@@ -16,3 +16,28 @@ jQuery ->
   Toggles the visibility of the account drop down menu when clicked.
   ###
   $('#account_dd_arrow').click -> $('#account_dd_menu').slideToggle('fast')
+
+
+  ###
+  Displays a given slide, hiding the current slide. The slide indicator
+  clicked to fire this event is passed into this function.
+  ###
+  changeToSlide = (indicator) ->
+    activeIndicator = $('.slideIndicator.active')
+    
+    activeIndicator.toggleClass('active')
+    indicator.toggleClass('active')
+
+    $('.slide').eq(activeIndicator.index()).fadeOut('slow', () ->
+      $('.slide').eq(indicator.index()).fadeIn('slow')
+    )
+
+    return false
+
+  # If there are slides present for transitioning display the first
+  # and setup the transition event.
+  if $('.slide').length
+    $('.slide').first().show()
+    $('.slideIndicator').click -> changeToSlide($(this))
+    #setInterval(changeSlides, 8000)
+    return false
