@@ -19,12 +19,13 @@ jQuery ->
 
 
   ###
-  Displays a given slide, hiding the current slide. The slide indicator
+  Displays a given slide, hiding the active slide. The slide indicator
   clicked to fire this event is passed into this function.
   ###
   changeToSlide = (indicator) ->
-    activeIndicator = $('.slideIndicator.active')
-    
+    return false if indicator.hasClass('active')
+
+    activeIndicator = indicator.parent().children('.active')
     activeIndicator.toggleClass('active')
     indicator.toggleClass('active')
 
@@ -38,5 +39,4 @@ jQuery ->
   # and setup the transition event.
   if $('.slide').length
     $('.slide').first().show()
-    $('.slideIndicator').click -> changeToSlide($(this))
-    return false
+    $('#slideshowFooter > ul > li > a').click -> changeToSlide($(this).parent())

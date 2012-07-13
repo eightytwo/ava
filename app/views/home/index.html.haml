@@ -1,7 +1,7 @@
 #slideshowContainer
   #slideshowContent
     .slide
-      .slideshowInfo
+      .slideInfo
         %h1 The Outback
         %h4 by Phil
 
@@ -10,7 +10,7 @@
       <iframe src="http://player.vimeo.com/video/45114811?title=0&amp;byline=0&amp;portrait=0" width="600" height="337" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
     .slide
-      .slideshowInfo
+      .slideInfo
         %h1 Canal du Midi
         %h4 by Max
 
@@ -20,5 +20,7 @@
 
   #slideshowFooter
     %ul
-      %li.slideIndicator.active
-      %li.slideIndicator
+      %li.active
+        %a{href: "#1"} 1
+      %li
+        %a{href: "#2"} 2
