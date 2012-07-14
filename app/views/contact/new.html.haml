@@ -8,6 +8,7 @@
       %ul
         - @message.errors.full_messages.each do |msg|
           %li= msg
+
   .form_content
     = form_for @message, url: contact_path do |f|
       .field_wrapper
