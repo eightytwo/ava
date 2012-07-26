@@ -25,7 +25,7 @@
 
 - if f.object.new_record? == true
   = f.hidden_field(:external_reference, {id: "hidExternalReference"})
-  = hidden_field_tag(:hidSwfPath, asset_path("swfupload/dependencies/swfupload.swf"))
+  = hidden_field_tag(:hidSwfPath, "/assets/swfupload/dependencies/swfupload.swf")
 
   #uploadControls
     #uploadProgressBarContainer
