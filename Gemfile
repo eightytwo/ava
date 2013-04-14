@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 # Specify the Ruby version.
-ruby '1.9.3'
+ruby '2.0.0'
 
 # Rails, Postgresql and the Thin webserver
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.13'
 gem 'pg', '0.13.2'
 gem 'thin'
 
