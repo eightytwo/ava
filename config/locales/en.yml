@@ -67,6 +67,7 @@ en:
       errors:
         folio_required: "must be supplied"
         organisation_user_exists: "The user already belongs to the organisation"
+        invalid_folio: "The folio does not belong to the organisation"
     accept:
       title: "Create Your Account"
       submit: "Create"
