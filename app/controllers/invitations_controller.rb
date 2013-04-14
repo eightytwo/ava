@@ -1,7 +1,7 @@
 class InvitationsController < Devise::InvitationsController
   skip_before_filter :authenticate_user!
   
-  helper_method :organisations, :folios, :folio_roles
+  helper_method :invitation, :organisation, :folios, :folio_roles
 
   # GET /resource/invitation/new
   def new
@@ -91,18 +91,25 @@ class InvitationsController < Devise::InvitationsController
   end
 
   private
-  # Gets the organisations administered by the current user. The current
-  # user can invite someone to join these organisations.
+  # Gets the invitation being operated on.
   #
-  def organisations
-    @organisations ||= current_user.administered_organisations
+  def invitation
+    @invitation ||= Invitation.find(params[:id])
+  end
+
+  # Gets the organisation of the invitation
+  #
+  #
+  def organisation
+    @organisation ||=
+      params[:oid] ? Organisation.find(params[:oid]) : invitation.organisation
   end
 
   # Gets the folios of the first organisation administered by the current
   # user.
   #
   def folios
-    @folios ||= organisations[0].folios
+    @folios ||= organisation.folios
   end
 
   # Gets the folio roles.
