@@ -21,43 +21,61 @@ class InvitationsController < Devise::InvitationsController
         :folio, I18n.t("invitation.create.errors.folio_required"))
       respond_with_navigational(resource) { render :new }
     else
-      # Get the first user record which corresponds to the given email.
-      user = User.where(email: params[:user][:email]).first
+      # Get the folio id and organistion id of the invitation
+      folio_id = params[:user][:invitation_folio_id]
+      organisation_id = params[:user][:invitation_organisation_id]
 
-      # If the user already exists and this invitation is for an organisation
-      # we don't need to involve devise and can simply add the existing user
-      # to the nominated organisation and folio. Otherwise invoke the devise
-      # invitations controller.
-      if user and params[:user].has_key?(:invitation_folio_id)
-        # Check if the user already belongs to the nominated organisaton.
-        organisation_user = OrganisationUser.where(
-          "organisation_id = ? and user_id = ?",
-          params[:user][:invitation_organisation_id],
-          user.id).first
+      # Sanity check the organisation and folio and ensure
+      # the folio belongs to the organisation.
+      organisation_folio = Folio.where(
+        "id = ? and organisation_id = ?",
+        folio_id,
+        organisation_id).first
 
-        if organisation_user
-          self.resource = build_resource
-          self.resource.errors[:base] << I18n.t(
-            "invitation.create.errors.organisation_user_exists")
-          respond_with_navigational(resource) { render :new }
+      if organisation_folio
+        # Get the first user record which corresponds to the given email.
+        user = User.where(email: params[:user][:email]).first
+
+        # If the user already exists and this invitation is for an organisation
+        # we don't need to involve devise and can simply add the existing user
+        # to the nominated organisation and folio. Otherwise invoke the devise
+        # invitations controller.
+        if user
+          # Check if the user already belongs to the nominated organisaton.
+          organisation_user = OrganisationUser.where(
+            "organisation_id = ? and user_id = ?",
+            organisation_id,
+            user.id).first
+
+          if organisation_user
+            self.resource = build_resource
+            self.resource.errors[:base] << I18n.t(
+              "invitation.create.errors.organisation_user_exists")
+            respond_with_navigational(resource) { render :new }
+          else
+            # Add the user to the organisation and folio.
+            ou = OrganisationUser.create(
+              organisation_id: organisation_id,
+              user_id: user.id)
+
+            FolioUser.new(
+              folio_id: folio_id,
+              user_id: user.id,
+              folio_role_id: params[:user][:invitation_folio_role_id]).save
+
+            # Send out a communication.
+            OrganisationUserMailer.new_organisation_user(ou).deliver
+
+            redirect_to organisations_path(ou.organisation_id)
+          end
         else
-          # Add the user to the organisation and folio.
-          ou = OrganisationUser.create(
-            organisation_id: params[:user][:invitation_organisation_id],
-            user_id: user.id)
-
-          FolioUser.new(
-            folio_id: params[:user][:invitation_folio_id],
-            user_id: user.id,
-            folio_role_id: params[:user][:invitation_folio_role_id]).save
-
-          # Send out a communication.
-          OrganisationUserMailer.new_organisation_user(ou).deliver
-
-          redirect_to organisations_path(ou.organisation_id)
+          super
         end
       else
-        super
+        self.resource = build_resource
+        self.resource.errors[:base] << I18n.t(
+          "invitation.create.errors.invalid_folio")
+        respond_with_navigational(resource) { render :new }
       end
     end
   end
