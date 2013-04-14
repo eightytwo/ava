@@ -22,7 +22,7 @@
         %tr
           %th= t("organisation.show.members.title")
           - if current_user.can_manage?(organisation)
-            %th.text_right= link_to t("links.invite"), new_user_invitation_path
+            %th.text_right= link_to t("links.invite"), new_user_invitation_path(oid: organisation)
         
         - if @admins.count > 0
           %tr.category
