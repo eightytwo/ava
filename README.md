@@ -24,4 +24,4 @@ An audio visual (or diaporama) is a photographic slideshow with accompanying aud
 
 ## Technology
 
-The initial version of Audio Visual Arcade was created using Python and the Google Application Engine. The second (and current) version was rewritten using Ruby on Rails.
+The initial version of Audio Visual Arcade was created using Python and the Google App Engine. The second (and current) version was rewritten using Ruby on Rails.
