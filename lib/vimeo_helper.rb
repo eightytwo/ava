@@ -47,7 +47,7 @@ module VimeoHelper
       # Get the thumbnail URL and store it against the audio visual.
       thumbnail = data['thumbnails']['thumbnail'][index]['_content']
       # Use the secure URL for vimeo.
-      thumbnail.sub!("http://", "https://secure-")
+      thumbnail.sub!("http://", "https://")
     end
 
     return thumbnail
