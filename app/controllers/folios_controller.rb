@@ -21,6 +21,7 @@ class FoliosController < ApplicationController
       .includes(:user)
       .joins(:user)
       .where(folio_id: folio)
+      .where("users.invitation_accepted_at IS NOT NULL")
       .order("LOWER(COALESCE(users.first_name||users.last_name, users.first_name, users.username))")
 
     # Separate the administrators and members into their own arrays.
